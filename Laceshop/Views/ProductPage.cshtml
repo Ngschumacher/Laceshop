@@ -1,0 +1,116 @@
+﻿@*@Model ProductDetailViewModel
+@using Umbraco.Core
+@using Merchello.Web
+@{
+    Layout = "Layout.cshtml";
+}
+
+@{
+    var helper = new MerchelloHelper();
+    //var type = CurrentPage.Product.GetType();
+    //var productKey = CurrentPage.product.Key;
+    //var contentProduct = CurrentPage.Product;
+    //var product = helper.Query.Product.GetByKey(productKey);
+}
+
+<table class="exampletable">
+    <tr>
+        <td>
+            Item
+        </td>
+        <td>
+            Item Value
+        </td>
+        <td>
+            Storage
+        </td>
+    </tr>
+    <tr>
+        <td>
+            ProductModel:
+        </td>
+        <td>
+            @Model.Name
+        </td>
+        <td>
+            Merchello ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Price:
+        </td>
+        <td>
+            @product.Price.ToString("C")
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Price:
+        </td>
+        <td>
+            @product.SalePrice.ToString("C")
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Description:
+        </td>
+        <td>
+            @Model.Content.GetPropertyValue("productdescription")
+        </td>
+        <td>
+            Umbraco Content Page
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Manufacturer:
+        </td>
+        <td>
+            @product.Manufacturer
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Manufacturer Model Number:
+        </td>
+        <td>
+            @product.ManufacturerModelNumber
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Istaxable:
+        </td>
+        <td>
+            @product.Taxable
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            InStock:
+        </td>
+        <td>
+            @product.Available
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+</table>*@

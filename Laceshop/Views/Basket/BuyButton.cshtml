@@ -1,0 +1,21 @@
+﻿@using System.Web.Mvc.Html
+@using Laceshop.Controllers.Basket
+@using Merchello.Web
+@model  Laceshop.Controllers.Basket.AddItemModel
+
+@{
+    // get Merchello object
+
+    // build Html form
+    using (Html.BeginUmbracoForm<BasketController>("AddToBasket", "Basket", new { role = "form", id = "add-to-basket-form" }, FormMethod.Post))
+    {
+        // Umbraco Content Id
+        @Html.HiddenFor(x => x.ContentId)
+
+        // Merchello Product Guid
+        @Html.HiddenFor(x => x.ProductKey)
+    <input type="submit" value="Add To Basket"/>
+    }
+
+
+}

@@ -1,0 +1,11 @@
+﻿@model  Laceshop.Models.Basket.BasketPageViewModel
+@{
+    Layout = "../Layout.cshtml";
+}
+@Html.Partial("Partials/BasketPartial")
+
+@if (Model.Basket.HasItems)
+{
+    <p><a href="@Model.CheckoutPageUrl">Checkout</a></p>
+}
+@*@Html.Action("DisplayBasket", "Basket", new { area = "MerchelloProductListExample" })*@
