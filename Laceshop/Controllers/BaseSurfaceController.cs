@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Laceshop.Models;
+using Laceshop.Models.Products;
 using Zone.UmbracoMapper;
 
 namespace Laceshop.Controllers
 {
-    public abstract class BaseRenderMvcController<T> : BaseRenderMvcController
+    public abstract class BaseSurfaceController<T> : BaseSurfaceController
             where T : BasePageViewModel, new()
     {
-        protected BaseRenderMvcController(IUmbracoMapper mapper)
+        protected BaseSurfaceController(IUmbracoMapper mapper)
             : base(mapper)
         {
         }

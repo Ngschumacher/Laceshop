@@ -173,3 +173,4 @@ D:\Projects\Laceshop\Merchello\bin\Debug\umbraco.macroRenderings.xml
 D:\Projects\Laceshop\Merchello\bin\Debug\umbraco.providers.xml
 D:\Projects\Laceshop\Merchello\obj\Debug\Merchello.dll
 D:\Projects\Laceshop\Merchello\obj\Debug\Merchello.pdb
+D:\Projects\Laceshop\Merchello\obj\Debug\Merchello.csprojResolveAssemblyReference.cache

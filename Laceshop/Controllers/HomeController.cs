@@ -9,7 +9,7 @@ using Zone.UmbracoMapper;
 
 namespace Laceshop.Controllers
 {
-    public class HomeController : BaseRenderMvcController
+    public class HomeController : BaseSurfaceController<HomePageViewModel>
     {
         #region Constructor
 
@@ -26,14 +26,19 @@ namespace Laceshop.Controllers
         /// Renders the home page
         /// </summary>
         /// <returns></returns>
-        public override ActionResult Index(RenderModel model)
+        //public override ActionResult Index(RenderModel model)
+        //{
+        //    var vm = GetPageModel<HomePageViewModel>();
+        //    //var viewModel = new HomePageViewModel();
+        //    //// Map properties of current page to the ViewModel
+
+        //    //_umbracoMapper.Map(CurrentPage, viewModel);
+        //    return View("Home", vm);
+        //}
+        public ActionResult Home()
         {
             var vm = GetPageModel<HomePageViewModel>();
-            //var viewModel = new HomePageViewModel();
-            //// Map properties of current page to the ViewModel
-
-            //_umbracoMapper.Map(CurrentPage, viewModel);
-            return View("Home", vm);
+            return CurrentTemplate(vm);
         }
 
         #endregion

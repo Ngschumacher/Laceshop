@@ -15,7 +15,7 @@ Basket
 {
 
   // Renders an "Updatable" basket
-    using (Html.BeginUmbracoForm<BasketController>("UpdateBasket"))
+    using (Html.BeginUmbracoForm<BasketPageController>("UpdateBasket"))
   {
     <table class="table">
         <thead>
@@ -49,7 +49,7 @@ Basket
             <td>@Model.Items[i].UnitPrice.ToString("C2")</td>
             <td>@Html.TextBoxFor(model => model.Items[i].Quantity, new { @class = "col-xs-2"})</td>
             <td>@((Model.Items[i].TotalPrice).ToString("C2"))</td>
-            <td>@Html.ActionLink("X", "RemoveItemFromBasket", "Basket", new {lineItemKey = Model.Items[i].Key}, null)</td>
+            <td>@Html.ActionLink("X", "RemoveItemFromBasket", "BasketPage", new {lineItemKey = Model.Items[i].Key}, null)</td>
             <td class="">@Model.Items[i].Attributes</td>
         </tr>
 

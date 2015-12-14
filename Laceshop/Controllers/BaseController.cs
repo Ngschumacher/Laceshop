@@ -7,6 +7,7 @@ using Core.Models.Commerce;
 using Laceshop.Mapping;
 using Laceshop.Models;
 using Laceshop.Models.Commerce;
+using Laceshop.Models.Products;
 using Merchello.Web;
 using Merchello.Web.Workflow;
 using Umbraco.Core.Models;
@@ -17,7 +18,7 @@ using Zone.UmbracoMapper;
 
 namespace Laceshop.Controllers
 {
-    public abstract class BaseRenderMvcController : SurfaceController, IRenderMvcController
+    public abstract class BaseSurfaceController : SurfaceController, IRenderMvcController
     {
         #region tutorial
         private readonly IBasket _basket;
@@ -26,7 +27,7 @@ namespace Laceshop.Controllers
 
         #region Constructor
 
-        protected BaseRenderMvcController(IUmbracoMapper mapper)
+        protected BaseSurfaceController(IUmbracoMapper mapper)
         {
             _umbracoMapper = mapper;
             AddCustomMappings();
@@ -126,7 +127,7 @@ namespace Laceshop.Controllers
         /// <returns>Instance of IPublishedContent</returns>
         protected IPublishedContent GetBasketPageNode()
         {
-            return GetSingleNode("Basket");
+            return GetSingleNode("BasketPage");
         }
 
         /// <summary>

@@ -31,89 +31,72 @@ namespace Laceshop.Controllers.Basket
         /// The Product Key (pk) of the product to be added to the cart.
         ///
         public Guid ProductKey { get; set; }
+        public Guid[] OptionKeys { get; set; }
     }
     [PluginController("MerchelloProductListExample")]
-    public class BasketController : BaseRenderMvcController
+    public class BasketPageController : BaseSurfaceController<BasketPageViewModel>
     {
         private readonly IBasketRepository _basketRepository;
 
-        public BasketController(IUmbracoMapper mapper, IBasketRepository basketRepository) : base(mapper)
+        public BasketPageController(IUmbracoMapper mapper, IBasketRepository basketRepository) : base(mapper)
         {
             _basketRepository = basketRepository;
         }
-
-        private const int BasketContentId = 2077;
-        public override ActionResult Index(RenderModel model)
+      
+        public  ActionResult BasketPage()
         {
-            var test = _basketRepository.GetBasket();
-            
+            var basket = _basketRepository.GetBasket();
+
             //var viewModel = GetModel<BasketDetail>();
 
-            var basketVm = AutoMapper.Mapper.Map<BasketViewModel>(test);
-
-            var vm = new BasketPageViewModel()
-            {
-                Basket = basketVm
-            };
-
+            var basketVm = AutoMapper.Mapper.Map<BasketViewModel>(basket);
+            var vm = GetPageModel<BasketPageViewModel>();
+            vm.Basket = basketVm;
+            
+            vm.CheckoutPageUrl = GetCheckoutPageNode().Url;
 
             //_umbracoMapper.Map(CurrentPage, viewModel);
 
-            return View("Basket", vm);
+            return CurrentTemplate(vm);
         }
         public ActionResult Display_BuyButton(AddItemModel product)
         {
-            return PartialView("BuyButton", product);
+            return PartialView("Partials/_BuyButton", product);
         }
         [HttpPost]
-        public ActionResult AddToBasket(AddItemModel model)
+        public ActionResult AddItem(AddItemModel model)
         {
             // add Umbraco content id to Merchello Product extended data
             var extendedData = new Dictionary<string, string>
             {
                 {"umbracoContentId", model.ContentId.ToString(CultureInfo.InvariantCulture)}
             };
+            _basketRepository.AddItem(model.ProductKey, 1, extendedData, model.OptionKeys);
 
-
-
-
-            _basketRepository.AddItem(model.ProductKey, 1, extendedData);
-
-            return RedirectToUmbracoPage(BasketContentId);
+            return RedirectToBasketPage();
         }
        
         [HttpPost]
         public ActionResult UpdateItemQuantity(Guid itemKey, int quantity)
         {
-            var basket = _basketRepository.GetBasket();
             _basketRepository.UpdateItem(itemKey, quantity);
-            // Validate requested item in basket and update the quantity
-           
-
             return RedirectToBasketPage();
         }
-
-        ///
-        /// Removes an item from the basket
-        ///
-        [HttpGet]
-        public ActionResult RemoveItemFromBasket(Guid lineItemKey)
+     
+        [HttpPost]
+        public ActionResult RemoveItemFromBasket(Guid itemKey)
         {
             var basket = _basketRepository.GetBasket();
-            if (basket.Items.FirstOrDefault(x => x.Key == lineItemKey) == null)
+            if (basket.Items.FirstOrDefault(x => x.Key == itemKey) == null)
             {
                 var exception = new InvalidOperationException("Attempt to delete an item from a basket that does not match the CurrentUser");
 
-                LogHelper.Error<BasketController>("RemoveItemFromBasket failed.", exception);
+                LogHelper.Error<BasketPageController>("RemoveItemFromBasket failed.", exception);
 
                 throw exception;
             }
 
-            // remove product 
-            //basket.RemoveItem(lineItemKey);
-
-            //basket.Save();
-
+            _basketRepository.RemoveItem(itemKey);
             return RedirectToBasketPage();
         }
     }

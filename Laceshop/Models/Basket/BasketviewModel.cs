@@ -20,5 +20,16 @@ namespace Laceshop.Models.Basket
                 return TotalProductPrice + DeliveryPrice;
             }
         }
+
+        public bool AllowBasketEdit { get; set; }
+
+        public BasketViewModel()
+        {
+            ShowOrderTotal = false;
+            AllowBasketEdit = true;
+
+        }
+
+        public bool ShowOrderTotal { get; set; }
     }
 }

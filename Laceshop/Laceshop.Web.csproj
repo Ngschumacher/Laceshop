@@ -285,11 +285,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConstants.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseSurfaceController.cs" />
     <Compile Include="Controllers\Basket\BasketController.cs" />
+    <Compile Include="Controllers\Checkout\CheckoutPageController.cs" />
+    <Compile Include="Controllers\Checkout\DeliveryPageController.cs" />
+    <Compile Include="Controllers\Checkout\PaymentPageController.cs" />
+    <Compile Include="Controllers\Checkout\ReceiptPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\Products\ProductsController.cs" />
     <Compile Include="Mapping\AutoMapperMapping.cs" />
     <Compile Include="Controllers\Products\ProductController.cs" />
@@ -301,7 +307,15 @@
     <Compile Include="Models\Basket\BasketViewLineItem.cs" />
     <Compile Include="Models\Basket\BasketviewModel.cs" />
     <Compile Include="Models\Basket\BasketViewModelExtensions.cs" />
+    <Compile Include="Models\Checkout\CardDetailViewModel.cs" />
+    <Compile Include="Models\Checkout\CheckoutPageViewModel.cs" />
+    <Compile Include="Models\Checkout\DeliveryPageViewModel.cs" />
+    <Compile Include="Models\Checkout\PaymentPageViewModel.cs" />
+    <Compile Include="Models\Checkout\ReceiptPageViewModel.cs" />
     <Compile Include="Models\Interfaces\IBasket.cs" />
+    <Compile Include="Models\Navigation\BreadCrumbViewModel.cs" />
+    <Compile Include="Models\Navigation\MainMenuViewModel.cs" />
+    <Compile Include="Models\Navigation\MenuItemViewModel.cs" />
     <Compile Include="Models\Products\BasePageViewModel.cs" />
     <Compile Include="Models\Basket\BasketPageViewModel.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
@@ -321,6 +335,131 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Plugins\Merchello\assets\css\merchello.css" />
+    <Content Include="App_Plugins\Merchello\assets\css\merchello.min.css" />
+    <Content Include="App_Plugins\Merchello\assets\images\github_thumb.jpg" />
+    <Content Include="App_Plugins\Merchello\assets\images\h1-a.png" />
+    <Content Include="App_Plugins\Merchello\assets\images\ourumbracoorg_thumb.jpg" />
+    <Content Include="App_Plugins\Merchello\assets\images\youtrack_thumb.jpg" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\collectionproviderlist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\couponeditor.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\customeraddresses.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\customerlist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\customeroverview.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\Dashboard.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\create.staticcollection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\customer.customeraddress.addedit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\customer.info.addedit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\customer.newcustomer.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\daterange.selection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\delete.confirmation.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\delete.staticcollection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\detachedcontenttype.edit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\edit.address.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\manage.staticcollection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.couponreward.discountprice.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.newofferproviderselection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerconstraint.collectionpricerules.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerconstraint.collectionquantityrules.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerconstraint.filterpricerules.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerconstraint.filterquantityrules.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerconstraint.maximumquantity.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerconstraint.productselectionfilter.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerconstraint.redemptionlimit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\marketing.offerproviderselection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\notification.notificationmessage.add.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\notification.notificationmethod.addedit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\notification.providersettings.smtp.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\payment.cashpaymentmethod.authorizecapturepayment.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\payment.cashpaymentmethod.authorizepayment.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\payment.cashpaymentmethod.refundpayment.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\payment.cashpaymentmethod.voidpayment.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\payment.paymentmethod.addedit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\pick.staticcollection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\product.copy.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\productcontenttype.add.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\productvariant.bulk.changeprice.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\productvariant.bulk.updateinventory.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\sales.create.shipment.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\sales.edit.shipment.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\shipping.addcountry.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\shipping.fixedrate.shipmethod.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\shipping.shipcountry.addprovider.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\shipping.shipmethod.regions.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\shipping.warehouse.addedit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\shipping.warehousecatalog.addedit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\shipping.warehousecatalog.select.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\sort.staticcollection.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\dialogs\taxation.edittaxmethod.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\addpaymenttable.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\comparisonOperatorRadioButtons.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\customer.customeraddresstable.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\customer.customerlocation.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\detachedcontenttype.list.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\entity.staticcollections.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\filterbydaterange.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\filterinvoices.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\html\merchellopanel.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\html\merchelloslidepanelopen.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\html\merchellospinner.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\html\merchellotabs.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\merchelloAddress.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\merchelloiconbar.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\merchellolistview.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\merchellopager.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\notificationmethods.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\offer.components.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\offer.mainproperties.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\offer.uniqueoffercode.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\product.optionsmanage.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\product.productvariantsviewtable.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\product.reorderoptions.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\productvariant.digitaldownload.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\productvariant.mainproperties.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\productvariant.shipping.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\resetlistfilters.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\resolvedgatewayproviders.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\directives\shipcountrygatewayproviders.tpl.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\gatewayproviderlist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\invoicepayments.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\notification.messageeditor.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\notificationproviders.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\offerslist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\ordershipments.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\paymentproviders.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\productcontenttypelist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\productdetachedcontent.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\productedit.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\producteditwithoptions.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\productlist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\productoptionseditor.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\reports.viewreport.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\reportslist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\saleoverview.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\saleslist.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\settings.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\shippingproviders.html" />
+    <Content Include="App_Plugins\Merchello\Backoffice\Merchello\taxationproviders.html" />
+    <Content Include="App_Plugins\Merchello\js\merchello.controllers.js" />
+    <Content Include="App_Plugins\Merchello\js\merchello.directives.js" />
+    <Content Include="App_Plugins\Merchello\js\merchello.filters.js" />
+    <Content Include="App_Plugins\Merchello\js\merchello.models.js" />
+    <Content Include="App_Plugins\Merchello\js\merchello.module.js" />
+    <Content Include="App_Plugins\Merchello\js\merchello.resources.js" />
+    <Content Include="App_Plugins\Merchello\js\merchello.services.js" />
+    <Content Include="App_Plugins\Merchello\js\merchello.testing.js" />
+    <Content Include="App_Plugins\Merchello\lang\da-DK.xml" />
+    <Content Include="App_Plugins\Merchello\lang\en-GB.xml" />
+    <Content Include="App_Plugins\Merchello\lang\en-US.user.xml" />
+    <Content Include="App_Plugins\Merchello\lang\en-US.xml" />
+    <Content Include="App_Plugins\Merchello\lang\es-ES.xml" />
+    <Content Include="App_Plugins\Merchello\lang\es-GB.xml" />
+    <Content Include="App_Plugins\Merchello\lang\it-IT.xml" />
+    <Content Include="App_Plugins\Merchello\propertyeditors\productlistview\merchello.productlistview.dialog.html" />
+    <Content Include="App_Plugins\Merchello\propertyeditors\productlistview\merchello.productlistview.html" />
+    <Content Include="App_Plugins\Merchello\propertyeditors\productpicker\merchello.multiproductpicker.html" />
+    <Content Include="App_Plugins\Merchello\propertyeditors\productpicker\merchello.productselector.dialog.html" />
+    <Content Include="App_Plugins\Merchello\propertyeditors\productpicker\merchello.productselector.html" />
     <Content Include="Config\grid.editors.config.js" />
     <Content Include="Config\Lang\cs-CZ.user.xml" />
     <Content Include="Config\Lang\da-DK.user.xml" />
@@ -340,8 +479,30 @@
     <Content Include="Config\Lang\ru-RU.user.xml" />
     <Content Include="Config\Lang\sv-SE.user.xml" />
     <Content Include="Config\Lang\zh-CN.user.xml" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="default.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Public\scripts\config.js" />
+    <Content Include="Public\scripts\libs\jquery-2.1.1.js" />
+    <Content Include="Public\scripts\libs\jquery.unobtrusive-ajax.js" />
+    <Content Include="Public\scripts\libs\jquery.validate.js" />
+    <Content Include="Public\scripts\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="Public\scripts\libs\require.js" />
+    <Content Include="Public\scripts\modules\paymentMethodSelector.js" />
+    <Content Include="Public\scripts\modules\productVariantSelector.js" />
+    <Content Include="Public\style\site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Plugins\Merchello\assets\css\merchello.css.map" />
+    <Content Include="App_Plugins\Merchello\Config\merchello.config" />
+    <Content Include="App_Plugins\Merchello\Package.manifest" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -350,9 +511,27 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home.cshtml" />
+    <Content Include="Views\CheckoutPage.cshtml" />
+    <Content Include="Views\Shared\_MainNavigation.cshtml" />
+    <Content Include="Views\Shared\_Breadcrumb.cshtml" />
+    <Content Include="Views\DeliveryPage.cshtml" />
+    <Content Include="Views\Partials\_Basket.cshtml" />
+    <Content Include="Views\BasketPage.cshtml" />
+    <Content Include="Views\Basket.cshtml" />
+    <Content Include="Views\Shared\_Metadata.cshtml" />
+    <Content Include="Views\Product.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\PaymentPage.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\ReceiptPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -433,31 +612,28 @@
     <Content Include="Config\404handlers.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Page.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Views\Product\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\ProductPage.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Product.cshtml" />
-    <Content Include="Views\Products\Products.cshtml" />
-    <Content Include="Views\Basket\Partials\BasketPartial.cshtml" />
-    <Content Include="Views\Basket\BuyButton.cshtml" />
+    <Content Include="Views\Products.cshtml" />
+    <Content Include="Views\Basket\Partials\old_basket.cshtml" />
+    <Content Include="Views\Partials\_BuyButton.cshtml" />
     <Content Include="Views\Basket\Basket.cshtml" />
     <Content Include="Views\Basket\Partials\BasketPartial1.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Laceshop.Core.csproj">

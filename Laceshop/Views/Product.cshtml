@@ -1,0 +1,131 @@
+﻿@using Laceshop.Controllers.Basket
+@model  Laceshop.Models.Products.ProductPageViewModel
+@{
+    Layout = "Shared/_Layout.cshtml";
+}
+
+
+<table class="exampletable">
+    <tr>
+        <td>
+            Item
+        </td>
+        <td>
+            Item Value
+        </td>
+        <td>
+            Storage
+        </td>
+    </tr>
+    <tr>
+        <td>
+            ProductModel:
+        </td>
+        <td>
+            @Model.Name
+        </td>
+        <td>
+            Merchello ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Price:
+        </td>
+        <td>
+            @Model.Product.Price.ToString("C")
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Onsale:
+        </td>
+        <td>
+            @Model.Product.OnSale
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            SalesPrice:
+        </td>
+        <td>
+            @Model.Product.SalePrice.ToString("C")
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Description:
+        </td>
+        <td>
+            @Model.ProductDescription
+        </td>
+        <td>
+            Umbraco Content Page
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Manufacturer:
+        </td>
+        <td>
+            @Model.Product.Manufacturer
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Manufacturer Model Number:
+        </td>
+        <td>
+            @Model.Product.ManufacturerModelNumber
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Istaxable:
+        </td>
+        <td>
+            @Model.Product.Taxable
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+    <tr>
+        <td>
+            InStock:
+        </td>
+        <td>
+            @Model.Product.Available
+        </td>
+        <td>
+            Mercehllo ProductModel Catalog
+        </td>
+    </tr>
+</table>
+@using (Html.BeginUmbracoForm<BasketPageController>("AddItem", "BasketPage", new { id = "add-to-basket-form" }, FormMethod.Post)){
+foreach (var option in Model.Product.Options)
+{
+    <div>
+        @Html.Label(option.Name)
+        @Html.DropDownList("OptionKeys", option.Choices)
+    </div>
+}
+<input type="submit" value="Add To Cart" />
+@Html.Hidden("ProductKey", Model.Product.Key)
+@Html.Hidden("ContentId", Model.Id)
+}

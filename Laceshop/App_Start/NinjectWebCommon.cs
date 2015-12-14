@@ -73,6 +73,7 @@ namespace Laceshop.App_Start
             kernel.Bind<IUmbracoMapper>().To<UmbracoMapper>();
             //kernel.Bind<UmbracoContext>().ToMethod(x => UmbracoContext.Current).InSingletonScope();
             kernel.Bind<IProductService>().To<ProductService>();
+            kernel.Bind<IProductVariantService>().To<ProductVariantService>();
             kernel.Bind<CustomerContext>().ToMethod(x => new CustomerContext(UmbracoContext.Current)).InSingletonScope();
             kernel.Bind<IBasketRepository>().To<BasketRepository>();
             kernel.Bind<IProductRepository>().To<ProductRepository>();

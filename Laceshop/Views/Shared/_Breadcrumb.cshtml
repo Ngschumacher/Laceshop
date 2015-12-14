@@ -1,0 +1,19 @@
+﻿@model Laceshop.Models.Navigation.BreadCrumbViewModel
+
+<nav class="breadcrumb">
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        @if (Model.MenuItems.Any())
+        {
+            foreach (var item in Model.MenuItems)
+            {
+                <li>
+                    <a href="@item.Url">@item.DisplayTitle</a>
+                </li>
+            }
+        }
+        <li><span>@Model.CurrentPage.DisplayTitle</span></li>
+    </ul>
+</nav>

@@ -1,0 +1,6 @@
+þÿÿÿ
+invoiceKeyinvoiceNumber__Sort_invoiceNumberprefixedInvoiceNumberinvoiceDate__Sort_invoiceDateinvoiceStatusKey
+versionKey
+billToName__Sort_billToNamebillToAddress1billToAddress2billToLocalitybillToPostalCode__Sort_billToPostalCodebillToCountryCode__Sort_billToCountryCodebillToEmailbilltoPhoneexportedarchivedtotalQ__Sort_totalQinvoiceStatusinvoiceItemscurrency
+createDate
+updateDateallDocs__NodeId__IndexType

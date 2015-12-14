@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Laceshop.Models.Interfaces;
+﻿using Laceshop.Models.Interfaces;
 using Zone.UmbracoMapper;
 
-namespace Laceshop.Models
+namespace Laceshop.Models.Products
 {
 
     public class BasePageViewModel : BaseNodeViewModel, IMainTitle, IMetaData

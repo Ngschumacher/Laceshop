@@ -21,7 +21,7 @@ namespace Laceshop.Controllers.Products
 {
     
 
-    public class ProductController : BaseRenderMvcController<ProductPageViewModel>
+    public class ProductController : BaseSurfaceController<ProductPageViewModel>
     {
         private readonly IProductRepository _productRepository;
 
@@ -37,6 +37,12 @@ namespace Laceshop.Controllers.Products
             //_productRepository.GetProduct();
             var viewModel = GetModel<ProductPageViewModel>();
             return View("Index", viewModel);
+        }
+
+        public ActionResult Product()
+        {
+            var vm = GetPageModel<ProductPageViewModel>();
+            return CurrentTemplate(vm);
         }
        
     }
