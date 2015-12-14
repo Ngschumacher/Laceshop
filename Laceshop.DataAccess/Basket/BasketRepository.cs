@@ -77,6 +77,7 @@ namespace Laceshop.DataAccess.Basket
             if (optionsKey.IsAndAny())
             {
                 var variant = _productVariantService.GetProductVariantWithAttributes(product, optionsKey);
+                if(variant.TotalInventoryCount > 0 || variant.OutOfStockPurchase)
                 _basket.AddItem(variant, variant.Name, quantity, data);
             }
             else
