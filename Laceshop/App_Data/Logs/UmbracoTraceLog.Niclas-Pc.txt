@@ -1,1 +1,1 @@
-﻿ 2015-12-15 23:05:27,431 [P8532/D2/T8] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2015-12-14 23:05:27
+﻿ 2015-12-19 01:41:43,248 [P8532/D2/T167] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2015-12-18 01:41:43
