@@ -7,6 +7,7 @@ using Core.Interfaces.Basket;
 using Laceshop.Models.Checkout;
 using Merchello.Core.Models;
 using Merchello.Web;
+using Umbraco.Core.Cache;
 using Zone.UmbracoMapper;
 
 namespace Laceshop.Controllers.Checkout
@@ -50,7 +51,7 @@ namespace Laceshop.Controllers.Checkout
                 {
                     Address1 = vm.Address1,
                     Address2 = vm.Address2,
-                    CountryCode = "GB",
+                    CountryCode = "DK",
                     Email = vm.Email,
                     Locality = vm.City,
                     Name = vm.CustomerName,
@@ -59,7 +60,7 @@ namespace Laceshop.Controllers.Checkout
                     Region = vm.County,
                 };
 
-
+				
                 var customerContext = new CustomerContext(UmbracoContext);
                 var currentCustomer = customerContext.CurrentCustomer;
                 var basket1 =  currentCustomer.Basket();
@@ -71,12 +72,7 @@ namespace Laceshop.Controllers.Checkout
 
 
                 _basketRepository.SaveBillToAddress(address);
-                var bill = _basketRepository.GetBillToAddress();
                 _basketRepository.SaveShipToAddress(address);
-                var shipping = _basketRepository.GetShipToAddress();
-                
-
-
 
 
 

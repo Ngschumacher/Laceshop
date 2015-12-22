@@ -22,5 +22,9 @@ namespace Laceshop.Models.Checkout
         public BasketViewModel Basket { get; set; }
 
         public CardDetailViewModel CardDetail { get; set; }
+	    public Guid ShipMethodKey { get; set; }
+	    public Guid PaymentMethodKey { get; set; }
+	    public object CustomerToken { get; set; }
+	    public object ReceiptPageId { get; set; }
     }
 }

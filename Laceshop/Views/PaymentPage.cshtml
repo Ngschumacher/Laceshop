@@ -44,4 +44,7 @@
     <input type="submit" value="Submit" />
     }
 
-    @Html.Partial("Partials/_Basket", Model.Basket)
+@Html.Action("RenderBraintreeSetupJs", "BraintreeStandardTransaction", new { area = "Bazaar" })
+
+
+@Html.Partial("Partials/_Basket", Model.Basket)
