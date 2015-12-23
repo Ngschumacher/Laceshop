@@ -5,7 +5,7 @@ using AutoMapper;
 using Core.Models;
 using Core.Models.Commerce;
 using Laceshop.Models.Basket;
-using Laceshop.Models.Commerce;
+using Laceshop.Models.Checkout;
 using Merchello.Core.Models;
 using Merchello.Web.Models.ContentEditing;
 using Merchello.Web.Workflow;
@@ -48,6 +48,16 @@ namespace Laceshop.Mapping
             Mapper.CreateMap<IInvoice, InvoiceDetail>()
                 .ForMember(dest => dest.InvoiceStatus,
                            source => source.MapFrom(src => src.InvoiceStatus.Name));
+	        Mapper.CreateMap<IAddress, CheckoutPageViewModel>()
+		        .ForMember(dest => dest.Address1, source => source.MapFrom(src => src.Address1))
+		        .ForMember(dest => dest.Address2, source => source.MapFrom(src => src.Address2))
+		        .ForMember(dest => dest.Email, source => source.MapFrom(src => src.Email))
+		        .ForMember(dest => dest.City, source => source.MapFrom(src => src.Locality))
+		        .ForMember(dest => dest.CustomerName, source => source.MapFrom(src => src.Name))
+		        .ForMember(dest => dest.Telephone, source => source.MapFrom(src => src.Phone))
+		        .ForMember(dest => dest.Postcode, source => source.MapFrom(src => src.PostalCode))
+		        .ForMember(dest => dest.County, source => source.MapFrom(src => src.Region));
+
 
 
         }

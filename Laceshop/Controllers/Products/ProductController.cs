@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using Core.Interfaces.Product;
 using Core.Models.Commerce;
 using Laceshop.Models;
-using Laceshop.Models.Commerce;
 using Laceshop.Models.Products;
 using Merchello.Web;
 using Merchello.Web.Models.ContentEditing;

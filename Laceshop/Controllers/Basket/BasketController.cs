@@ -10,6 +10,7 @@ using Core.Models.Commerce;
 using Laceshop.Controllers.Products;
 using Laceshop.Models;
 using Laceshop.Models.Basket;
+using Merchello.Core;
 using Merchello.Core.Models;
 using Merchello.Web;
 using Umbraco.Core.Logging;
@@ -46,16 +47,15 @@ namespace Laceshop.Controllers.Basket
         public  ActionResult BasketPage()
         {
             var basket = _basketRepository.GetBasket();
+			var storeSetting = MerchelloContext.Current.Services.StoreSettingService.GetByKey(Merchello.Core.Constants.StoreSettingKeys.CurrencyCodeKey);
 
-            //var viewModel = GetModel<BasketDetail>();
+			ICurrency currency = MerchelloContext.Current.Services.StoreSettingService.GetCurrencyByCode(storeSetting.Value);
 
             var basketVm = AutoMapper.Mapper.Map<BasketViewModel>(basket);
             var vm = GetPageModel<BasketPageViewModel>();
             vm.Basket = basketVm;
             
             vm.CheckoutPageUrl = GetCheckoutPageNode().Url;
-
-            //_umbracoMapper.Map(CurrentPage, viewModel);
 
             return CurrentTemplate(vm);
         }

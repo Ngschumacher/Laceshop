@@ -9,6 +9,8 @@ using Laceshop.Models.Checkout;
 using Merchello.Core;
 using Merchello.Core.Gateways.Payment;
 using Merchello.Core.Models;
+using Merchello.Core.Sales;
+using Merchello.Plugin.Payments.Braintree;
 using Zone.UmbracoMapper;
 
 namespace Laceshop.Controllers.Checkout
@@ -78,8 +80,8 @@ namespace Laceshop.Controllers.Checkout
                 var preparation = _basketRepository.SalePreparation();
                 _basketRepository.SavePaymentMethod(paymentMethod);
                 // Authorise the payment - if by card, need to collect the card details
-                var test = preparation.IsReadyToInvoice();
-                var attempt = preparation.AuthorizePayment(paymentMethod.Key);
+				//var attempt = preparation.AuthorizePayment(paymentMethod.Key);
+				var attempt = this.PerformProcessPayment(preparation, paymentMethod);
 
                 // Redirect to receipt page having saved invoice key in session
                 if (attempt.Payment.Success)
@@ -89,7 +91,7 @@ namespace Laceshop.Controllers.Checkout
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Card authorisation failed: " + ParseError(attempt.Payment.Exception.Message));
+                    ModelState.AddModelError(string.Empty, "Card authorisation failed: " + attempt.Payment.Exception.Message);
                 }
             }
 
@@ -100,7 +102,28 @@ namespace Laceshop.Controllers.Checkout
         {
             return exceptionMessage.Split('|')[3];
         }
+		protected IPaymentResult PerformProcessPayment(SalePreparationBase preparation, IPaymentMethod paymentMethod)
+		{
+			// ----------------------------------------------------------------------------
+			// WE NEED TO GET THE PAYMENT METHOD "NONCE" FOR BRAINTREE
 
+			var form = UmbracoContext.HttpContext.Request.Form;
+			var paymentMethodNonce = form.Get("payment_method_nonce");
+
+			// ----------------------------------------------------------------------------
+
+			return this.ProcessPayment(preparation, paymentMethod, paymentMethodNonce);
+		}
+		private IPaymentResult ProcessPayment(SalePreparationBase preparation, IPaymentMethod paymentMethod, string paymentMethodNonce)
+		{
+			// You need a ProcessorArgumentCollection for this transaction to store the payment method nonce
+			// The braintree package includes an extension method off of the ProcessorArgumentCollection - SetPaymentMethodNonce([nonce]);
+			var args = new ProcessorArgumentCollection();
+			args.SetPaymentMethodNonce(paymentMethodNonce);
+
+			// We will want this to be an AuthorizeCapture(paymentMethod.Key, args);
+			return preparation.AuthorizeCapturePayment(paymentMethod.Key, args);
+		}
         private void AuthorizeCreditCard(string paymentName, Address address)
         {
 

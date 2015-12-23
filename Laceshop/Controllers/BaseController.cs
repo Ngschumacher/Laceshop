@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Core.Models.Commerce;
 using Laceshop.Mapping;
 using Laceshop.Models;
-using Laceshop.Models.Commerce;
 using Laceshop.Models.Products;
 using Merchello.Web;
 using Merchello.Web.Workflow;

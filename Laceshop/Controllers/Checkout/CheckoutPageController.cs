@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Core.Interfaces.Basket;
+using Core.Models.Commerce;
 using Laceshop.Models.Checkout;
 using Merchello.Core.Models;
 using Merchello.Web;
@@ -28,12 +29,14 @@ namespace Laceshop.Controllers.Checkout
             {
                 return RedirectToBasketPage();
             }
+	        var address = _basketRepository.GetBillToAddress();
 
             var vm = GetPageModel<CheckoutPageViewModel>();
+			AutoMapper.Mapper.Map(address, vm);
             return CurrentTemplate(vm);
         }
 
-
+		
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CollectAddress(CheckoutPageViewModel vm)
@@ -60,21 +63,8 @@ namespace Laceshop.Controllers.Checkout
                     Region = vm.County,
                 };
 
-				
-                var customerContext = new CustomerContext(UmbracoContext);
-                var currentCustomer = customerContext.CurrentCustomer;
-                var basket1 =  currentCustomer.Basket();
-
-
-                var preparation = basket1.SalePreparation();
-                preparation.SaveBillToAddress(address);
-                preparation.SaveShipToAddress(address);
-
-
                 _basketRepository.SaveBillToAddress(address);
                 _basketRepository.SaveShipToAddress(address);
-
-
 
                 return RedirectToUmbracoPage(GetDeliveryPageNode().Id);
             }
