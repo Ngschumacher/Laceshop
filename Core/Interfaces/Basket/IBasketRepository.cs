@@ -27,5 +27,6 @@ namespace Core.Interfaces.Basket
         IEnumerable<IShipment> GetPackageBasket();
         void SaveShipmentRateQuote(IShipmentRateQuote shipmentRateQuote);
         void SavePaymentMethod(IPaymentMethod paymentMethod);
+	    IInvoice PrepareInvoice();
     }
 }

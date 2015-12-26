@@ -46,11 +46,12 @@
 
 @Html.Action("RenderBraintreeSetupJs", "BraintreeStandardTransaction", new { area = "Bazaar" })*@
 
-@model Laceshop.Models.Checkout.PaymentPageViewModel
+@model Laceshop.Website.Code.Models.Checkout.PaymentPageViewModel
 @using System.Globalization
 @using System.Web.Mvc.Html
 @using Laceshop.Controllers.Checkout
 @using Laceshop.Controllers.Checkout.BraintreePayment
+@using Laceshop.Website.Code.Controllers.Checkout
 @using Umbraco.Web
 
 @using (Html.BeginUmbracoForm<PaymentPageController>("SelectPayment", null, new { area = "BraintreeBazaar", @id = "braintreeCreditCard" }))

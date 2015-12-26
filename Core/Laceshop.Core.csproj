@@ -79,7 +79,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Helpers\EnumerableHelper.cs" />
     <Compile Include="Interfaces\Basket\IBasketRepository.cs" />
-    <Compile Include="Interfaces\Product\IProductRepository.cs" />
+    <Compile Include="Interfaces\IStoreSettings.cs" />
     <Compile Include="Models\Commerce\BasketDetail.cs" />
     <Compile Include="Models\Commerce\CardDetail.cs" />
     <Compile Include="Models\Commerce\InvoiceDetail.cs" />

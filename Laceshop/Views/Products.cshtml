@@ -1,5 +1,6 @@
-﻿@using Laceshop.Controllers.Basket
-@using Laceshop.Models.Products
+﻿@using Laceshop.Models.Products
+@using Laceshop.Website.Code.Controllers.Basket
+@using Laceshop.Website.Code.Models.Products
 @using Merchello.Web
 @model  Laceshop.Controllers.Products.ProductsViewModel
 @{
@@ -32,6 +33,6 @@
 
     @contentProduct.ProductDetail.Price.ToString("C")
 
-    @Html.Action("Display_BuyButton", "BasketPage", new { area = "MerchelloProductListExample", product = productitemmodel })
+	@Html.Action("Display_BuyButton", "BasketPage", new { area = "MerchelloProductListExample", product = productitemmodel })
 }
 

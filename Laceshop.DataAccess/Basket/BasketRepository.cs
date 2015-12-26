@@ -97,6 +97,7 @@ namespace Laceshop.DataAccess.Basket
         {
             if (_basket.Items.FirstOrDefault(x => x.Key == itemKey) != null)
             {
+				
                 _basket.UpdateQuantity(itemKey, quantity);
                 _basket.Save();
             }
@@ -150,7 +151,12 @@ namespace Laceshop.DataAccess.Basket
             preparation.SavePaymentMethod(paymentMethod);
         }
 
-        private ExtendedDataCollection ConvertDictionaryToExtendedDataCollection(Dictionary<string, string> dictionary)
+	    public IInvoice PrepareInvoice()
+	    {
+		    return SalePreparation().PrepareInvoice();
+	    }
+
+	    private ExtendedDataCollection ConvertDictionaryToExtendedDataCollection(Dictionary<string, string> dictionary)
         {
             var extendedDataCollection = new ExtendedDataCollection();
             foreach (var item in dictionary)

@@ -1,0 +1,29 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 23 13:23:00 2015
+
+   Source : D:\Git\Laceshop\Laceshop.Website.Code\bin\
+     Dest : D:\Git\Laceshop\Laceshop.Website.Code\App_Data\NuGetBackup\20151223-132300\bin\
+
+    Files : *.*
+	    
+  Options : *.* /S /E /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   0	D:\Git\Laceshop\Laceshop.Website.Code\bin\
+	  New Dir          0	D:\Git\Laceshop\Laceshop.Website.Code\bin\Debug\
+	  New Dir          0	D:\Git\Laceshop\Laceshop.Website.Code\bin\Release\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         3         2         1         0         0         0
+   Files :         0         0         0         0         0         0
+   Bytes :         0         0         0         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+   Ended : Wed Dec 23 13:23:00 2015

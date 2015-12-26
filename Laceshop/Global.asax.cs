@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Laceshop.Mapping;
+using Laceshop.Website.Code.Mapping;
 using Umbraco.Web;
 
 namespace Laceshop
