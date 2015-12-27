@@ -524,10 +524,10 @@
     <Content Include="Views\ReceiptPage.cshtml" />
     <Content Include="Views\BraintreeStandardTransaction.cshtml" />
     <Content Include="Views\Partials\BraintreeSetupJs.cshtml" />
+    <Content Include="Views\Partials\NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Partials\Braintree\" />
     <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
