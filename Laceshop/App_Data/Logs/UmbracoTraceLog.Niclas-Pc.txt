@@ -79,3 +79,10 @@ Braintree.Exceptions.AuthenticationException: Exception of type 'Braintree.Excep
    at Braintree.ClientTokenGateway.generate(ClientTokenRequest request)
    at Merchello.Plugin.Payments.Braintree.Services.BraintreeApiServiceBase.TryGetApiResult[T](Func`1 apiMethod)
  2016-02-23 18:54:42,126 [P4204/D2/T8] INFO  umbraco.BusinessLogic.Log - Log scrubbed.  Removed all items older than 2016-02-22 18:54:42
+ 2016-02-23 18:57:44,480 [P4204/D2/T24] ERROR Merchello.Plugin.Payments.Braintree.Services.BraintreeApiServiceBase - Braintree API request failed.
+Braintree.Exceptions.AuthenticationException: Exception of type 'Braintree.Exceptions.AuthenticationException' was thrown.
+   at Braintree.BraintreeService.ThrowExceptionIfErrorStatusCode(HttpStatusCode httpStatusCode, String message)
+   at Braintree.BraintreeService.GetXmlResponse(String URL, String method, Request requestBody)
+   at Braintree.BraintreeService.Post(String URL, Request requestBody)
+   at Braintree.ClientTokenGateway.generate(ClientTokenRequest request)
+   at Merchello.Plugin.Payments.Braintree.Services.BraintreeApiServiceBase.TryGetApiResult[T](Func`1 apiMethod)
