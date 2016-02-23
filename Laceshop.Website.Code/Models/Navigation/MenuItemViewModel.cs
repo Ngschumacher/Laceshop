@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Laceshop.Models.Interfaces;
 using Laceshop.Models.Products;
 using Zone.UmbracoMapper;
 
-namespace Laceshop.Models.Navigation
+namespace Laceshop.Website.Code.Models.Navigation
 {
     public class MenuItemViewModel : BaseNodeViewModel, ITitleLink
     {

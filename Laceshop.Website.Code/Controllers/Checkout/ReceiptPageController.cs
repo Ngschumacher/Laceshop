@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Laceshop.Models.Checkout;
+﻿using System.Web.Mvc;
+using Laceshop.Controllers;
 using Laceshop.Website.Code.Models.Checkout;
 using Zone.UmbracoMapper;
 
-namespace Laceshop.Controllers.Checkout
+namespace Laceshop.Website.Code.Controllers.Checkout
 {
     public class ReceiptPageController : BaseSurfaceController<ReceiptPageViewModel>
     {

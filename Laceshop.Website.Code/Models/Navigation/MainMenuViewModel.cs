@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace Laceshop.Models.Navigation
+namespace Laceshop.Website.Code.Models.Navigation
 {
     public class MainMenuViewModel
     {

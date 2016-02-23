@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Laceshop.Models.Navigation;
-using Laceshop.Website.Code.Controllers;
+using Laceshop.Website.Code.Models.Navigation;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Zone.UmbracoMapper;
 
-namespace Laceshop.Controllers
+namespace Laceshop.Website.Code.Controllers
 {
     public class NavigationController : BaseSurfaceController
     {

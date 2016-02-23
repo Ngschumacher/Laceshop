@@ -1,7 +1,7 @@
 ﻿@model Laceshop.Website.Code.Models.Checkout.PaymentPageViewModel
 @using System.Globalization
 @using System.Web.Mvc.Html
-@using Laceshop.Controllers.Checkout.BraintreePayment
+@using Laceshop.Website.Code.Controllers.Checkout.BraintreePayment
 @using Umbraco.Web
 
 @using (Html.BeginUmbracoForm<BraintreeStandardTransactionController>("ConfirmSale", null, new { area = "BraintreeBazaar", @id = "braintreeCreditCard" }))
@@ -51,4 +51,5 @@
 		<button type="submit" class="btn btn-primary">Confirm Sale</button>
 	</div>
 }
+
 @Html.Action("RenderBraintreeSetupJs", "BraintreeStandardTransaction", new { area = "Bazaar" })

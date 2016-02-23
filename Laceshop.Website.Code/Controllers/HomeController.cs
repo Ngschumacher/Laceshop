@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Laceshop.Controllers;
 using Laceshop.Models;
-using Umbraco.Web.Models;
+using Laceshop.Website.Code.Models;
 using Zone.UmbracoMapper;
 
-namespace Laceshop.Controllers
+namespace Laceshop.Website.Code.Controllers
 {
     public class HomeController : BaseSurfaceController<HomePageViewModel>
     {

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Braintree;
 using Laceshop.Models.Checkout;
-using Laceshop.Website.Code.Controllers.Checkout.BraintreePayment;
 using Laceshop.Website.Code.Models.Checkout;
 using Merchello.Core.Gateways;
 using Merchello.Core.Gateways.Payment;
@@ -15,7 +10,7 @@ using Merchello.Plugin.Payments.Braintree;
 using Umbraco.Web.Mvc;
 using Zone.UmbracoMapper;
 
-namespace Laceshop.Controllers.Checkout.BraintreePayment
+namespace Laceshop.Website.Code.Controllers.Checkout.BraintreePayment
 {
 	[GatewayMethodUi("BrainTree.StandardTransaction")]
 	[PluginController("Bazaar")]
@@ -71,7 +66,7 @@ namespace Laceshop.Controllers.Checkout.BraintreePayment
 			return preparation.AuthorizeCapturePayment(paymentMethod.Key, args);
 		}
 
-		public BraintreeStandardTransactionController(IUmbracoMapper mapper)
+		public BraintreeStandardTransactionController()
 		{
 		}
 

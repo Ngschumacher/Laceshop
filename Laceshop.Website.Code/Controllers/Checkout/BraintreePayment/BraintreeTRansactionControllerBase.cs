@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Laceshop.Models.Checkout;
 using Merchello.Core;
+using Merchello.Core.Models;
 using Merchello.Plugin.Payments.Braintree;
 using Merchello.Plugin.Payments.Braintree.Provider;
 using Merchello.Plugin.Payments.Braintree.Services;
@@ -30,11 +31,11 @@ namespace Laceshop.Website.Code.Controllers.Checkout.BraintreePayment
 		public ActionResult RenderBraintreeSetupJs()
 		{
 
-			//var token = CurrentCustomer.IsAnonymous ?
-			//_service.Customer.GenerateClientRequestToken() :
-			//_service.Customer.GenerateClientRequestToken((ICustomer)CurrentCustomer);
+            var token = CurrentCustomer.IsAnonymous ?
+            _service.Customer.GenerateClientRequestToken() :
+            _service.Customer.GenerateClientRequestToken((ICustomer)CurrentCustomer);
 
-			var token = _service.Customer.GenerateClientRequestToken();
+			//var token = _service.Customer.GenerateClientRequestToken();
 
 			return PartialView("BraintreeSetupJs", new BraintreeToken() { Token = token });
 		}
