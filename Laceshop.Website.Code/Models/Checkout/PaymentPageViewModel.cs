@@ -23,5 +23,6 @@ namespace Laceshop.Website.Code.Models.Checkout
 	    public Guid PaymentMethodKey { get; set; }
 	    public object CustomerToken { get; set; }
 	    public object ReceiptPageId { get; set; }
+        public QuickPayModel QuickPayModel { get; set; }
     }
 }

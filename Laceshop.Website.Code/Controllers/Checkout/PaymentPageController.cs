@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using Core.Interfaces.Basket;
 using Laceshop.Controllers;
@@ -56,8 +60,21 @@ namespace Laceshop.Website.Code.Controllers.Checkout
                     Value = x.PaymentMethod.Key.ToString(),
                     Text = x.PaymentMethod.Name
                 });
+            var rand = new Random();
             vm.PaymentMethods = new SelectList(paymentMethods, "Value", "Text");
-
+            var quickPayModel = new QuickPayModel()
+            {
+                AgreementId = "44267",
+                Amount = "1000",
+                CallbackUrl = "http://laceshop.localhost//MerchelloQuickPay/Callback",
+                CancelUrl = "http://laceshop.localhost/payment/",
+                ContinueUrl = "http://laceshop.localhost/receipt/",
+                Currency = "DKK",
+                MerchantId = "12616",
+                OrderId = "test1231"+rand.Next(0,1500)
+            };
+            quickPayModel.Checksum = GetChecksum(quickPayModel);
+            vm.QuickPayModel = quickPayModel;
             return CurrentTemplate(vm);
         }
 
@@ -127,34 +144,41 @@ namespace Laceshop.Website.Code.Controllers.Checkout
 			// We will want this to be an AuthorizeCapture(paymentMethod.Key, args);
 			return preparation.AuthorizeCapturePayment(paymentMethod.Key, args);
 		}
-        private void AuthorizeCreditCard(string paymentName, Address address)
+
+        public string GetChecksum(QuickPayModel model)
         {
-
-            //ProcessorArgumentCollection paymentArgs = null;
-            // if (paymentMethod.Name == AppConstants.CreditCardPaymentMethodName)
-            // paymentArgs = new ProcessorArgumentCollection
-            //        {
-            //            { "cardholderName", preparation.GetBillToAddress().Name },
-            //            { "cardNumber", vm.CardDetail.Number },
-            //            { "expireMonth", vm.CardDetail.ExpiryMonth.ToString() },
-            //            { "expireYear", vm.CardDetail.ExpiryYear.ToString() },
-            //            { "cardCode", vm.CardDetail.CVV }
-            //        };
-
-            //    }
-
-
-            //    // Redirect to receipt page having saved invoice key in session
-            //    if (attempt.Payment.Success)
-            //    {
-            //        Session["InvoiceKey"] = attempt.Invoice.Key.ToString();
-            //        return RedirectToUmbracoPage(GetReceiptPageNode().Id);
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError(string.Empty, "Card authorisation failed: " + ParseError(attempt.Payment.Exception.Message));
-            //    }
+            var parameters = new Dictionary<string, string>
+      {
+        {"version", "v10"},
+        {"merchant_id", model.MerchantId},
+        {"agreement_id", model.AgreementId},
+        {"order_id", model.OrderId},
+        {"amount", model.Amount},
+        {"currency", model.Currency},
+        {"continueurl", model.ContinueUrl},
+        {"cancelurl", model.CancelUrl},
+        {"callbackurl", model.CallbackUrl},
+        {"language", "en"},
+        {"autocapture", "0"}
+      };
+            var checksum = Sign(parameters, "291d6733fd3127afc3f40dde477276815564158189b7404e3181e02f7e1ced13"); // QuickPay Payment Window API Key
+            return checksum;
         }
+
+        private string Sign(Dictionary<string, string> parameters, string apiKey)
+        {
+            var result = String.Join(" ", parameters.OrderBy(c => c.Key).Select(c => c.Value).ToArray());
+            var e = Encoding.UTF8;
+            var hmac = new HMACSHA256(e.GetBytes(apiKey));
+            byte[] b = hmac.ComputeHash(e.GetBytes(result));
+            var s = new StringBuilder();
+            for (int i = 0; i < b.Length; i++)
+            {
+                s.Append(b[i].ToString("x2"));
+            }
+            return s.ToString();
+        }
+
         #endregion
     }
 }

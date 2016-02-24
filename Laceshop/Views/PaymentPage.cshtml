@@ -51,51 +51,25 @@
 @using Laceshop.Website.Code.Controllers.Checkout
 @using Umbraco.Web
 
-@using (Html.BeginUmbracoForm<PaymentPageController>("SelectPayment", null, new { area = "BraintreeBazaar", @id = "braintreeCreditCard" }))
-{
 	@Html.AntiForgeryToken()
 	@Html.ValidationSummary()
-	<div>
-		@Html.LabelFor(m => m.SelectedPaymentMethod)
-		@Html.DropDownListFor(m => m.SelectedPaymentMethod, Model.PaymentMethods, "Please select...")
-		@Html.ValidationMessageFor(m => m.SelectedPaymentMethod)
-	</div>
-	<div class="control-group">
-		<label class="control-label">Credit Card Number</label>
-		<div class="controls">
-			<input class="span12 " type="text" data-braintree-name="number" value="" placeholder="Credit Card Number">
-		</div>
-	</div>
-	<div class="control-group">
-		<div class="controls">
-			<select data-braintree-name="expiration_month" class="span3">
-				@{
-	var currentMonth = DateTime.Now.Month;
-	for (var i = 1; i < 13; i++)
-	{
-		<option value="@i.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0')" @(currentMonth == i ? " selected" : string.Empty)>@i.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0')</option>
-	}
-				}
-			</select>
-			<select data-braintree-name="expiration_year" class="span4">
-				@{
-	var year = DateTime.Now.Year;
-	for (var y = year; y < year + 15; y++)
-	{
-		<option value="@y">@y</option>
-	}
-				}
-			</select>
-		</div>
-		<div class="controls">
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label">CVV</label>
-		<div class="controls">
-			<input type="text" data-braintree-name="cvv" value="" placeholder="CVV">
-		</div>
-	</div>
+    <div>
+        <form id="formQuickPay" method="POST" action="https://payment.quickpay.net">
+            <input type="hidden" name="version" value="v10">
+            <input type="hidden" name="merchant_id" value="@Model.QuickPayModel.MerchantId">
+            <input type="hidden" name="agreement_id" value="@Model.QuickPayModel.AgreementId">
+            <input type="hidden" name="order_id" value="@Model.QuickPayModel.OrderId">
+            <input type="hidden" name="amount" value="@Model.QuickPayModel.Amount">
+            <input type="hidden" name="currency" value="@Model.QuickPayModel.Currency">
+            <input type="hidden" name="continueurl" value="@Model.QuickPayModel.ContinueUrl">
+            <input type="hidden" name="cancelurl" value="@Model.QuickPayModel.CancelUrl">
+            <input type="hidden" name="callbackurl" value="@Model.QuickPayModel.CallbackUrl">
+            <input type="hidden" name="checksum" value="@Model.QuickPayModel.Checksum">
+            <input type="hidden" name="language" value="en">
+            <input type="hidden" name="autocapture" value="0">
+            <input type="submit" value="Continue to QuickPay">
+        </form>
+    </div>
 
 
 	@Html.HiddenFor(x => x.ShipMethodKey, new { @class = "selected-shipmethod-key" })
@@ -105,9 +79,8 @@
 	<div class="control-group">
 		<button type="submit" class="btn btn-primary">Confirm Sale</button>
 	</div>
-}
 
-@Html.Action("RenderBraintreeSetupJs", "BraintreeStandardTransaction", new { area = "Bazaar" })
+@*@Html.Action("RenderBraintreeSetupJs", "BraintreeStandardTransaction", new { area = "Bazaar" })*@
 
 
 @Html.Partial("Partials/_Basket", Model.Basket)

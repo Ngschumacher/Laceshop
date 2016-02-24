@@ -111,6 +111,9 @@
       <HintPath>..\packages\Merchello.Plugin.Braintree.2.2.6.0\lib\net40\Merchello.Plugin.Payments.Braintree.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Merchello.Plugin.Payments.QuickPay">
+      <HintPath>..\Laceshop\Bin\Merchello.Plugin.Payments.QuickPay.dll</HintPath>
+    </Reference>
     <Reference Include="Merchello.Web, Version=1.13.5823.34602, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Merchello.Core.1.13.2\lib\net45\Merchello.Web.dll</HintPath>
       <Private>True</Private>
@@ -322,6 +325,7 @@
     <Compile Include="Models\Checkout\CheckoutPageViewModel.cs" />
     <Compile Include="Models\Checkout\DeliveryPageViewModel.cs" />
     <Compile Include="Models\Checkout\PaymentPageViewModel.cs" />
+    <Compile Include="Models\Checkout\QuickPayModel.cs" />
     <Compile Include="Models\Checkout\ReceiptPageViewModel.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\Interfaces\IBasket.cs" />
