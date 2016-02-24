@@ -43,6 +43,6 @@ D:\Git\Laceshop\Core\bin\Debug\System.Web.Razor.xml
 D:\Git\Laceshop\Core\bin\Debug\System.Web.WebPages.xml
 D:\Git\Laceshop\Core\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\Git\Laceshop\Core\bin\Debug\System.Web.WebPages.Razor.xml
-D:\Git\Laceshop\Core\obj\Debug\Laceshop.Core.csprojResolveAssemblyReference.cache
 D:\Git\Laceshop\Core\obj\Debug\Core.dll
 D:\Git\Laceshop\Core\obj\Debug\Core.pdb
+D:\Git\Laceshop\Core\obj\Debug\Laceshop.Core.csprojResolveAssemblyReference.cache

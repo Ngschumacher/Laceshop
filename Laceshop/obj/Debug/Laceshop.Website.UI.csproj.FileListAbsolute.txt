@@ -1,5 +1,3 @@
-D:\Git\Laceshop\Laceshop\obj\Debug\Laceshop.Website.UI.csproj.App.config
-D:\Git\Laceshop\Laceshop\obj\Debug\Laceshop.Website.UI.csprojResolveAssemblyReference.cache
 D:\Git\Laceshop\Laceshop\bin\Laceshop.dll.config
 D:\Git\Laceshop\Laceshop\bin\Laceshop.dll
 D:\Git\Laceshop\Laceshop\bin\Laceshop.pdb
@@ -127,5 +125,7 @@ D:\Git\Laceshop\Laceshop\bin\Umbraco.Web.UI.xml
 D:\Git\Laceshop\Laceshop\bin\UmbracoExamine.xml
 D:\Git\Laceshop\Laceshop\bin\WebMatrix.Data.xml
 D:\Git\Laceshop\Laceshop\bin\WebMatrix.WebData.xml
+D:\Git\Laceshop\Laceshop\obj\Debug\Laceshop.Website.UI.csproj.App.config
+D:\Git\Laceshop\Laceshop\obj\Debug\Laceshop.Website.UI.csprojResolveAssemblyReference.cache
 D:\Git\Laceshop\Laceshop\obj\Debug\Laceshop.dll
 D:\Git\Laceshop\Laceshop\obj\Debug\Laceshop.pdb

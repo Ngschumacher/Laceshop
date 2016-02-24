@@ -259,6 +259,6 @@ D:\Git\Laceshop\Merchello\bin\Debug\umbraco.editorControls.xml
 D:\Git\Laceshop\Merchello\bin\Debug\umbraco.MacroEngines.xml
 D:\Git\Laceshop\Merchello\bin\Debug\umbraco.macroRenderings.xml
 D:\Git\Laceshop\Merchello\bin\Debug\umbraco.providers.xml
-D:\Git\Laceshop\Merchello\obj\Debug\Merchello.csprojResolveAssemblyReference.cache
 D:\Git\Laceshop\Merchello\obj\Debug\Merchello.dll
 D:\Git\Laceshop\Merchello\obj\Debug\Merchello.pdb
+D:\Git\Laceshop\Merchello\obj\Debug\Merchello.csprojResolveAssemblyReference.cache

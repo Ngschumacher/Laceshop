@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Braintree;
 using Laceshop.Models.Checkout;
 using Merchello.Core;
 using Merchello.Core.Models;
@@ -35,9 +36,20 @@ namespace Laceshop.Website.Code.Controllers.Checkout.BraintreePayment
             _service.Customer.GenerateClientRequestToken() :
             _service.Customer.GenerateClientRequestToken((ICustomer)CurrentCustomer);
 
+            var gateway = new BraintreeGateway
+{
+  Environment = Braintree.Environment.SANDBOX,
+  MerchantId  = "q9bm7fwc75mc2jhy",
+  PublicKey   = "sypky4gb7tgr38km",
+  PrivateKey  = "52e2f58025376fa472992b278f09657a"
+};
+
+		    var d = gateway.ClientToken.generate();
+
+
 			//var token = _service.Customer.GenerateClientRequestToken();
 
-			return PartialView("BraintreeSetupJs", new BraintreeToken() { Token = token });
+            return PartialView("BraintreeSetupJs", new BraintreeToken() { Token = d });
 		}
 
 

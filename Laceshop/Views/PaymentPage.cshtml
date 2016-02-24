@@ -1,7 +1,6 @@
 ﻿
-@*@using Laceshop.Controllers.Checkout
-@model Laceshop.Models.Checkout.PaymentPageViewModel
-@{
+@*@using Laceshop.Website.Code.Controllers.Checkout
+@model Laceshop.Website.Code.Models.Checkout.PaymentPageViewModel
     Layout = "Shared/_Layout.cshtml";
 }
 
@@ -97,6 +96,7 @@
 			<input type="text" data-braintree-name="cvv" value="" placeholder="CVV">
 		</div>
 	</div>
+
 
 	@Html.HiddenFor(x => x.ShipMethodKey, new { @class = "selected-shipmethod-key" })
 	@Html.HiddenFor(x => x.PaymentMethodKey, new { @class = "selected-paymentmethod-key" })

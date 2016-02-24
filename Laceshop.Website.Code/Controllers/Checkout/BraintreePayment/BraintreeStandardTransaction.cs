@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Braintree;
 using Laceshop.Models.Checkout;
 using Laceshop.Website.Code.Models.Checkout;
 using Merchello.Core.Gateways;
@@ -68,8 +69,7 @@ namespace Laceshop.Website.Code.Controllers.Checkout.BraintreePayment
 
 		public BraintreeStandardTransactionController()
 		{
-		}
-
+        }
 		public override ActionResult RenderForm(CardDetailViewModel model)
 		{
 			throw new NotImplementedException();
