@@ -1,0 +1,25 @@
+﻿@using Laceshop.Website.Code.Controllers.Checkout
+@model Laceshop.Website.Code.Models.Checkout.DeliveryPageViewModel
+@{
+    Layout = "Shared/_Layout.cshtml";
+}
+
+
+@Html.Action("Breadcrumb", "Navigation")
+<hr />
+<h1>@Model.MainHeading</h1>
+@using (Html.BeginUmbracoForm<DeliveryPageController>
+    ("SelectDeliveryOption", FormMethod.Post))
+    {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div>
+        @Html.LabelFor(m => m.SelectedDeliveryOption)
+        @Html.DropDownListFor(m => m.SelectedDeliveryOption, Model.DeliveryOptions, "Please select...")
+        @Html.ValidationMessageFor(m => m.SelectedDeliveryOption)
+    </div>
+    <input type="submit" value="Submit" />
+    }
+
+    @Html.Partial("Partials/_Basket", Model.Basket)

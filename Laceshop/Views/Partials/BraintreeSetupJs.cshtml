@@ -1,0 +1,5 @@
+﻿@model Laceshop.Models.Checkout.BraintreeToken
+<script src="https://js.braintreegateway.com/js/braintree-2.20.0.min.js"></script>
+<script>
+    braintree.setup("@Model.Token", "custom", { id: "braintreeCreditCard" });
+</script>
