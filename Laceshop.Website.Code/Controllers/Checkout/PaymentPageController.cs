@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
@@ -14,6 +16,10 @@ using Merchello.Core.Gateways.Payment;
 using Merchello.Core.Models;
 using Merchello.Core.Sales;
 using Merchello.Plugin.Payments.Braintree;
+using Merchello.Plugin.Payments.QuickPay;
+using Merchello.Plugin.Payments.QuickPay.Models;
+using Newtonsoft.Json;
+using Umbraco.Core.Logging;
 using Zone.UmbracoMapper;
 
 namespace Laceshop.Website.Code.Controllers.Checkout
@@ -60,32 +66,40 @@ namespace Laceshop.Website.Code.Controllers.Checkout
                     Value = x.PaymentMethod.Key.ToString(),
                     Text = x.PaymentMethod.Name
                 });
-            var rand = new Random();
+            
             vm.PaymentMethods = new SelectList(paymentMethods, "Value", "Text");
+
+            vm.QuickPayModel = GetQuickPayModel(invoice);
+            return CurrentTemplate(vm);
+        }
+        
+        private QuickPayModel GetQuickPayModel(IInvoice invoice)
+        {
+            var rand = new Random();
+            var orderId = rand.Next(0, 1345).ToString();
             var quickPayModel = new QuickPayModel()
             {
                 AgreementId = "44267",
-                Amount = "1000",
-                CallbackUrl = "http://laceshop.localhost//MerchelloQuickPay/Callback",
-                CancelUrl = "http://laceshop.localhost/payment/",
-                ContinueUrl = "http://laceshop.localhost/receipt/",
-                Currency = "DKK",
+                Amount = invoice.Total.ToString(),
+                CallbackUrl = "http://laceshop.localhost:80/customCallback/callback",
+                CancelUrl = "http://laceshop.localhost:80/payment/",
+                ContinueUrl = "http://laceshop.localhost:80/receipt?id=" + orderId,
+                Currency = invoice.CurrencyCode(),
                 MerchantId = "12616",
-                OrderId = "test1231"+rand.Next(0,1500)
+                OrderId = "e"+orderId ,
+                RealOrderId = invoice.InvoiceNumber.ToString()
             };
             quickPayModel.Checksum = GetChecksum(quickPayModel);
-            vm.QuickPayModel = quickPayModel;
-            return CurrentTemplate(vm);
+            return quickPayModel;
         }
 
         /// <summary>
         /// Handles the select payment form post
         /// </summary>
-        /// <param name="vm">Payment form model</param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SelectPayment(PaymentPageViewModel vm)
+        /// 
+        public ActionResult asddd(string id)
         {
             var basket = _basketRepository.GetBasket();
             if (!basket.HasItems)
@@ -96,22 +110,23 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             if (ModelState.IsValid)
             {
                 // Associate the payment method with the order
-                var paymentMethod = MerchelloContext.Current.Gateways.Payment.GetPaymentGatewayMethodByKey(vm.SelectedPaymentMethod).PaymentMethod;
                 var preparation = _basketRepository.SalePreparation();
-                _basketRepository.SavePaymentMethod(paymentMethod);
+                var invoice  = preparation.PrepareInvoice();
+                var quickpayModel = GetQuickPayModel(invoice);
                 // Authorise the payment - if by card, need to collect the card details
 				//var attempt = preparation.AuthorizePayment(paymentMethod.Key);
-				var attempt = this.PerformProcessPayment(preparation, paymentMethod);
-
+				//var attempt = this.PerformProcessPayment(preparation, paymentMethod);
+                var attempt = ProcessQuickpayPayment(quickpayModel);
                 // Redirect to receipt page having saved invoice key in session
-                if (attempt.Payment.Success)
+                if (attempt)
                 {
-                    Session["InvoiceKey"] = attempt.Invoice.Key.ToString();
+                    Session["InvoiceKey"] = invoice.Key.ToString();
                     return RedirectToUmbracoPage(GetReceiptPageNode().Id);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Card authorisation failed: " + attempt.Payment.Exception.Message);
+                    //ModelState.AddModelError(string.Empty, "Card authorisation failed: " + attempt.Payment.Exception.Message);
+                    throw new Exception();
                 }
             }
 
@@ -144,6 +159,31 @@ namespace Laceshop.Website.Code.Controllers.Checkout
 			// We will want this to be an AuthorizeCapture(paymentMethod.Key, args);
 			return preparation.AuthorizeCapturePayment(paymentMethod.Key, args);
 		}
+
+        private bool ProcessQuickpayPayment(QuickPayModel quickPay)
+        {
+
+            IInvoice byInvoiceNumber = MerchelloContext.Current.Services.InvoiceService.GetByInvoiceNumber(int.Parse(quickPay.OrderId));
+            IPaymentGatewayMethod paymentGatewayMethod1 = MerchelloContext.Current.Gateways.Payment.GetPaymentGatewayMethods().SingleOrDefault(x => x.PaymentMethod.ProviderKey == Guid.Parse(Constants.ProviderId));
+            if (paymentGatewayMethod1 == null)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine(string.Format("QuickPay PaymentGatewayMethod not found. Looked for provider with key {0}", (object)Constants.ProviderId));
+                stringBuilder.AppendLine("Here is a list of the payment providers found:");
+                foreach (IPaymentGatewayMethod paymentGatewayMethod2 in MerchelloContext.Current.Gateways.Payment.GetPaymentGatewayMethods())
+                    stringBuilder.AppendLine(string.Format("Name: {0}, PaymentCode: {1}, Key: {2}, ProviderKey: {3}", (object)paymentGatewayMethod2.PaymentMethod.Name, (object)paymentGatewayMethod2.PaymentMethod.PaymentCode, (object)paymentGatewayMethod2.PaymentMethod.Key, (object)paymentGatewayMethod2.PaymentMethod.ProviderKey));
+                LogHelper.Warn<Merchello.Plugin.Payments.QuickPay.Controllers.CallbackController>(stringBuilder.ToString());
+            }
+            ProcessorArgumentCollection args = new ProcessorArgumentCollection();
+            args.Add(Constants.ExtendedDataKeys.PaymentCurrency, quickPay.Currency);
+            args.Add(Constants.ExtendedDataKeys.PaymentAmount, quickPay.Amount);
+            args.Add(Constants.ExtendedDataKeys.QuickpayPaymentId, quickPay.OrderId);
+            Notification.Trigger("OrderConfirmation", byInvoiceNumber.AuthorizePayment(paymentGatewayMethod1, args), new string[1]
+            {
+                byInvoiceNumber.BillToEmail
+            });
+            return true;
+        }
 
         public string GetChecksum(QuickPayModel model)
         {

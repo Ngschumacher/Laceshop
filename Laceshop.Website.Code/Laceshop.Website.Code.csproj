@@ -305,7 +305,9 @@
     <Compile Include="Controllers\Checkout\BraintreePayment\BraintreeStandardTransaction.cs" />
     <Compile Include="Controllers\Checkout\BraintreePayment\BraintreeTRansactionControllerBase.cs" />
     <Compile Include="Controllers\Checkout\BraintreeTransactionControllerBase.cs" />
+    <Compile Include="Controllers\Checkout\CallbackController.cs" />
     <Compile Include="Controllers\Checkout\CheckoutPageController.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\Checkout\DeliveryPageController.cs" />
     <Compile Include="Controllers\Checkout\PaymentPageController.cs" />
     <Compile Include="Controllers\Checkout\ReceiptPageController.cs" />
@@ -340,6 +342,7 @@
     <Compile Include="Models\Products\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShopHelper.cs" />
+    <Compile Include="UmbracoApplicationEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
