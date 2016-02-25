@@ -1,39 +1,0 @@
-
--------------------------------------------------------------------------------
-   ROBOCOPY     ::     Robust File Copy for Windows                              
--------------------------------------------------------------------------------
-
-  Started : Saturday, December 5, 2015 2:24:08 PM
-   Source : C:\Users\Niclas\documents\visual studio 2013\Projects\LaceShop\Merchello\bin\
-     Dest : C:\Users\Niclas\documents\visual studio 2013\Projects\LaceShop\Merchello\App_Data\NuGetBackup\20151205-142407\bin\
-
-    Files : *.*
-	    
-  Options : *.* /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
-
-------------------------------------------------------------------------------
-
-	                   0	C:\Users\Niclas\documents\visual studio 2013\Projects\LaceShop\Merchello\bin\
-	  New Dir          8	C:\Users\Niclas\documents\visual studio 2013\Projects\LaceShop\Merchello\bin\Debug\
-	    New File  		   1.2 m	Merchello.Core.dll  0%   20%   41%   62%   82%  100%  
-	    New File  		   2.7 m	Merchello.Core.pdb  0%   18%   36%   54%   72%   90%  100%  
-	    New File  		    4096	Merchello.dll  0%  100%  
-	    New File  		   45056	Merchello.Examine.dll  0%  100%  
-	    New File  		  112128	Merchello.Examine.pdb  0%  100%  
-	    New File  		    7680	Merchello.pdb  0%  100%  
-	    New File  		  483840	Merchello.Web.dll  0%   27%   54%   81%  100%  
-	    New File  		   1.0 m	Merchello.Web.pdb  0%   24%   49%   74%   98%  100%  
-
-------------------------------------------------------------------------------
-
-               Total    Copied   Skipped  Mismatch    FAILED    Extras
-    Dirs :         2         1         1         0         0         0
-   Files :         8         8         0         0         0         0
-   Bytes :    5.59 m    5.59 m         0         0         0         0
-   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
-
-
-   Speed :            27664905 Bytes/sec.
-   Speed :            1582.998 MegaBytes/min.
-   Ended : Saturday, December 5, 2015 2:24:08 PM
-

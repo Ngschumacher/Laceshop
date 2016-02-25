@@ -1,7 +1,0 @@
-﻿{
-	javascript: [
-		//'~/App_Plugins/Merchello.QuickPay/payment.quickpay.controller.js',
-		'~/App_Plugins/Merchello.QuickPay/gateway.controller.js',
-		'~/App_Plugins/Merchello.QuickPay/payment.quickpay.paymentmethod.controller.js'
-	]
-}
