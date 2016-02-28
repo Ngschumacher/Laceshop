@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Core.Interfaces.Basket;
-using Laceshop.Controllers;
 using Laceshop.Website.Code.Models.Basket;
 using Merchello.Core;
 using Merchello.Core.Models;
@@ -39,18 +38,22 @@ namespace Laceshop.Website.Code.Controllers.Basket
       
         public  ActionResult BasketPage()
         {
-            var basket = _basketRepository.GetBasket();
 			var storeSetting = MerchelloContext.Current.Services.StoreSettingService.GetByKey(Merchello.Core.Constants.StoreSettingKeys.CurrencyCodeKey);
 
 			ICurrency currency = MerchelloContext.Current.Services.StoreSettingService.GetCurrencyByCode(storeSetting.Value);
-
-            var basketVm = AutoMapper.Mapper.Map<BasketViewModel>(basket);
+            var basketVm = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
             var vm = GetPageModel<BasketPageViewModel>();
             vm.Basket = basketVm;
             
             vm.CheckoutPageUrl = GetCheckoutPageNode().Url;
 
             return CurrentTemplate(vm);
+        }
+
+        public ActionResult Empty()
+        {
+            
+            return BasketPage();
         }
         public ActionResult Display_BuyButton(AddItemModel product)
         {

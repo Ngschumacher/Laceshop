@@ -1,8 +1,9 @@
 ﻿using System.Web.Mvc;
 using Core.Interfaces.Basket;
-using Laceshop.Controllers;
 using Laceshop.Models.Checkout;
+using Merchello.Core.Checkout;
 using Merchello.Core.Models;
+using Merchello.Web;
 using Zone.UmbracoMapper;
 
 namespace Laceshop.Website.Code.Controllers.Checkout
@@ -10,20 +11,29 @@ namespace Laceshop.Website.Code.Controllers.Checkout
     public class CheckoutPageController : BaseSurfaceController
     {
         private readonly IBasketRepository _basketRepository;
-
-        public CheckoutPageController(IUmbracoMapper mapper, IBasketRepository basketRepository) : base(mapper)
+        private readonly ICheckoutCustomerManager _customerManager;
+        public CheckoutPageController(IUmbracoMapper mapper, IBasketRepository basketRepository)
+            : base(mapper)
         {
             _basketRepository = basketRepository;
+            var settings = new CheckoutContextSettings()
+            {
+                ResetShippingManagerDataOnVersionChange = false
+            };
+            var checkoutManager = Basket.GetCheckoutManager(settings);
+            _customerManager = checkoutManager.Customer;
+
         }
 
         public ActionResult CheckoutPage()
         {
-            var basket = _basketRepository.GetBasket();
-            if (!basket.HasItems)
+            var checkoutManager = Basket.GetCheckoutManager();
+            if (Basket.IsEmpty)
             {
                 return RedirectToBasketPage();
             }
-	        var address = _basketRepository.GetBillToAddress();
+
+            var address = _customerManager.GetBillToAddress();
 
             var vm = GetPageModel<CheckoutPageViewModel>();
 			AutoMapper.Mapper.Map(address, vm);
@@ -35,8 +45,8 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         [ValidateAntiForgeryToken]
         public ActionResult CollectAddress(CheckoutPageViewModel vm)
         {
-            var basket = _basketRepository.GetBasket();
-            if (!basket.HasItems)
+
+            if (Basket.IsEmpty)
             {
                 return RedirectToBasketPage();
             }
@@ -56,10 +66,9 @@ namespace Laceshop.Website.Code.Controllers.Checkout
                     PostalCode = vm.Postcode,
                     Region = vm.County,
                 };
-
-                _basketRepository.SaveBillToAddress(address);
-                _basketRepository.SaveShipToAddress(address);
-
+                
+                _customerManager.SaveBillToAddress(address);
+                _customerManager.SaveShipToAddress(address);
                 return RedirectToUmbracoPage(GetDeliveryPageNode().Id);
             }
 

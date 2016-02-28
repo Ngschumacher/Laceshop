@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Laceshop.Models;
-using Laceshop.Models.Products;
-using Laceshop.Website.Code.Controllers;
+﻿using Laceshop.Models.Products;
 using Zone.UmbracoMapper;
 
-namespace Laceshop.Controllers
+namespace Laceshop.Website.Code.Controllers
 {
     public abstract class BaseSurfaceController<T> : BaseSurfaceController
             where T : BasePageViewModel, new()

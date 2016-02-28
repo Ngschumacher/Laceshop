@@ -4,6 +4,9 @@ using System.Web.Mvc;
 using Core.Models.Commerce;
 using Laceshop.Models.Products;
 using Laceshop.Website.Code.Mapping;
+using Merchello.Core.Checkout;
+using Merchello.Web;
+using Merchello.Web.Mvc;
 using Merchello.Web.Workflow;
 using Umbraco.Core.Models;
 using Umbraco.Web;
@@ -13,11 +16,14 @@ using Zone.UmbracoMapper;
 
 namespace Laceshop.Website.Code.Controllers
 {
-    public abstract class BaseSurfaceController : SurfaceController, IRenderMvcController
+    public abstract class BaseSurfaceController : MerchelloSurfaceController, IRenderMvcController
     {
         #region tutorial
         private readonly IBasket _basket;
         protected IUmbracoMapper _umbracoMapper;
+        protected ICheckoutCustomerManager _customerManager;
+        protected ICheckoutShippingManager _shippingManager;
+        protected ICheckoutPaymentManager _paymentManager;
         #endregion
 
         #region Constructor
@@ -25,6 +31,19 @@ namespace Laceshop.Website.Code.Controllers
         protected BaseSurfaceController(IUmbracoMapper mapper)
         {
             _umbracoMapper = mapper;
+
+            var settings = new CheckoutContextSettings()
+            {
+                ResetShippingManagerDataOnVersionChange = false,
+                ResetCustomerManagerDataOnVersionChange = false,
+                ResetPaymentManagerDataOnVersionChange = false,
+                EmptyBasketOnPaymentSuccess = true,
+                
+            };
+            var checkoutManager = Basket.GetCheckoutManager(settings);
+            _customerManager = checkoutManager.Customer;
+            _shippingManager = checkoutManager.Shipping;
+            _paymentManager = checkoutManager.Payment;
             AddCustomMappings();
         }
 

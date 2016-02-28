@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using Laceshop.Controllers;
 using Laceshop.Models;
 using Laceshop.Website.Code.Models;
 using Zone.UmbracoMapper;

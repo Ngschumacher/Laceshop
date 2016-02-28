@@ -39,7 +39,8 @@ namespace Laceshop.Website.Code.Mapping
                 .ForMember(dest => dest.TotalProductPrice,
                            source => source.MapFrom(src => src.TotalBasketPrice));
 
-            Mapper.CreateMap<BasketDetail, BasketViewModel>();
+            Mapper.CreateMap<Basket, BasketViewModel>();
+            Mapper.CreateMap<ILineItem, BasketLineItemViewModel>();
             Mapper.CreateMap<BasketDetail.LineItem, BasketLineItemViewModel>();
             Mapper.CreateMap<ILineItem, BasketDetail.LineItem>()
                 .ForMember(dest => dest.ProductPageUrl,

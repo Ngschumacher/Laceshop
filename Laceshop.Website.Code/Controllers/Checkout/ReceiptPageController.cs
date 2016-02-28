@@ -5,7 +5,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
 using Core.Interfaces.Basket;
-using Laceshop.Controllers;
 using Laceshop.Website.Code.Models.Checkout;
 using Merchello.Core;
 using Merchello.Core.Gateways.Payment;
@@ -33,16 +32,13 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         /// Renders the receipt page
         /// </summary>
         /// <returns></returns>
-        public ActionResult ReceiptPage()
+        public ActionResult ReceiptPage(string id)
         {
-            var preparation = _basketRepository.SalePreparation();
-            var invoice = preparation.PrepareInvoice();
-            var order  = invoice.PrepareOrder();
-            
+            IInvoice invoice = MerchelloContext.Current.Services.InvoiceService.GetByInvoiceNumber(int.Parse(id));
             var quickPay = GetQuickPayModel(invoice);
             // Authorise the payment - if by card, need to collect the card details
 
-            IInvoice byInvoiceNumber = MerchelloContext.Current.Services.InvoiceService.GetByInvoiceNumber(int.Parse(quickPay.RealOrderId));
+            
             IPaymentGatewayMethod paymentGatewayMethod1 = MerchelloContext.Current.Gateways.Payment.GetPaymentGatewayMethods().SingleOrDefault(x => x.PaymentMethod.ProviderKey == Guid.Parse(Constants.ProviderId));
             if (paymentGatewayMethod1 == null)
             {
@@ -57,10 +53,12 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             args.Add(Constants.ExtendedDataKeys.PaymentCurrency, quickPay.Currency);
             args.Add(Constants.ExtendedDataKeys.PaymentAmount, quickPay.Amount);
             args.Add(Constants.ExtendedDataKeys.QuickpayPaymentId, quickPay.OrderId);
-            Notification.Trigger("OrderConfirmation", byInvoiceNumber.AuthorizePayment(paymentGatewayMethod1, args), new string[1]
+            Notification.Trigger("OrderConfirmation", invoice.AuthorizePayment(paymentGatewayMethod1, args), new string[1]
             {
-                byInvoiceNumber.BillToEmail
+                invoice.BillToEmail
             });
+            Basket.Customer.ResetDirtyProperties();
+            Basket.Empty();
 
             var vm = GetPageModel<ReceiptPageViewModel>();
             return CurrentTemplate(vm);
@@ -68,18 +66,16 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         private QuickPayModel GetQuickPayModel(IInvoice invoice)
         {
             var rand = new Random();
-            var orderId = rand.Next(0, 1345).ToString();
             var quickPayModel = new QuickPayModel()
             {
                 AgreementId = "44267",
                 Amount = invoice.Total.ToString(),
                 CallbackUrl = "http://laceshop.localhost:80/customCallback/callback",
                 CancelUrl = "http://laceshop.localhost:80/payment/",
-                ContinueUrl = "http://laceshop.localhost:80/payment?id=" + orderId,
+                ContinueUrl = "http://laceshop.localhost:80/payment?id=" + invoice.InvoiceNumber,
                 Currency = invoice.CurrencyCode(),
                 MerchantId = "12616",
-                OrderId = orderId,
-                RealOrderId = invoice.InvoiceNumber.ToString()
+                OrderId = invoice.InvoiceNumber.ToString(),
             };
             quickPayModel.Checksum = GetChecksum(quickPayModel);
             return quickPayModel;

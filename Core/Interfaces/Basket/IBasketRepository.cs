@@ -20,11 +20,7 @@ namespace Core.Interfaces.Basket
         void RemoveItem(Guid productGuid);
         void UpdateItem(Guid itemKey, int quantity);
         BasketSalePreparation SalePreparation();
-        void SaveBillToAddress(Address address);
-        void SaveShipToAddress(Address address);
-        IAddress GetShipToAddress();
-        IAddress GetBillToAddress();
-        IEnumerable<IShipment> GetPackageBasket();
+      
         void SaveShipmentRateQuote(IShipmentRateQuote shipmentRateQuote);
         void SavePaymentMethod(IPaymentMethod paymentMethod);
 	    IInvoice PrepareInvoice();

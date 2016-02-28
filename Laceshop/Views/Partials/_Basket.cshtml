@@ -5,7 +5,7 @@
 
 Basket
 
-@(Model.HasItems ? RenderBasket() : RenderEmpty())
+@(!Model.IsEmpty ? RenderBasket() : RenderEmpty())
 
 @helper RenderEmpty()
 {
@@ -27,7 +27,7 @@ Basket
             }
         </tr>
         </thead>
-        @if (Model.HasItems)
+        @if (!Model.IsEmpty)
         {
             <tbody>
             @foreach (var item in Model.Items)
@@ -73,7 +73,7 @@ Basket
             <td>Basket Total: </td>
             <td></td>
             <td></td>
-            <td><strong>@Model.TotalProductPrice.ToString("C")</strong></td>
+            <td><strong>@Model.TotalBasketPrice.ToString("C")</strong></td>
             <td></td>
         </tr>
         @if (Model.ShowOrderTotal)

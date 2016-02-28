@@ -3,10 +3,12 @@ using Core.Interfaces.Basket;
 using Laceshop.DataAccess.Basket;
 using Laceshop.DataAccess.Store;
 using Laceshop.Website.Code;
+using Merchello.Core.Checkout;
 using Merchello.Core.Models;
 using Merchello.Core.Persistence.Repositories;
 using Merchello.Core.Services;
 using Merchello.Web;
+using Merchello.Web.CheckoutManagers;
 using Umbraco.Web;
 using Zone.UmbracoMapper;
 
@@ -78,8 +80,8 @@ namespace Laceshop.App_Start
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IProductVariantService>().To<ProductVariantService>();
             kernel.Bind<CustomerContext>().ToMethod(x => new CustomerContext(UmbracoContext.Current)).InSingletonScope();
-	        kernel.Bind<IStoreSettingService>().To<StoreSettingService>();
-			kernel.Bind<IBasketRepository>().To<BasketRepository>();
+            kernel.Bind<IStoreSettingService>().To<StoreSettingService>();
+            kernel.Bind<IBasketRepository>().To<BasketRepository>();
 			kernel.Bind<ShopHelper>().To<ShopHelper>();
 			kernel.Bind<IStoreSettings>().To<StoreSettings>();
 	        //kernel.Bind<IProductRepository>().To<ProductRepository>();

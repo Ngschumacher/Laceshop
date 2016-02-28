@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using Laceshop.Controllers;
 using Laceshop.Website.Code.Models.Products;
 using Merchello.Core.Persistence.Repositories;
+using Merchello.Web;
 using Umbraco.Web.Models;
 using Zone.UmbracoMapper;
 
@@ -20,6 +20,7 @@ namespace Laceshop.Website.Code.Controllers.Products
 
         public override ActionResult Index(RenderModel model)
         {
+            var customer = CurrentCustomer.Basket().Customer;
             var current = CurrentPage;
             //_productRepository.GetProduct();
             var viewModel = GetModel<ProductPageViewModel>();

@@ -5,15 +5,15 @@ namespace Laceshop.Website.Code.Models.Basket
 {
     public class BasketViewModel
     {
-        public bool HasItems { get; set; }
+        public bool IsEmpty { get; set; }
         public IEnumerable<BasketLineItemViewModel> Items { get; set; }
-        public decimal TotalProductPrice { get; set; }
+        public decimal TotalBasketPrice { get; set; }
         public decimal DeliveryPrice { get; set; }
         public decimal TotalOrderPrice
         {
             get
             {
-                return TotalProductPrice + DeliveryPrice;
+                return TotalBasketPrice + DeliveryPrice;
             }
         }
 

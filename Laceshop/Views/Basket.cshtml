@@ -4,7 +4,7 @@
 }
 @Html.Partial("Partials/_Basket")
 
-@if (Model.Basket.HasItems)
+@if (!Model.Basket.IsEmpty)
 {
     <p><a href="@Model.CheckoutPageUrl">Checkout</a></p>
 }

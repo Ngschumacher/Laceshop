@@ -99,13 +99,13 @@
       <HintPath>..\packages\Lucene.Net.2.9.4.1\lib\net40\Lucene.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Merchello.Core, Version=1.13.5823.34597, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Merchello.Core.1.13.2\lib\net45\Merchello.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Merchello.Core, Version=1.14.5887.15920, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Merchello.Core.1.14.3\lib\net45\Merchello.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Merchello.Examine, Version=1.13.5823.34601, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Merchello.Core.1.13.2\lib\net45\Merchello.Examine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Merchello.Examine, Version=1.14.5887.15922, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Merchello.Core.1.14.3\lib\net45\Merchello.Examine.dll</HintPath>
     </Reference>
     <Reference Include="Merchello.Plugin.Payments.Braintree, Version=2.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Merchello.Plugin.Braintree.2.2.6.0\lib\net40\Merchello.Plugin.Payments.Braintree.dll</HintPath>
@@ -114,9 +114,9 @@
     <Reference Include="Merchello.Plugin.Payments.QuickPay">
       <HintPath>..\Laceshop\Bin\Merchello.Plugin.Payments.QuickPay.dll</HintPath>
     </Reference>
-    <Reference Include="Merchello.Web, Version=1.13.5823.34602, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Merchello.Core.1.13.2\lib\net45\Merchello.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Merchello.Web, Version=1.14.5887.15923, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Merchello.Core.1.14.3\lib\net45\Merchello.Web.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=1.0.1559.20655, Culture=neutral">
       <HintPath>..\packages\UmbracoCms.Core.7.3.3\lib\Microsoft.ApplicationBlocks.Data.dll</HintPath>

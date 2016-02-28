@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
 using Core.Interfaces.Basket;
-using Laceshop.Controllers;
-using Laceshop.Models.Basket;
 using Laceshop.Website.Code.Models.Basket;
 using Laceshop.Website.Code.Models.Checkout;
 using Merchello.Core;
@@ -16,9 +12,6 @@ using Merchello.Core.Gateways.Payment;
 using Merchello.Core.Models;
 using Merchello.Core.Sales;
 using Merchello.Plugin.Payments.Braintree;
-using Merchello.Plugin.Payments.QuickPay;
-using Merchello.Plugin.Payments.QuickPay.Models;
-using Newtonsoft.Json;
 using Umbraco.Core.Logging;
 using Zone.UmbracoMapper;
 
@@ -46,20 +39,26 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         /// <returns></returns>
         public ActionResult PaymentPage()
         {
-            var basket = _basketRepository.GetBasket();
-            if (!basket.HasItems)
+           
+            if (Basket.IsEmpty)
             {
                 return RedirectToBasketPage();
             }
 
             var vm = GetPageModel<PaymentPageViewModel>();
-            vm.Basket = AutoMapper.Mapper.Map<BasketViewModel>(basket);
+            vm.Basket = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
             vm.Basket.AllowBasketEdit = false;
             vm.Basket.ShowOrderTotal = true;
-
-			var invoice = _basketRepository.PrepareInvoice();
+            var basketReadyForInvoice = _paymentManager.IsReadyToInvoice();
+            if (!basketReadyForInvoice)
+            {
+                return RedirectToUmbracoPage(GetBasketPageNode().Id);
+            }
+            
+            var invoice = _paymentManager.PrepareInvoice();
+            var order = invoice.PrepareOrder();
 			var shipmentLineItem = invoice.ShippingLineItems().FirstOrDefault();
-
+            var number = order.OrderNumber;
             var paymentMethods = MerchelloContext.Current.Gateways.Payment.GetPaymentGatewayMethods()
                 .Select(x => new SelectListItem()
                 {
@@ -75,19 +74,16 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         
         private QuickPayModel GetQuickPayModel(IInvoice invoice)
         {
-            var rand = new Random();
-            var orderId = rand.Next(0, 1345).ToString();
             var quickPayModel = new QuickPayModel()
             {
                 AgreementId = "44267",
                 Amount = invoice.Total.ToString(),
                 CallbackUrl = "http://laceshop.localhost:80/customCallback/callback",
                 CancelUrl = "http://laceshop.localhost:80/payment/",
-                ContinueUrl = "http://laceshop.localhost:80/receipt?id=" + orderId,
+                ContinueUrl = "http://laceshop.localhost:80/receipt?id=" + invoice.InvoiceNumber,
                 Currency = invoice.CurrencyCode(),
                 MerchantId = "12616",
-                OrderId = "e"+orderId ,
-                RealOrderId = invoice.InvoiceNumber.ToString()
+                OrderId = invoice.InvoiceNumber.ToString(),
             };
             quickPayModel.Checksum = GetChecksum(quickPayModel);
             return quickPayModel;
