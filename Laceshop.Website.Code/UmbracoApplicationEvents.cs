@@ -26,7 +26,7 @@ namespace Laceshop.Website.Code
 
             GatewayProviderService.Saving += GatewayProviderServiceOnSaving;
 
-            RouteTable.Routes.MapRoute("customCallback", "customCallback/{action}/{id}", new { controller = "CallbackTest", action = "index", id = UrlParameter.Optional });
+            RouteTable.Routes.MapRoute("paymentCallback", "QuickpayCallback/{action}/{id}", new { controller = "QuickpayCallback", action = "index", id = UrlParameter.Optional });
         }
 
         private void GatewayProviderServiceOnSaving(IGatewayProviderService sender, SaveEventArgs<IGatewayProviderSettings> saveEventArgs)

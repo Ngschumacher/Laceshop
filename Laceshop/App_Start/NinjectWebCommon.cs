@@ -1,7 +1,12 @@
+using System.Configuration;
 using Core.Interfaces;
 using Core.Interfaces.Basket;
+using Core.Models.QuickPay;
 using Laceshop.DataAccess.Basket;
 using Laceshop.DataAccess.Store;
+using Laceshop.Payment.QuickPay;
+using Laceshop.Payment.QuickPay.Interfaces;
+using Laceshop.Payment.QuickPay.Models;
 using Laceshop.Website.Code;
 using Merchello.Core.Checkout;
 using Merchello.Core.Models;
@@ -84,6 +89,25 @@ namespace Laceshop.App_Start
             kernel.Bind<IBasketRepository>().To<BasketRepository>();
 			kernel.Bind<ShopHelper>().To<ShopHelper>();
 			kernel.Bind<IStoreSettings>().To<StoreSettings>();
+
+            kernel.Bind<IQuickPaySettings>().ToMethod(x => new QuickPaySettings(
+                publicApiKey: "3bf703dca3002ed0b041eb4706e70fc2816fc7d15f28b67c69d23ba279bdf845",
+                privateKey: "e8ee591154becc11e69bdf8ee793732e97e4dc3a4c81a7f0c432cafe2fb5879a",
+                merchant: "12616",
+                agreementId: "44267",
+                providerUrl: "https://payment.quickpay.net",
+                isTest: true,
+                version: "v10",
+                msgType: QuickPayMsgType.Authorize,
+                autoCapture: false,
+                autoAddCardFee: true,
+                language: "dk"
+                ));
+
+            kernel.Bind<IQuickPayChecksumService>().To<QuickPayChecksumHMACSHA256>();
+
+            kernel.Bind<IQuickPayFacade>().To<QuickPayFacade>();
+
 	        //kernel.Bind<IProductRepository>().To<ProductRepository>();
         }      
     }

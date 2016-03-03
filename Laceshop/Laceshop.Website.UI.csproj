@@ -309,16 +309,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\encodings.xml" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\misc.xml" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\modules.xml" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\scopes\scope_settings.xml" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\vcs.xml" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\workspace.xml" />
-    <Content Include="App_Plugins\Merchello.Braintree\payment.braintree.models.js" />
-    <Content Include="App_Plugins\Merchello.Braintree\payment.braintree.module.js" />
-    <Content Include="App_Plugins\Merchello.Braintree\payment.braintree.providersettings.controller.js" />
-    <Content Include="App_Plugins\Merchello.Braintree\merchello.plugins.braintree.providersettings.html" />
+    <Content Include="App_Plugins\Merchello.QuickPay\gateway.controller.js" />
+    <Content Include="App_Plugins\Merchello.QuickPay\GatewaySettingsEditor.html" />
+    <Content Include="App_Plugins\Merchello.QuickPay\payment.quickpay.paymentmethod.controller.js" />
+    <Content Include="App_Plugins\Merchello.QuickPay\paymentmethod.html" />
     <Content Include="App_Plugins\Merchello\assets\css\merchello.css" />
     <Content Include="App_Plugins\Merchello\assets\css\merchello.min.css" />
     <Content Include="App_Plugins\Merchello\assets\images\github_thumb.jpg" />
@@ -488,11 +482,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Plugins\Merchello\Package.manifest" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\.name" />
-    <Content Include="App_Plugins\Merchello.Braintree\.idea\Merchello.Braintree.iml" />
-    <Content Include="App_Plugins\Merchello.Braintree\package.manifest" />
     <Content Include="Public\style\styles.css.map" />
     <Content Include="Public\style\styles.scss" />
+    <Content Include="App_Plugins\Merchello.QuickPay\package.manifest" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -637,6 +629,10 @@
     <ProjectReference Include="..\Laceshop.DataAccess\Laceshop.DataAccess.csproj">
       <Project>{44656C8D-B7B7-4783-90A6-02DC865BDA0E}</Project>
       <Name>Laceshop.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Laceshop.Payment.QuickPay\Laceshop.Payment.QuickPay.csproj">
+      <Project>{61939F99-012E-4F38-94B5-1A09390073A8}</Project>
+      <Name>Laceshop.Payment.QuickPay</Name>
     </ProjectReference>
     <ProjectReference Include="..\Laceshop.Website.Code\Laceshop.Website.Code.csproj">
       <Project>{635AE8B7-28ED-45D1-B067-87CA521D8726}</Project>

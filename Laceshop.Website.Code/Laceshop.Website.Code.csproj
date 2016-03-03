@@ -107,13 +107,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Merchello.Core.1.14.3\lib\net45\Merchello.Examine.dll</HintPath>
     </Reference>
-    <Reference Include="Merchello.Plugin.Payments.Braintree, Version=2.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Merchello.Plugin.Braintree.2.2.6.0\lib\net40\Merchello.Plugin.Payments.Braintree.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Merchello.Plugin.Payments.QuickPay">
-      <HintPath>..\Laceshop\Bin\Merchello.Plugin.Payments.QuickPay.dll</HintPath>
-    </Reference>
     <Reference Include="Merchello.Web, Version=1.14.5887.15923, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Merchello.Core.1.14.3\lib\net45\Merchello.Web.dll</HintPath>
@@ -302,9 +295,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseSurfaceController.cs" />
     <Compile Include="Controllers\Basket\BasketController.cs" />
-    <Compile Include="Controllers\Checkout\BraintreePayment\BraintreeStandardTransaction.cs" />
-    <Compile Include="Controllers\Checkout\BraintreePayment\BraintreeTRansactionControllerBase.cs" />
-    <Compile Include="Controllers\Checkout\BraintreeTransactionControllerBase.cs" />
     <Compile Include="Controllers\Checkout\CallbackController.cs" />
     <Compile Include="Controllers\Checkout\CheckoutPageController.cs" />
     <Compile Include="Constants.cs" />
@@ -352,6 +342,10 @@
     <ProjectReference Include="..\Core\Laceshop.Core.csproj">
       <Project>{5ce4a455-09d5-443c-bef3-9af4b6c6d617}</Project>
       <Name>Laceshop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Merchello.Plugin.Payments.QuickPay\Merchello.Plugin.Payments.QuickPay.csproj">
+      <Project>{264AB919-6CEB-40EF-A859-CD608E087ABD}</Project>
+      <Name>Merchello.Plugin.Payments.QuickPay</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,19 +10,8 @@ namespace Laceshop.Website.Code.Models.Checkout
 {
     public class PaymentPageViewModel : BasePageViewModel
     {
-        [Required(ErrorMessage = "Please select a payment method")]
-        [Display(Name = "Payment method")]
-        public Guid SelectedPaymentMethod { get; set; }
-
-        public SelectList PaymentMethods { get; set; }
-
         public BasketViewModel Basket { get; set; }
 
-        public CardDetailViewModel CardDetail { get; set; }
-	    public Guid ShipMethodKey { get; set; }
-	    public Guid PaymentMethodKey { get; set; }
-	    public object CustomerToken { get; set; }
-	    public object ReceiptPageId { get; set; }
         public QuickPayModel QuickPayModel { get; set; }
     }
 }

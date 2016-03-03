@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,7 +12,6 @@ using Merchello.Core;
 using Merchello.Core.Gateways.Payment;
 using Merchello.Core.Models;
 using Merchello.Core.Sales;
-using Merchello.Plugin.Payments.Braintree;
 using Umbraco.Core.Logging;
 using Zone.UmbracoMapper;
 
@@ -58,15 +58,8 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             var invoice = _paymentManager.PrepareInvoice();
             var order = invoice.PrepareOrder();
 			var shipmentLineItem = invoice.ShippingLineItems().FirstOrDefault();
+            var orderShippingItems = order.ShippingLineItems();
             var number = order.OrderNumber;
-            var paymentMethods = MerchelloContext.Current.Gateways.Payment.GetPaymentGatewayMethods()
-                .Select(x => new SelectListItem()
-                {
-                    Value = x.PaymentMethod.Key.ToString(),
-                    Text = x.PaymentMethod.Name
-                });
-            
-            vm.PaymentMethods = new SelectList(paymentMethods, "Value", "Text");
 
             vm.QuickPayModel = GetQuickPayModel(invoice);
             return CurrentTemplate(vm);
@@ -77,8 +70,8 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             var quickPayModel = new QuickPayModel()
             {
                 AgreementId = "44267",
-                Amount = invoice.Total.ToString(),
-                CallbackUrl = "http://laceshop.localhost:80/customCallback/callback",
+                Amount = (invoice.Total * 100).ToString(CultureInfo.InvariantCulture),
+                CallbackUrl = "http://laceshop.localhost:80/QuickPayCallback/Callback",
                 CancelUrl = "http://laceshop.localhost:80/payment/",
                 ContinueUrl = "http://laceshop.localhost:80/receipt?id=" + invoice.InvoiceNumber,
                 Currency = invoice.CurrencyCode(),
@@ -133,29 +126,6 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         {
             return exceptionMessage.Split('|')[3];
         }
-		protected IPaymentResult PerformProcessPayment(SalePreparationBase preparation, IPaymentMethod paymentMethod)
-		{
-			// ----------------------------------------------------------------------------
-			// WE NEED TO GET THE PAYMENT METHOD "NONCE" FOR BRAINTREE
-
-			var form = UmbracoContext.HttpContext.Request.Form;
-			var paymentMethodNonce = form.Get("payment_method_nonce");
-
-			// ----------------------------------------------------------------------------
-
-			return this.ProcessPayment(preparation, paymentMethod, paymentMethodNonce);
-		}
-		private IPaymentResult ProcessPayment(SalePreparationBase preparation, IPaymentMethod paymentMethod, string paymentMethodNonce)
-		{
-			// You need a ProcessorArgumentCollection for this transaction to store the payment method nonce
-			// The braintree package includes an extension method off of the ProcessorArgumentCollection - SetPaymentMethodNonce([nonce]);
-			var args = new ProcessorArgumentCollection();
-			args.SetPaymentMethodNonce(paymentMethodNonce);
-
-			// We will want this to be an AuthorizeCapture(paymentMethod.Key, args);
-			return preparation.AuthorizeCapturePayment(paymentMethod.Key, args);
-		}
-
         private bool ProcessQuickpayPayment(QuickPayModel quickPay)
         {
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laceshop.Website.UI", "Laceshop\Laceshop.Website.UI.csproj", "{F2C58D9A-BE03-4EDF-923A-CCF3EF7A2AD8}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laceshop.DataAccess", "Laceshop.DataAccess\Laceshop.DataAccess.csproj", "{44656C8D-B7B7-4783-90A6-02DC865BDA0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laceshop.Website.Code", "Laceshop.Website.Code\Laceshop.Website.Code.csproj", "{635AE8B7-28ED-45D1-B067-87CA521D8726}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laceshop.Payment.QuickPay", "Laceshop.Payment.QuickPay\Laceshop.Payment.QuickPay.csproj", "{61939F99-012E-4F38-94B5-1A09390073A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merchello.Plugin.Payments.QuickPay", "Merchello.Plugin.Payments.QuickPay\Merchello.Plugin.Payments.QuickPay.csproj", "{264AB919-6CEB-40EF-A859-CD608E087ABD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{635AE8B7-28ED-45D1-B067-87CA521D8726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{635AE8B7-28ED-45D1-B067-87CA521D8726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{635AE8B7-28ED-45D1-B067-87CA521D8726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61939F99-012E-4F38-94B5-1A09390073A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61939F99-012E-4F38-94B5-1A09390073A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61939F99-012E-4F38-94B5-1A09390073A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61939F99-012E-4F38-94B5-1A09390073A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{264AB919-6CEB-40EF-A859-CD608E087ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{264AB919-6CEB-40EF-A859-CD608E087ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{264AB919-6CEB-40EF-A859-CD608E087ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264AB919-6CEB-40EF-A859-CD608E087ABD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
