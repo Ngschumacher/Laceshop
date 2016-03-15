@@ -22,6 +22,9 @@ namespace Laceshop.Website.Code.Controllers.Products
         {
             var customer = CurrentCustomer.Basket().Customer;
             var current = CurrentPage;
+            Services.ProductService();
+            Services.ProductVariantService();
+
             //_productRepository.GetProduct();
             var viewModel = GetModel<ProductPageViewModel>();
             return View("Index", viewModel);

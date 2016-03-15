@@ -25,13 +25,22 @@
 
         ContentId = contentidForChildPage
     };
-
-    @contentProduct.Name
-
+    <a href="@contentProduct.Url">
+        @contentProduct.Name
+    </a>
     @contentProduct.ProductDescription
+    if (contentProduct.ProductDetail.OnSale)
+    {
 
-    @contentProduct.ProductDetail.Price.ToString("C")
+        <strike> @contentProduct.ProductDetail.Price.ToString("C")</strike>
 
-	@Html.Action("Display_BuyButton", "BasketPage", new { area = "MerchelloProductListExample", product = productitemmodel })
+        @contentProduct.ProductDetail.SalePrice.ToString("C")
+    }
+    else
+    {
+        @contentProduct.ProductDetail.SalePrice.ToString("C")
+    }
+
+	@Html.Action("Display_BuyButton", "BasketPage", new { product = productitemmodel })
 }
 

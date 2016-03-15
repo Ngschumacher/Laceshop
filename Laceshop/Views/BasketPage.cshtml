@@ -1,11 +1,107 @@
-﻿@model  Laceshop.Website.Code.Models.Basket.BasketPageViewModel
+﻿@using Laceshop.Website.Code.Controllers.Basket
+@model  Laceshop.Website.Code.Models.Checkout.BasketPageViewModel
 @{
     Layout = "Shared/_Layout.cshtml";
 }
-@Html.Partial("Partials/_Basket", Model.Basket)
+@*@Html.Partial("Partials/_Basket", Model.Basket)*@
 
-@if (!Model.Basket.IsEmpty)
-{
-    <p><a href="@Model.CheckoutPageUrl">Checkout</a></p>
-}
-    @*@Html.Action("DisplayBasket", "Basket", new { area = "MerchelloProductListExample" })*@
+<div class="container-fluid title">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Shopping Cart</h2>
+        </div>
+    </div>
+</div>
+<div class="container-fluid cart-list" ng-controller="cartController">
+    <div class="row">
+        <div class="col-sm-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Unit Cost</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-right">Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Basket.Items) {
+                    <tr>
+                        <td class="vert-align"><a href="@item.ProductPageUrl">@item.Name</a></td>
+                        <td class="vert-align">@item.Price.ToString("C")</td>
+                        <td class="text-center vert-align"><input type="number" min="1" max="9" value="@item.Quantity" class="form-control form-control-inline" style="width: 52px !important;"></td>
+                        <td class="text-right vert-align">@item.TotalPrice.ToString("C")</td>
+                        <td class="text-center vert-align">
+                            @using (Html.BeginUmbracoForm<BasketPageController>("RemoveItemFromBasket", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <button type="submit"  class="remove-item"><i class="icon-close"></i></button>
+                                @Html.Hidden("ItemKey", item.Key)
+                                
+                            }
+                            <a href="#" ng:click="removeItem($index)" class="remove-item"><i class="icon-close"></i></a>
+                        </td>
+                    </tr>
+                }
+                <!-- <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr> -->
+                <tr ng-if="total() == 0">
+                    <td colspan="5">
+                        <h2 class="text-center">Your cart is empty.</h2>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h4>INTERNATIONAL ORDERS</h4>
+            <p>
+                Shipping costs for international orders will be displayed at checkout.<br>
+                All international orders must have a ship-to destination outside of the United States. We cannot support customers with international billing addresses shipping to U.S. addresses.
+            </p>
+        </div>
+        <div class="col-sm-4 " ng-if="total() > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="text-center">Order sumary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sub total:</td>
+                        <td></td>
+                        <td class="text-right"><b>{{ total() | currency }}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Shipping cost:</td>
+                        <td></td>
+                        <td class="text-right">{{ shiping() | currency }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tax:</td>
+                        <td></td>
+                        <td class="text-right">{{ tax | currency }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td></td>
+                        <td id="total" class="text-right">{{ total() + shiping() + tax | currency }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="checkout.html" class="btn btn-right">Checkout</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-center show-more">
+            <a href="index.html" class="btn btn-outline">Cancel and return to store</a>
+        </div>
+    </div>
+</div>

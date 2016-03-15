@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Core.Interfaces.Basket;
 using Laceshop.Website.Code.Models.Basket;
 using Laceshop.Website.Code.Models.Checkout;
+using Laceshop.Website.Code.Models.Order;
 using Merchello.Core;
 using Merchello.Core.Gateways.Payment;
 using Merchello.Core.Models;
@@ -46,19 +47,22 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             }
 
             var vm = GetPageModel<PaymentPageViewModel>();
-            vm.Basket = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
-            vm.Basket.AllowBasketEdit = false;
-            vm.Basket.ShowOrderTotal = true;
+           
             var basketReadyForInvoice = _paymentManager.IsReadyToInvoice();
             if (!basketReadyForInvoice)
             {
                 return RedirectToUmbracoPage(GetBasketPageNode().Id);
             }
-            
             var invoice = _paymentManager.PrepareInvoice();
+            vm.Order = AutoMapper.Mapper.Map<OrderViewModel>(invoice);
             var order = invoice.PrepareOrder();
+            
 			var shipmentLineItem = invoice.ShippingLineItems().FirstOrDefault();
-            var orderShippingItems = order.ShippingLineItems();
+            var orderShippingItems = order.ShippingLineItems().FirstOrDefault();
+            var totalTax = invoice.TotalTax();
+            var produtItems = invoice.ProductLineItems();
+            var shippingPrice = invoice.TotalShipping();
+            var totalPrice = invoice.Total;
             var number = order.OrderNumber;
 
             vm.QuickPayModel = GetQuickPayModel(invoice);
@@ -70,13 +74,16 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             var quickPayModel = new QuickPayModel()
             {
                 AgreementId = "44267",
-                Amount = (invoice.Total * 100).ToString(CultureInfo.InvariantCulture),
+                Amount = ((int)invoice.Total*100 ).ToString(CultureInfo.InvariantCulture),
                 CallbackUrl = "http://laceshop.localhost:80/QuickPayCallback/Callback",
                 CancelUrl = "http://laceshop.localhost:80/payment/",
                 ContinueUrl = "http://laceshop.localhost:80/receipt?id=" + invoice.InvoiceNumber,
                 Currency = invoice.CurrencyCode(),
                 MerchantId = "12616",
                 OrderId = invoice.InvoiceNumber.ToString(),
+                Version = "v10",
+                Language = "da",
+                AutoCapture = "0"
             };
             quickPayModel.Checksum = GetChecksum(quickPayModel);
             return quickPayModel;
@@ -122,10 +129,7 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             return CurrentUmbracoPage();
         }
 
-        private static string ParseError(string exceptionMessage)
-        {
-            return exceptionMessage.Split('|')[3];
-        }
+     
         private bool ProcessQuickpayPayment(QuickPayModel quickPay)
         {
 
@@ -155,7 +159,7 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         {
             var parameters = new Dictionary<string, string>
       {
-        {"version", "v10"},
+        {"version", model.Version},
         {"merchant_id", model.MerchantId},
         {"agreement_id", model.AgreementId},
         {"order_id", model.OrderId},
@@ -164,8 +168,8 @@ namespace Laceshop.Website.Code.Controllers.Checkout
         {"continueurl", model.ContinueUrl},
         {"cancelurl", model.CancelUrl},
         {"callbackurl", model.CallbackUrl},
-        {"language", "en"},
-        {"autocapture", "0"}
+        {"language", model.Language},
+        {"autocapture", model.AutoCapture}
       };
             var checksum = Sign(parameters, "291d6733fd3127afc3f40dde477276815564158189b7404e3181e02f7e1ced13"); // QuickPay Payment Window API Key
             return checksum;

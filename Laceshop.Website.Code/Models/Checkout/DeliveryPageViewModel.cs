@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using Laceshop.Models.Basket;
 using Laceshop.Models.Products;
 using Laceshop.Website.Code.Models.Basket;
 

@@ -79,7 +79,8 @@ namespace Laceshop.Website.Code.Controllers.Checkout
                 var shipment = Basket.PackageBasket(address).First();
                 var deliveryOption = shipment.ShipmentRateQuotes()
                     .Single(x => x.ShipMethod.Key == vm.SelectedDeliveryOption);
-
+                
+                _shippingManager.ClearShipmentRateQuotes();
                 _shippingManager.SaveShipmentRateQuote(deliveryOption);	
 
                 return RedirectToUmbracoPage(GetPaymentPageNode().Id);

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\UmbracoCms.7.3.3\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.7.3.3\build\UmbracoCms.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -22,6 +23,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <NuGetPackageImportStamp>b88e878c</NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -463,18 +466,53 @@
     <Content Include="default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Public\scripts\config.js" />
-    <Content Include="Public\scripts\libs\jquery-2.1.1.js" />
-    <Content Include="Public\scripts\libs\jquery.unobtrusive-ajax.js" />
-    <Content Include="Public\scripts\libs\jquery.validate.js" />
-    <Content Include="Public\scripts\libs\jquery.validate.unobtrusive.js" />
-    <Content Include="Public\scripts\libs\require.js" />
-    <Content Include="Public\scripts\modules\paymentMethodSelector.js" />
-    <Content Include="Public\scripts\modules\productVariantSelector.js" />
-    <Content Include="Public\style\bootstrap.css" />
-    <Content Include="Public\style\bootstrap.min.css" />
-    <Content Include="Public\style\styles.css" />
-    <Content Include="Public\style\styles.min.css" />
+    <Content Include="Public\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Public\img\avatar.png" />
+    <Content Include="Public\img\ico\120.png" />
+    <Content Include="Public\img\ico\152.png" />
+    <Content Include="Public\img\ico\32.png" />
+    <Content Include="Public\img\ico\60.png" />
+    <Content Include="Public\img\ico\72.png" />
+    <Content Include="Public\img\vase_1a.jpg" />
+    <Content Include="Public\img\vase_1b.jpg" />
+    <Content Include="Public\img\vase_1c.jpg" />
+    <Content Include="Public\img\vase_2a.jpg" />
+    <Content Include="Public\img\vase_2b.jpg" />
+    <Content Include="Public\img\vase_3a.jpg" />
+    <Content Include="Public\img\vase_3b.jpg" />
+    <Content Include="Public\img\vase_4a.jpg" />
+    <Content Include="Public\img\vase_4b.jpg" />
+    <Content Include="Public\img\vase_5a.jpg" />
+    <Content Include="Public\img\vase_5b.jpg" />
+    <Content Include="Public\img\vase_5c.jpg" />
+    <Content Include="Public\img\vase_6a.jpg" />
+    <Content Include="Public\img\vase_6b.jpg" />
+    <Content Include="Public\img\vase_7a.jpg" />
+    <Content Include="Public\img\vase_7b.jpg" />
+    <Content Include="Public\img\vase_8a.jpg" />
+    <Content Include="Public\img\vase_8b.jpg" />
+    <Content Include="Public\scripts\angular.min.js" />
+    <Content Include="Public\scripts\app.js" />
+    <Content Include="Public\scripts\app.js" />
+    <Content Include="Public\scripts\bootstrap.js" />
+    <Content Include="Public\scripts\bootstrap.js" />
+    <Content Include="Public\scripts\bootstrap.min.js" />
+    <Content Include="Public\scripts\custom.js" />
+    <Content Include="Public\scripts\ga.js" />
+    <Content Include="Public\scripts\jquery-2.2.1.min.js" />
+    <Content Include="Public\scripts\npm.js" />
+    <Content Include="Public\scripts\placeholders.min.js" />
+    <Content Include="Public\style\bootstrap\bootstrap-theme.css" />
+    <Content Include="Public\style\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Public\style\bootstrap\bootstrap.css" />
+    <Content Include="Public\style\bootstrap\bootstrap.min.css" />
+    <Content Include="Public\style\icomoon\demo-files\demo.css" />
+    <Content Include="Public\style\icomoon\demo-files\demo.js" />
+    <Content Include="Public\style\icomoon\demo.html" />
+    <Content Include="Public\style\icomoon\fonts\icomoon.svg" />
+    <Content Include="Public\style\icomoon\Read Me.txt" />
+    <Content Include="Public\style\icomoon\style.css" />
+    <Content Include="Public\style\style.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Plugins\Merchello\assets\css\merchello.css.map" />
@@ -482,13 +520,26 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Plugins\Merchello\Package.manifest" />
-    <Content Include="Public\style\styles.css.map" />
-    <Content Include="Public\style\styles.scss" />
     <Content Include="App_Plugins\Merchello.QuickPay\package.manifest" />
+    <Content Include="Public\style\layout.less" />
+    <Content Include="Public\style\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Public\style\bootstrap\bootstrap-theme.min.css.map" />
+    <Content Include="Public\style\bootstrap\bootstrap.css.map" />
+    <Content Include="Public\style\bootstrap\bootstrap.min.css.map" />
+    <Content Include="Public\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Public\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Public\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Public\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Public\style\icomoon\fonts\icomoon.eot" />
+    <Content Include="Public\style\icomoon\fonts\icomoon.ttf" />
+    <Content Include="Public\style\icomoon\fonts\icomoon.woff" />
+    <Content Include="Public\style\icomoon\selection.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="typings.json" />
+    <None Include="tsconfig.json" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -517,9 +568,12 @@
     <Content Include="Views\BraintreeStandardTransaction.cshtml" />
     <Content Include="Views\Partials\BraintreeSetupJs.cshtml" />
     <Content Include="Views\Partials\NavBar.cshtml" />
+    <Content Include="Views\Partials\_Order.cshtml" />
+    <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Css\" />
     <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
@@ -644,6 +698,10 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptModuleKind>system</TypeScriptModuleKind>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
@@ -653,7 +711,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>12413</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

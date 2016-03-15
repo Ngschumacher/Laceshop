@@ -4,33 +4,79 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="storeApp">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@Model.Name</title>
-	@{  // Theme Assets references
-		//// TODO make bundles
-		Html.RequiresJs("http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js")
-			.RequiresCss("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
-			.RequiresCss("http://fonts.googleapis.com/css?family=Roboto:400,300,100,500")
-			.RequiresJs("/App_Plugins/Merchello.Bazaar/Assets/js/jquery.validate.min.js")
-			.RequiresJs("/App_Plugins/Merchello.Bazaar/Assets/js/jquery.unobtrusive-ajax.min.js")
-			.RequiresJs("/App_Plugins/Merchello.Bazaar/Assets/js/jquery.validate.unobtrusive.min.js")
-			.RequiresJs("/App_Plugins/Merchello.Bazaar/Assets/js/merchello.bazaar.js")
-			.RequiresJs("/Public/scripts/libs/bootstrap.min.js")
-			.RequiresCss("/Public/style/bootstrap.min.css")
-			.RequiresCss("/Public/style/bootstrap.css")
-			.RequiresCss("/Public/style/styles.min.css");
-	}
-	@Html.RenderCssHere()
+    <title>STELLA SHOP</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Laceshop - Elegant shopping for shoelaces">
+    <meta name="author" content="Niclas Schumacher">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+    @{
+        // Theme Assets references
+        //// TODO make bundles
+        Html.RequiresJs("/Public/scripts/jquery-2.2.1.min.js")
+            .RequiresJs("/Public/scripts/bootstrap.js")
+            .RequiresJs("/Public/scripts/angular.min.js")
+            .RequiresJs("/Public/scripts/placeholders.min.js")
+            .RequiresJs("/Public/scripts/custom.js")
+            .RequiresJs("/Public/scripts/app.js")
+            .RequiresJs("/Public/scripts/ga.js")
+
+            .RequiresCss("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+            .RequiresCss("http://fonts.googleapis.com/css?family=Roboto:400,300,100,500")
+            .RequiresCss("/Public/style/bootstrap/bootstrap.css")
+            .RequiresCss("/Public/style/bootstrap/bootstrap-theme.css")
+            .RequiresCss("/Public/style/style.css")
+            .RequiresCss("/Public/style/icomoon/style.css")
+            .RequiresCss("/Public/style/layout.less");
+    }
+    @Html.RenderCssHere()
+
+    <link rel="shortcut icon" href="/Public/img/ico/32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon-precomposed" href="/Public/img/ico/60.png" type="image/png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/Public/img/ico/72.png" type="image/png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/Public/img/ico/120.png" type="image/png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/Public/img/ico/152.png" type="image/png" />
 </head>
-<body class="@Model.DocumentTypeAlias" id="top">
-	@Html.Action("Menu", "Navigation", new { Levels = 1 })
-	<div class="container">
-		@RenderBody()
-	</div>
-	@Html.RenderJsHere()
-	@RenderSection("AdditionalScripts", false)
+
+<body class="@Model.DocumentTypeAlias" id="home">
+    @Html.Action("Menu", "Navigation", new { Levels = 1 })
+    <div id="wrap">
+        <div id="main-nav" class="">
+            <div class="container-fluid">
+                <div class="nav-header">
+                    <a href="/" class="nav-brand">Lace <span>Shop</span></a>
+                    <a class="nav-icon pull-right visible-xs menu-link" href="#"><i class="icon-menu2"></i></a>
+                    <a class="nav-icon-outline cart pull-right" href="cart.html"><i class="icon-cart"></i><span class="badge">3</span></a>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+        <footer>
+            <div class="container-fluid">
+                <div class="pull-left copyright">
+                    <p>STELLA <b>SHOP</b> &copy; 2014. Designed by <a href="http://www.angelostudio.net" target="_blank">Angelo Studio</a>.</p>
+                    <ul class="nav-list effect">
+                        <li><a href="terms-conditions.html">Delivery & Returns</a></li>
+                        <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="pull-right copyright">
+                    <ul class="social-links">
+                        <li><a href="https://twitter.com/angelo_studio"><i class="icon-twitter"></i></a></li>
+                        <li><a href="http://dribbble.com/angelo_studio"><i class="icon-dribbble"></i></a></li>
+                        <li><a href="http://www.pinterest.com/angelostudio/"><i class="icon-pinterest"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+    @Html.RenderJsHere()
+    @RenderSection("AdditionalScripts", false)
 </body>
 </html>
+

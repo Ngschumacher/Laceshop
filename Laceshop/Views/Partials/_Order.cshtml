@@ -1,0 +1,60 @@
+﻿
+@model Laceshop.Website.Code.Models.Order.OrderViewModel
+
+
+Orderview
+
+@(!Model.IsEmpty ? RenderBasket() : RenderEmpty())
+
+@helper RenderEmpty()
+{
+    <p>There's nothing in your shopping cart, start shopping!</p>
+}
+
+@helper RenderBasket()
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+               
+            </tr>
+        </thead>
+        @if (!Model.IsEmpty)
+        {
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td><a href="@item.ProductPageUrl">@item.Name</a></td>
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>@item.TotalPrice.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        }
+        <tfoot>
+            <tr>
+                <td>Shipping: </td>
+                <td></td>
+                <td></td>
+                <td><strong>@Model.ShippingPirce.ToString("C")</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Order Total: </td>
+                <td></td>
+                <td></td>
+                <td><strong>@Model.Total.ToString("C")</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
+
+    </table>
+}

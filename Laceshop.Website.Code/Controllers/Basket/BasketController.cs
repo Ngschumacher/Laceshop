@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Core.Interfaces.Basket;
 using Laceshop.Website.Code.Models.Basket;
+using Laceshop.Website.Code.Models.Checkout;
 using Merchello.Core;
 using Merchello.Core.Models;
 using Umbraco.Core.Logging;
@@ -26,7 +27,6 @@ namespace Laceshop.Website.Code.Controllers.Basket
         public Guid ProductKey { get; set; }
         public Guid[] OptionKeys { get; set; }
     }
-    [PluginController("MerchelloProductListExample")]
     public class BasketPageController : BaseSurfaceController<BasketPageViewModel>
     {
         private readonly IBasketRepository _basketRepository;
@@ -38,9 +38,6 @@ namespace Laceshop.Website.Code.Controllers.Basket
       
         public  ActionResult BasketPage()
         {
-			var storeSetting = MerchelloContext.Current.Services.StoreSettingService.GetByKey(Merchello.Core.Constants.StoreSettingKeys.CurrencyCodeKey);
-
-			ICurrency currency = MerchelloContext.Current.Services.StoreSettingService.GetCurrencyByCode(storeSetting.Value);
             var basketVm = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
             var vm = GetPageModel<BasketPageViewModel>();
             vm.Basket = basketVm;

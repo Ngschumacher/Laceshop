@@ -292,6 +292,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\BasketController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseSurfaceController.cs" />
     <Compile Include="Controllers\Basket\BasketController.cs" />
@@ -308,12 +309,8 @@
     <Compile Include="Mapping\AutoMapperMapping.cs" />
     <Compile Include="Mapping\CommerceMapper.cs" />
     <Compile Include="Models\Basket\BasketLineViewModel.cs" />
-    <Compile Include="Models\Basket\BasketPageViewModel.cs" />
-    <Compile Include="Models\Basket\BasketViewLineItem.cs" />
+    <Compile Include="Models\Checkout\BasketPageViewModel.cs" />
     <Compile Include="Models\Basket\BasketviewModel.cs" />
-    <Compile Include="Models\Basket\BasketViewModelExtensions.cs" />
-    <Compile Include="Models\Checkout\BraintreeToken.cs" />
-    <Compile Include="Models\Checkout\CardDetailViewModel.cs" />
     <Compile Include="Models\Checkout\CheckoutPageViewModel.cs" />
     <Compile Include="Models\Checkout\DeliveryPageViewModel.cs" />
     <Compile Include="Models\Checkout\PaymentPageViewModel.cs" />
@@ -327,6 +324,8 @@
     <Compile Include="Models\Navigation\BreadCrumbViewModel.cs" />
     <Compile Include="Models\Navigation\MainMenuViewModel.cs" />
     <Compile Include="Models\Navigation\MenuItemViewModel.cs" />
+    <Compile Include="Models\Order\OrderLineItemViewModel.cs" />
+    <Compile Include="Models\Order\OrderViewModel.cs" />
     <Compile Include="Models\Products\BasePageViewModel.cs" />
     <Compile Include="Models\Products\ProductPageTeaser.cs" />
     <Compile Include="Models\Products\ProductViewModel.cs" />

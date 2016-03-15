@@ -17,5 +17,8 @@ namespace Laceshop.Website.Code.Models.Checkout
         public string CancelUrl { get; set; }
         public string CallbackUrl { get; set; }
         public string Checksum { get; set; }
+        public string Language { get; set; }
+        public string AutoCapture { get; set; }
+        public string Version { get; set; }
     }
 }

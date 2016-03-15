@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Laceshop.Models.Products;
@@ -29,16 +30,14 @@ namespace Laceshop.Website.Code.Controllers.Products
 
         public  ActionResult Products()
         {
-            var checkoutManager = Basket.GetCheckoutManager();
-            var customer = checkoutManager.Customer;
-            // create our ViewModel
+            var productService = MerchelloServices.ProductService;
+            var products = productService.GetAll().ToList();
+            var first = products.FirstOrDefault();
+
             var viewModel = GetModel<ProductsViewModel>();
-            // Map properties of current page to the ViewModel
+
             _umbracoMapper.MapCollection(CurrentPage.Children, viewModel.Products);
             _umbracoMapper.Map(CurrentPage, viewModel);
-            // render our view
-            //return View("Products", viewModel);
-
             //CurrentPage
             //var vm = GetPageModel<ProductPageViewModel>();
             return CurrentTemplate(viewModel);

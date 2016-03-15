@@ -1,25 +1,37 @@
 ﻿@using Laceshop.Website.Code.Models.Navigation
 @model MainMenuViewModel
 
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        @Menu(Model.MenuItems)
-    </ul>
-</nav>
+
+
+
+<div class="container-fluid">
+    <div class="menu-wrapper">
+        <a href="#" class="close-menu visible-xs"><i class="icon-close"></i></a>
+        <h3 class="visible-xs">Navigation</h3>
+        <ul class="nav-list text-center effect">
+            <li class="active"><a href="">Shop</a></li>
+            @Menu(Model.MenuItems)
+        </ul>
+        <div class="visible-xs mt-info">
+            <h3>Latest news</h3>
+            <ul>
+                <li><a href="blog-article.html">New collection</a></li>
+                <li><a href="blog-article.html">Home Sweet Home: Turn...</a></li>
+                <li><a href="blog-article.html">The Prisoner of Benda</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
 @helper Menu(IEnumerable<MenuItemViewModel> items)
 {
     foreach (var item in items)
     {
         var itemId = "navigation-menuitem-" + item.Id;
-        <li>
-            <a href="@item.Url" class="@(item.IsCurrentPageOrAncestor ? "active" : string.Empty)">@item.DisplayTitle</a>
-            @if (item.MenuItems != null && item.MenuItems.Any())
-            {
-                <ul>
-                    @Menu(item.MenuItems)
-                </ul>
-            }
+        <li class="@(item.IsCurrentPageOrAncestor ? "active" : string.Empty)">
+            <a href="@item.Url">@item.DisplayTitle</a>
         </li>
     }
 }

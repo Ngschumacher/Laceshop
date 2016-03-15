@@ -3,12 +3,13 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Core.Models.Commerce;
-using Laceshop.Models.Basket;
 using Laceshop.Models.Checkout;
 using Laceshop.Website.Code.Models.Basket;
+using Laceshop.Website.Code.Models.Order;
 using Merchello.Core.Models;
 using Merchello.Web.Models.ContentEditing;
 using Merchello.Web.Workflow;
+using Umbraco.Core.Persistence.Migrations.Upgrades.TargetVersionSevenThreeZero;
 using Umbraco.Web;
 
 namespace Laceshop.Website.Code.Mapping
@@ -40,8 +41,8 @@ namespace Laceshop.Website.Code.Mapping
                            source => source.MapFrom(src => src.TotalBasketPrice));
 
             Mapper.CreateMap<Basket, BasketViewModel>();
-            Mapper.CreateMap<ILineItem, BasketLineItemViewModel>();
-            Mapper.CreateMap<BasketDetail.LineItem, BasketLineItemViewModel>();
+            Mapper.CreateMap<ILineItem, BasketLineViewModel>();
+            Mapper.CreateMap<BasketDetail.LineItem, BasketLineViewModel>();
             Mapper.CreateMap<ILineItem, BasketDetail.LineItem>()
                 .ForMember(dest => dest.ProductPageUrl,
                            source => source.MapFrom(src => umbracoHelper.TypedContent(int.Parse(src.ExtendedData["umbracoContentId"])).Url));
@@ -59,8 +60,13 @@ namespace Laceshop.Website.Code.Mapping
 		        .ForMember(dest => dest.Postcode, source => source.MapFrom(src => src.PostalCode))
 		        .ForMember(dest => dest.County, source => source.MapFrom(src => src.Region));
 
+            Mapper.CreateMap<IInvoice, OrderViewModel>()
+                .ForMember(dest => dest.Items,
+                    source => source.MapFrom(src => src.ProductLineItems()))
+                .ForMember(dest => dest.ShippingPirce,
+                    source => source.MapFrom(src => src.TotalShipping()));
 
-
+            Mapper.CreateMap<IInvoiceLineItem, OrderLineItemViewModel>();
         }
     }
 }
