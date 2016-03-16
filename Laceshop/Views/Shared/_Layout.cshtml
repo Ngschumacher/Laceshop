@@ -12,12 +12,13 @@
     <meta name="author" content="Niclas Schumacher">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
-    @{
+        @{
         // Theme Assets references
         //// TODO make bundles
         Html.RequiresJs("/Public/scripts/jquery-2.2.1.min.js")
-            .RequiresJs("/Public/scripts/bootstrap.js")
-            .RequiresJs("/Public/scripts/angular.min.js")
+            .RequiresJs("/Scripts/bootstrap.js")
+            .RequiresJs("/Scripts/angular.js")
+
             .RequiresJs("/Public/scripts/placeholders.min.js")
             .RequiresJs("/Public/scripts/custom.js")
             .RequiresJs("/Public/scripts/app.js")
@@ -30,7 +31,7 @@
             .RequiresCss("/Public/style/style.css")
             .RequiresCss("/Public/style/icomoon/style.css")
             .RequiresCss("/Public/style/layout.less");
-    }
+        }
     @Html.RenderCssHere()
 
     <link rel="shortcut icon" href="/Public/img/ico/32.png" sizes="32x32" type="image/png" />
