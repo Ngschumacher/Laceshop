@@ -1,0 +1,29 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Unit Cost</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-right">Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    
+    <tr ng-repeat="(key, value) in $ctrl.basket.Items">
+        <td class="vert-align"><a href="@item.ProductPageUrl">{{::value.Name}}</a></td>
+        <td class="vert-align">{{value.Price}}</td><!--@item.Price.ToString("C")</-->
+       
+        <td class="text-center vert-align"><input type="number" min="1" ng-model="value.Quantity" ng-change="$ctrl.quantityChanged(value.Key, value.Quantity)" class="form-control form-control-inline" style="width: 52px !important;"></td>
+        <td class="text-right vert-align">{{value.TotalPrice}}</td>
+        <td class="text-center vert-align">
+            <a href="#" ng:click="$ctrl.removeItem(value.Key)" class="remove-item"><i class="icon-close"></i></a>
+        </td>
+    </tr>
+    <tr ng-if="total() == 0">
+        <td colspan="5">
+            <h2 class="text-center">Your cart is empty.</h2>
+        </td>
+    </tr>
+    </tbody>
+</table>

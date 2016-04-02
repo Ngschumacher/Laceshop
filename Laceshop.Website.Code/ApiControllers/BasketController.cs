@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Core.Interfaces.Basket;
 using Laceshop.Website.Code.Models.Basket;
 using Laceshop.Website.Code.Models.Checkout;
 using Laceshop.Website.Code.Models.Navigation;
@@ -16,6 +18,13 @@ namespace Laceshop.Website.Code.ApiControllers
 {
     public class BasketController : UmbracoApiController
     {
+        private readonly IBasketRepository _basketRepository;
+
+        public BasketController(IBasketRepository basketRepository)
+        {
+            _basketRepository = basketRepository;
+        }
+
         [HttpGet]
         public BasketViewModel GetBasket()
         {
@@ -27,5 +36,32 @@ namespace Laceshop.Website.Code.ApiControllers
 
             return basketVm;
         }
+
+        [HttpDelete]
+        public BasketViewModel RemoveItem(Guid id)
+        {
+            _basketRepository.RemoveItem(id);
+            return GetBasket();
+        }
+
+
+
+        [HttpPost]
+        public BasketViewModel UpdateItemQuantity(UpdateItemQuantityModel model)
+        {
+            _basketRepository.UpdateItem(model.Id, model.Quantity);
+            return GetBasket();
+        }
+
+
+
+
+
+
+     public class UpdateItemQuantityModel
+     {
+         public Guid Id { get; set; }
+         public int Quantity { get; set; }
+     }
     }
 }

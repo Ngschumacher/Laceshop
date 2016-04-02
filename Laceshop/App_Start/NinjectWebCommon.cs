@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Dependencies;
 using Core.Interfaces;
 using Core.Interfaces.Basket;
 using Core.Models.QuickPay;
@@ -14,6 +18,9 @@ using Merchello.Core.Persistence.Repositories;
 using Merchello.Core.Services;
 using Merchello.Web;
 using Merchello.Web.CheckoutManagers;
+using Ninject.Activation;
+using Ninject.Parameters;
+using Ninject.Syntax;
 using Umbraco.Web;
 using Zone.UmbracoMapper;
 
@@ -30,20 +37,20 @@ namespace Laceshop.App_Start
     using Ninject;
     using Ninject.Web.Common;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
-            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
-            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof (OnePerRequestHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof (NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -51,7 +58,7 @@ namespace Laceshop.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -65,6 +72,8 @@ namespace Laceshop.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+               GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
+
                 return kernel;
             }
             catch
@@ -87,8 +96,8 @@ namespace Laceshop.App_Start
             kernel.Bind<CustomerContext>().ToMethod(x => new CustomerContext(UmbracoContext.Current)).InSingletonScope();
             kernel.Bind<IStoreSettingService>().To<StoreSettingService>();
             kernel.Bind<IBasketRepository>().To<BasketRepository>();
-			kernel.Bind<ShopHelper>().To<ShopHelper>();
-			kernel.Bind<IStoreSettings>().To<StoreSettings>();
+            kernel.Bind<ShopHelper>().To<ShopHelper>();
+            kernel.Bind<IStoreSettings>().To<StoreSettings>();
 
             kernel.Bind<IQuickPaySettings>().ToMethod(x => new QuickPaySettings(
                 publicApiKey: "3bf703dca3002ed0b041eb4706e70fc2816fc7d15f28b67c69d23ba279bdf845",
@@ -108,8 +117,49 @@ namespace Laceshop.App_Start
 
             kernel.Bind<IQuickPayFacade>().To<QuickPayFacade>();
 
-	        //kernel.Bind<IProductRepository>().To<ProductRepository>();
-        }      
+            //kernel.Bind<IProductRepository>().To<ProductRepository>();
+        }
     }
- 
+    public class NinjectScope : IDependencyScope
+    {
+        protected IResolutionRoot resolutionRoot;
+
+        public NinjectScope(IResolutionRoot kernel)
+        {
+            resolutionRoot = kernel;
+        }
+
+        public object GetService(Type serviceType)
+        {
+            IRequest request = resolutionRoot.CreateRequest(serviceType, null, new Parameter[0], true, true);
+            return resolutionRoot.Resolve(request).SingleOrDefault();
+        }
+
+        public IEnumerable<object> GetServices(Type serviceType)
+        {
+            IRequest request = resolutionRoot.CreateRequest(serviceType, null, new Parameter[0], true, true);
+            return resolutionRoot.Resolve(request).ToList();
+        }
+
+        public void Dispose()
+        {
+            IDisposable disposable = (IDisposable)resolutionRoot;
+            if (disposable != null) disposable.Dispose();
+            resolutionRoot = null;
+        }
+    }
+    public class NinjectResolver : NinjectScope, IDependencyResolver
+    {
+        private IKernel _kernel;
+        public NinjectResolver(IKernel kernel)
+            : base(kernel)
+        {
+            _kernel = kernel;
+        }
+        public IDependencyScope BeginScope()
+        {
+            return new NinjectScope(_kernel.BeginBlock());
+        }
+    }
 }
+

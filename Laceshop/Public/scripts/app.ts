@@ -44,7 +44,7 @@
 //};
 //phonecatApp.controller("CartController", new CartController)
 
-module app.controllers {
+module App {
 
     interface IBasketController {
         
@@ -80,7 +80,7 @@ module app.controllers {
 }
 
 
-module app.directives {
+module App {
 
     interface ISomeComponentBindings {
         textBinding: string;
@@ -99,7 +99,7 @@ module app.directives {
         public functionBinding: () => any;
 
         constructor() {
-            this.textBinding = '';
+            this.textBinding = 'teeest';
             this.dataBinding = 0;
         }
 
@@ -122,12 +122,17 @@ module app.directives {
                 functionBinding: '&'
             };
             this.controller = SomeComponentController;
-            this.templateUrl = 'some-component.html';
+            this.templateUrl = '/Templates/some-component.html';
+            console.log("hej");
+
         }
 
     }
 
-    angular.module('storeApp',[]).component('someComponent', new SomeComponent());
+    var angularModule = angular.module('storeApp', []);
+    angularModule.component('someComponent', new SomeComponent());
 
 }
+
+
 
