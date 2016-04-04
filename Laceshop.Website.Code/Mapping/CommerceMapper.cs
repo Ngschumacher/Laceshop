@@ -5,6 +5,7 @@ using Merchello.Core;
 using Merchello.Core.Models;
 using Merchello.Web;
 using Merchello.Web.Models.ContentEditing;
+using Merchello.Web.Models.VirtualContent;
 using Umbraco.Core.Models;
 using Umbraco.Web;
 using Zone.UmbracoMapper;
@@ -21,9 +22,9 @@ namespace Laceshop.Website.Code.Mapping
         public static object GetProductDetail(IUmbracoMapper mapper, IPublishedContent contentToMapFrom, string propertyName, bool recursive)
         {
             var productService = MerchelloContext.Current.Services.ProductService;
-            var product = contentToMapFrom.GetPropertyValue<ProductDisplay>("product");
+            //var product = contentToMapFrom.GetPropertyValue<ProductDisplay>("product");
 
-            var newProduct = product.AsProductContent().GetProperty("test");
+            var product = contentToMapFrom as IProductContent;
 
             if (product != null)
             {

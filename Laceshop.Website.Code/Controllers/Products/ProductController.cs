@@ -40,7 +40,7 @@ namespace Laceshop.Website.Code.Controllers.Products
             var productvariantService = Services.ProductVariantService();
 
             var product = CurrentPage as IProductContent;
-
+            var price = product.Price;
             var vm = GetPageModel<ProductPageViewModel>();
             return CurrentTemplate(vm);
         }

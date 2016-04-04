@@ -8,6 +8,7 @@ using Laceshop.Website.Code.Models.Checkout;
 using Laceshop.Website.Code.Models.Order;
 using Merchello.Core.Models;
 using Merchello.Web.Models.ContentEditing;
+using Merchello.Web.Models.VirtualContent;
 using Merchello.Web.Workflow;
 using Umbraco.Core.Persistence.Migrations.Upgrades.TargetVersionSevenThreeZero;
 using Umbraco.Web;
@@ -25,7 +26,18 @@ namespace Laceshop.Website.Code.Mapping
 
 
 
-            Mapper.CreateMap<ProductDisplay, ProductDetail>()
+            //Mapper.CreateMap<ProductDisplay, ProductDetail>()
+            //    .ForMember(dest => dest.Options,
+            //        source => source.MapFrom(src => src.ProductOptions))
+            //    .ForMember(dest => dest.HasVariantsWithPriceRange,
+            //    source => source.MapFrom(src => src.ProductVariants.Any() && src.ProductVariants.Min(x => x.Price) < src.ProductVariants.Max(x => x.Price)));
+            //Mapper.CreateMap<ProductOptionDisplay, ProductDetail.Option>();
+            //Mapper.CreateMap<IEnumerable<ProductAttributeDisplay>, SelectList>()
+            //    .ConstructUsing(x => new SelectList(x
+            //        .OrderBy(y => y.SortOrder)
+            //        .ToList(), "Key", "Name"));
+
+            Mapper.CreateMap<IProductContent, ProductDetail>()
                 .ForMember(dest => dest.Options,
                     source => source.MapFrom(src => src.ProductOptions))
                 .ForMember(dest => dest.HasVariantsWithPriceRange,
@@ -35,6 +47,8 @@ namespace Laceshop.Website.Code.Mapping
                 .ConstructUsing(x => new SelectList(x
                     .OrderBy(y => y.SortOrder)
                     .ToList(), "Key", "Name"));
+
+
 
             Mapper.CreateMap<IBasket, BasketDetail>()
                 .ForMember(dest => dest.TotalProductPrice,

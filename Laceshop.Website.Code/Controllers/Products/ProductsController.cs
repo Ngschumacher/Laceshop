@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Laceshop.Models.Products;
 using Laceshop.Website.Code.Models.Products;
 using Merchello.Web;
+using Merchello.Web.Models.VirtualContent;
 using Zone.UmbracoMapper;
 
 namespace Laceshop.Website.Code.Controllers.Products
@@ -33,6 +34,8 @@ namespace Laceshop.Website.Code.Controllers.Products
             var productService = MerchelloServices.ProductService;
             var products = productService.GetAll().ToList();
             var first = products.FirstOrDefault();
+
+            var test = CurrentPage as IProductContent;
 
             var viewModel = GetModel<ProductsViewModel>();
 
