@@ -6,13 +6,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
 using Core.Interfaces.Basket;
-using Laceshop.Website.Code.Models.Basket;
 using Laceshop.Website.Code.Models.Checkout;
 using Laceshop.Website.Code.Models.Order;
 using Merchello.Core;
 using Merchello.Core.Gateways.Payment;
 using Merchello.Core.Models;
-using Merchello.Core.Sales;
 using Umbraco.Core.Logging;
 using Zone.UmbracoMapper;
 
@@ -55,15 +53,8 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             }
             var invoice = _paymentManager.PrepareInvoice();
             vm.Order = AutoMapper.Mapper.Map<OrderViewModel>(invoice);
-            var order = invoice.PrepareOrder();
-            
-			var shipmentLineItem = invoice.ShippingLineItems().FirstOrDefault();
-            var orderShippingItems = order.ShippingLineItems().FirstOrDefault();
-            var totalTax = invoice.TotalTax();
-            var produtItems = invoice.ProductLineItems();
-            var shippingPrice = invoice.TotalShipping();
-            var totalPrice = invoice.Total;
-            var number = order.OrderNumber;
+           
+          
 
             vm.QuickPayModel = GetQuickPayModel(invoice);
             return CurrentTemplate(vm);

@@ -13,5 +13,6 @@ namespace Laceshop.Website.Code.Models.Order
         public decimal Total { get; set; }
         public decimal TotalTax { get; set; }
         public decimal ShippingPirce { get; set; }
+        public decimal TotalItemPrice { get; set; }
     }
 }

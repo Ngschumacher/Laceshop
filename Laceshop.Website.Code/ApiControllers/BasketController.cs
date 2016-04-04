@@ -44,8 +44,6 @@ namespace Laceshop.Website.Code.ApiControllers
             return GetBasket();
         }
 
-
-
         [HttpPost]
         public BasketViewModel UpdateItemQuantity(UpdateItemQuantityModel model)
         {

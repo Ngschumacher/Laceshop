@@ -3,8 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Core.Models.Commerce;
-using Laceshop.Models.Checkout;
 using Laceshop.Website.Code.Models.Basket;
+using Laceshop.Website.Code.Models.Checkout;
 using Laceshop.Website.Code.Models.Order;
 using Merchello.Core.Models;
 using Merchello.Web.Models.ContentEditing;
@@ -64,7 +64,9 @@ namespace Laceshop.Website.Code.Mapping
                 .ForMember(dest => dest.Items,
                     source => source.MapFrom(src => src.ProductLineItems()))
                 .ForMember(dest => dest.ShippingPirce,
-                    source => source.MapFrom(src => src.TotalShipping()));
+                    source => source.MapFrom(src => src.TotalShipping()))
+                .ForMember(dest => dest.TotalItemPrice,
+                    source => source.MapFrom(src => src.TotalItemPrice()));
 
             Mapper.CreateMap<IInvoiceLineItem, OrderLineItemViewModel>();
         }

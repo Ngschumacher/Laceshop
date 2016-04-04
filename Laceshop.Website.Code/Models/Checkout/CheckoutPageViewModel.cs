@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using Laceshop.Models.Products;
+using Laceshop.Website.Code.Models.Basket;
+using Laceshop.Website.Code.Models.Order;
 
-namespace Laceshop.Models.Checkout
+namespace Laceshop.Website.Code.Models.Checkout
 {
    public class CheckoutPageViewModel : BasePageViewModel
     {
@@ -36,6 +34,8 @@ namespace Laceshop.Models.Checkout
 
         [Required(ErrorMessage = "Please enter your postcode")]
         public string Postcode { get; set; }
+
+       public OrderViewModel Order { get; set; }
     }
      
 }

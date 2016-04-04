@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Core.Interfaces.Basket;
-using Laceshop.Models.Checkout;
+using Laceshop.Website.Code.Models.Basket;
+using Laceshop.Website.Code.Models.Checkout;
+using Laceshop.Website.Code.Models.Order;
 using Merchello.Core.Checkout;
 using Merchello.Core.Models;
 using Merchello.Web;
@@ -27,20 +30,41 @@ namespace Laceshop.Website.Code.Controllers.Checkout
 
         public ActionResult CheckoutPage()
         {
-            var checkoutManager = Basket.GetCheckoutManager();
+            SetShippingInfomation();
+            
             if (Basket.IsEmpty)
             {
                 return RedirectToBasketPage();
             }
+            var basketReadyForInvoice = _paymentManager.IsReadyToInvoice();
+            if (!basketReadyForInvoice)
+            {
+                return RedirectToUmbracoPage(GetBasketPageNode().Id);
+            }
 
             var address = _customerManager.GetBillToAddress();
-
+            
+            
             var vm = GetPageModel<CheckoutPageViewModel>();
 			AutoMapper.Mapper.Map(address, vm);
+
+            var invoice = _paymentManager.PrepareInvoice();
+
+            vm.Order = AutoMapper.Mapper.Map<OrderViewModel>(invoice);
             return CurrentTemplate(vm);
         }
 
-		
+        private void SetShippingInfomation()
+        {
+
+            var address = _customerManager.GetShipToAddress();
+            var shipment = Basket.PackageBasket(address).First();
+            var deliveryOption = shipment.ShipmentRateQuotes()
+                .FirstOrDefault();
+
+            _shippingManager.ClearShipmentRateQuotes();
+            _shippingManager.SaveShipmentRateQuote(deliveryOption);	
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CollectAddress(CheckoutPageViewModel vm)
@@ -69,7 +93,7 @@ namespace Laceshop.Website.Code.Controllers.Checkout
                 
                 _customerManager.SaveBillToAddress(address);
                 _customerManager.SaveShipToAddress(address);
-                return RedirectToUmbracoPage(GetDeliveryPageNode().Id);
+                return RedirectToUmbracoPage(GetPaymentPageNode().Id);
             }
 
             return CurrentUmbracoPage();

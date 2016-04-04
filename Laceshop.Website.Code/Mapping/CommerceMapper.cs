@@ -22,6 +22,9 @@ namespace Laceshop.Website.Code.Mapping
         {
             var productService = MerchelloContext.Current.Services.ProductService;
             var product = contentToMapFrom.GetPropertyValue<ProductDisplay>("product");
+
+            var newProduct = product.AsProductContent().GetProperty("test");
+
             if (product != null)
             {
                 var productDetail = new ProductDetail();

@@ -2,6 +2,7 @@
 using Laceshop.Website.Code.Models.Products;
 using Merchello.Core.Persistence.Repositories;
 using Merchello.Web;
+using Merchello.Web.Models.VirtualContent;
 using Umbraco.Web.Models;
 using Zone.UmbracoMapper;
 
@@ -25,13 +26,21 @@ namespace Laceshop.Website.Code.Controllers.Products
             Services.ProductService();
             Services.ProductVariantService();
 
-            //_productRepository.GetProduct();
+           
+
+
+
             var viewModel = GetModel<ProductPageViewModel>();
             return View("Index", viewModel);
         }
 
         public ActionResult Product()
         {
+            var productService = Services.ProductService();
+            var productvariantService = Services.ProductVariantService();
+
+            var product = CurrentPage as IProductContent;
+
             var vm = GetPageModel<ProductPageViewModel>();
             return CurrentTemplate(vm);
         }
