@@ -41,7 +41,13 @@ namespace Laceshop.Website.Code.Mapping
                 .ForMember(dest => dest.Options,
                     source => source.MapFrom(src => src.ProductOptions))
                 .ForMember(dest => dest.HasVariantsWithPriceRange,
-                source => source.MapFrom(src => src.ProductVariants.Any() && src.ProductVariants.Min(x => x.Price) < src.ProductVariants.Max(x => x.Price)));
+                source => source.MapFrom(src => src.ProductVariants.Any() && src.ProductVariants.Min(x => x.Price) < src.ProductVariants.Max(x => x.Price)))
+                .ForMember(dest => dest.Description,
+                source => source.MapFrom(src => src.GetPropertyValue("Description"))
+                )
+                .ForMember(dest => dest.ImageIds,
+                source => source.MapFrom(src => src.GetPropertyValue("Images").ToString().Split(',')));
+
             Mapper.CreateMap<ProductOptionDisplay, ProductDetail.Option>();
             Mapper.CreateMap<IEnumerable<ProductAttributeDisplay>, SelectList>()
                 .ConstructUsing(x => new SelectList(x

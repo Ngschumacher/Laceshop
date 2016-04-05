@@ -21,6 +21,8 @@ namespace Core.Models.Commerce
         public string ManufacturerModelNumber { get; set; }
         public bool Taxable { get; set; }
         public bool Available { get; set; }
+        public string Description { get; set; }
+        public List<int> ImageIds { get; set; }
 
         public class Option
         {
