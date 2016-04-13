@@ -21,6 +21,8 @@ using Merchello.Web.CheckoutManagers;
 using Ninject.Activation;
 using Ninject.Parameters;
 using Ninject.Syntax;
+using Umbraco.Core;
+using Umbraco.Core.Services;
 using Umbraco.Web;
 using Zone.UmbracoMapper;
 
@@ -94,6 +96,7 @@ namespace Laceshop.App_Start
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IProductVariantService>().To<ProductVariantService>();
             kernel.Bind<CustomerContext>().ToMethod(x => new CustomerContext(UmbracoContext.Current)).InSingletonScope();
+            kernel.Bind<IMediaService>().ToMethod(c => ApplicationContext.Current.Services.MediaService).InSingletonScope();
             kernel.Bind<IStoreSettingService>().To<StoreSettingService>();
             kernel.Bind<IBasketRepository>().To<BasketRepository>();
             kernel.Bind<ShopHelper>().To<ShopHelper>();

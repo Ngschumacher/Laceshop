@@ -1,0 +1,33 @@
+﻿<div class="col-sm-8 ">
+    <mediaslider slides="$ctrl.slides">
+
+    </mediaslider>
+    <div class="col-sm-2">
+        <img ng-src="{{image}}?mode=pad&width=60&height=60&bgcolor=fff" class="product-img img-responsive" alt="item" ng-repeat="image in $ctrl.slides">
+    </div>
+    <div class="col-sm-6">
+        <img ng-if="$ctrl.product.ImageUrls.length > 0" ng-src="{{$ctrl.slides[0]}}" class="product-img img-responsive"/>
+    </div>
+</div>
+<div class="col-sm-4 ">
+    <h2 class="product-title hidden-xs">{{$ctrl.variant.Name}}</h2>
+    <div class="product-price hidden-xs">
+        <span class="price">{{$ctrl.product.Product.Price | currency}} </span>
+    </div>
+    <div class="product-detail">
+        {{$ctrl.product.Product.Description}}
+    </div>
+
+    <div class="form-group clearfix" ng-repeat="variantOption in $ctrl.product.VariantOptions">
+        <label class="control-label">{{variantOption.Name}}</label>
+        <select ng-model="variantOption.model" ng-change="$ctrl.update(variantOption)" class="form-control" id="OptionKeys">
+            <option ng-repeat="option in variantOption.Options" value="{{option.Key}}">{{option.Name}}</option>
+        </select>
+        {{variantOption.model}}
+    </div>
+    <div class="product-btn">
+        <input type="submit" class="btn" value="Add To Cart" />
+        <!--@Html.Hidden("ProductKey", Model.Product.Key)
+        @Html.Hidden("ContentId", Model.Id)-->
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿
+<div class="mediaslider" data-media-slider-num="$ctrl.slides.length" data-ng-class="{'mediaslider_reverse': $ctrl.lastJumpDirection < 0}">
+{{$ctrl.slides}} test
+    
+    <div class="mediaslider__thumbs">
+        <img data-ng-repeat="thumb in $ctrl.slides" ng-src="{{thumb}}?mode=pad&width=100&height=100&bgcolor=fff" class="mediaslider__thumb" data-ng-click="$ctrl.switchItem(@i, true)" data-ng-class="{'mediaslider__thumb_active': $ctrl.currentIndex == $index}" />
+    </div>
+    <div class="mediaslider__view">
+        <img data-ng-repeat="image in $ctrl.slides" ng-src="{{image}}?mode=pad&width=400&height=400&bgcolor=fff" lightbox-image="http://placehold.it/800x800?text={{$index}}" class="mediaslider__item" data-ng-class="{'mediaslider__item_show': $ctrl.currentIndex == $index}" />
+    </div>
+</div>

@@ -2,9 +2,6 @@
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<Laceshop.Website.Code.Models.Products.ProductPageViewModel>
 @{
     Layout = "Shared/_Layout.cshtml";
-    var images = Umbraco.Media(Model.Product.ImageIds);
-
-    var test = "!";
 }
 
 
@@ -18,37 +15,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-8 ">
-           
-            <img src="/img/vase_1a.jpg" class="product-img img-responsive" alt="item">
-            <img src="img/vase_1b.jpg" class="product-img img-responsive" alt="item">
-            <img src="img/vase_1c.jpg" class="product-img img-responsive" alt="item">
-        </div>
-        <div class="col-sm-4 ">
-            <h2 class="product-title hidden-xs">@Model.Name</h2>
-            <div class="product-price hidden-xs">
-                <span class="price">@Model.Product.Price.ToString("C")</span>
-            </div>
-            <div class="product-detail">
-                @Model.ProductDescription
-            </div>
-            @using (Html.BeginUmbracoForm<BasketPageController>("AddItem", "BasketPage", new {id = "add-to-basket-form"}, FormMethod.Post))
-            {
-                foreach (var option in Model.Product.Options)
-                {
-                    <div class="form-group clearfix">
-                        <label class="control-label">@option.Name</label>
-                        @Html.DropDownList("OptionKeys", option.Choices, new {@class = "form-control"})
-                    </div>
-                }
-                <div class="product-btn">
-                    <input type="submit" class="btn" value="Add To Cart" />
-                    @Html.Hidden("ProductKey", Model.Product.Key)
-                    @Html.Hidden("ContentId", Model.Id)
-                </div>
-            }
-            </div>
-        </div>
+        <product product-key="@Model.Product.Key">
+
+        </product>
         <div class="row">
             <div class="col-sm-8 ">
                 <div class="paging clearfix">
@@ -57,7 +26,7 @@
             </div>
         </div>
     </div>
-
+</div>
     @*@using (Html.BeginUmbracoForm<BasketPageController>("AddItem", "BasketPage", new { id = "add-to-basket-form" }, FormMethod.Post)){
 foreach (var option in Model.Product.Options)
 {

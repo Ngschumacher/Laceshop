@@ -35,9 +35,6 @@ namespace Laceshop.Website.Code.Mapping
                 
                 AutoMapper.Mapper.Map(product, productDetail);
 
-                var imageIds = product.GetPropertyValue("Images").ToString().Split(',').Select(int.Parse);
-                var image = ApplicationContext.Current.Services.MediaService.GetById(imageIds.FirstOrDefault());
-                
                 //get images, and add dependency injection for the mediaService
                 //The image should be gotten here, this should only be for mapping. 
                 //there should be a view model on the otherside which gets the ids to a image,

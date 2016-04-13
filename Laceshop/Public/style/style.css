@@ -325,10 +325,6 @@ a:hover {
 	line-height: 1.3em;
 }
 
-.price:before {
-	content: '$';
-}
-
 .product-price .original-price {
 	text-decoration: line-through;
 	margin-left: .5em;

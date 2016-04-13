@@ -246,6 +246,7 @@
     <Compile Include="Models\Commerce\CardDetail.cs" />
     <Compile Include="Models\Commerce\InvoiceDetail.cs" />
     <Compile Include="Models\Commerce\ProductDetail.cs" />
+    <Compile Include="Models\Commerce\VariantDetail.cs" />
     <Compile Include="Models\ProductDetailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

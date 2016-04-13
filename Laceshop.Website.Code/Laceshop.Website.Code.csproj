@@ -288,6 +288,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\ProductController.cs" />
     <Compile Include="ApiControllers\BasketController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseSurfaceController.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Models\Products\BasePageViewModel.cs" />
     <Compile Include="Models\Products\ProductPageTeaser.cs" />
     <Compile Include="Models\Products\ProductViewModel.cs" />
+    <Compile Include="Models\Products\SkuVariantViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShopHelper.cs" />
     <Compile Include="UmbracoApplicationEvents.cs" />

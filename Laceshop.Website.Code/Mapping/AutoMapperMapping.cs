@@ -48,6 +48,15 @@ namespace Laceshop.Website.Code.Mapping
                 .ForMember(dest => dest.ImageIds,
                 source => source.MapFrom(src => src.GetPropertyValue("Images").ToString().Split(',')));
 
+            Mapper.CreateMap<IProductVariantContent, VariantDetail>()
+                .ForMember(dest => dest.Description,
+                source => source.MapFrom(src => src.GetPropertyValue("Description"))
+                )
+                .ForMember(dest => dest.ImageIds,
+                source => source.MapFrom(src => src.GetPropertyValue("Images").ToString().Split(',')));
+
+
+
             Mapper.CreateMap<ProductOptionDisplay, ProductDetail.Option>();
             Mapper.CreateMap<IEnumerable<ProductAttributeDisplay>, SelectList>()
                 .ConstructUsing(x => new SelectList(x

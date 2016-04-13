@@ -1375,6 +1375,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Templates\basket.html" />
     <Content Include="Templates\basketLines.html" />
+    <Content Include="Templates\mediaslider.html" />
+    <Content Include="Templates\Product.html" />
     <Content Include="Templates\some-component.html" />
     <Content Include="typings.json" />
     <Content Include="Scripts\version.json" />
@@ -1422,6 +1424,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Css\" />
+    <Folder Include="Templates\NewFolder1\" />
     <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
@@ -1486,6 +1489,10 @@
     <TypeScriptCompile Include="Public\scripts\Basket\IBasket.ts" />
     <TypeScriptCompile Include="Public\scripts\components\basket\basketLines.component.ts" />
     <TypeScriptCompile Include="Public\scripts\components\basket\basket.component.ts" />
+    <TypeScriptCompile Include="Public\scripts\components\Product\mediaslider.component.ts" />
+    <TypeScriptCompile Include="Public\scripts\components\Product\product.component.ts" />
+    <TypeScriptCompile Include="Public\scripts\Product\IProduct.ts" />
+    <TypeScriptCompile Include="Public\scripts\services\product.service.ts" />
     <TypeScriptCompile Include="Public\scripts\services\basket.service.ts" />
     <TypeScriptCompile Include="Public\scripts\util.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
