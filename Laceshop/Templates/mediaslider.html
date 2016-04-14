@@ -1,11 +1,18 @@
 ﻿
-<div class="mediaslider" data-media-slider-num="$ctrl.slides.length" data-ng-class="{'mediaslider_reverse': $ctrl.lastJumpDirection < 0}">
-{{$ctrl.slides}} test
-    
-    <div class="mediaslider__thumbs">
-        <img data-ng-repeat="thumb in $ctrl.slides" ng-src="{{thumb}}?mode=pad&width=100&height=100&bgcolor=fff" class="mediaslider__thumb" data-ng-click="$ctrl.switchItem(@i, true)" data-ng-class="{'mediaslider__thumb_active': $ctrl.currentIndex == $index}" />
-    </div>
-    <div class="mediaslider__view">
-        <img data-ng-repeat="image in $ctrl.slides" ng-src="{{image}}?mode=pad&width=400&height=400&bgcolor=fff" lightbox-image="http://placehold.it/800x800?text={{$index}}" class="mediaslider__item" data-ng-class="{'mediaslider__item_show': $ctrl.currentIndex == $index}" />
-    </div>
+
+<div data-ng-if="$ctrl.slides.length > 0" class="mediaslider" data-media-slider-num="$ctrl.slides.length" data-ng-class="{'mediaslider_reverse': $ctrl.lastJumpDirection < 0, 'mediaslider_show-bumb': $ctrl.numOfItems > 5}">
+	<div class="mediaslider__bumb-arrow" data-ng-click="$ctrl.bumbThumbsOffset(-1)">
+		<span class="icon_chevron-thin-up"></span>
+	</div>
+	<div class="mediaslider__bumb-arrow" data-ng-click="$ctrl.bumbThumbsOffset(1)">
+		<span class="icon_chevron-thin-down"></span>
+	</div>
+	<div class="mediaslider__thumbs col-sm-2">
+	<div class="mediaslider__scroll" data-ng-style="$ctrl.thumbCss">
+		<img data-ng-repeat="thumb in $ctrl.slides" data-ng-src="{{thumb}}?mode=pad&width=100&height=100&bgcolor=fff" class="mediaslider__thumb" data-ng-click="$ctrl.switchItem($index, true)" data-ng-class="{'mediaslider__thumb_active': $ctrl.currentIndex == $index}" alt="{{$ctrl.product.Title}} / {{$ctrl.selectedVariantAttributes(detail.product)}}" ng-cloak />
+	</div>
+</div>
+	<div class="mediaslider__view col-sm-6">
+		<img data-ng-repeat="image in $ctrl.slides" data-ng-src="{{image}}?mode=pad&width=400&height=400&bgcolor=fff" data-lightbox-image="{{$ctrl.getImage(image.WebSafeAbsoluteUrl, 800)}}" class="mediaslider__item" data-ng-class="{'mediaslider__item_show': $ctrl.currentIndex == $index}" alt="{{$ctrl.product.Title}} / {{$ctrl.selectedVariantAttributes(detail.product)}}" />
+	</div>
 </div>

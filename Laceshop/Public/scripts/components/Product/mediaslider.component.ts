@@ -8,7 +8,7 @@
     }
 
     interface IMediasliderComponentController extends IMediasliderComponentBindings {
-
+        switchItem(direction, jump);
     }
 
     class MediasliderComponentController implements IMediasliderComponentController {
@@ -52,12 +52,15 @@
         };
         public thumbCss = {};
 
-        static $inject = ['$timeout'];
+        static $inject = ['$timeout', '$scope'];
 
-        constructor(public $timeout: ng.ITimeoutService) {
-            console.log(this.slides);
+        constructor(public $timeout: ng.ITimeoutService, private $scope: ng.IScope) {
+            this.$scope.$on('MediasliderCtrl:reset', () => {
+                console.log('MediasliderCtrl:reset');
+                this.switchItem(0, true);
+            });
         }
-
+       
         private setAutoPlay(direction) {
             direction = (direction === undefined) ? this.lastJumpDirection : direction;
             if (this.options.autoplay) {
@@ -70,7 +73,9 @@
             }
         }
 
-        private switchItem(direction, jump) {
+        public switchItem(direction, jump) {
+            console.log("switchItem");
+            console.log("switchITemsdf");
         if (Date.now() - this.lastSwitchTime > 100) {
             direction = (direction === undefined) ? 1 : direction;
             jump = (jump === undefined) ? false : jump;
@@ -148,7 +153,10 @@
             'transform': 'translate(0%, ' + offset + 'px)'
         };
         this.thumbCss = css;
-    }
+        }
+
+        
+
     }
 
     class MediasliderComponent implements ng.IComponentOptions {

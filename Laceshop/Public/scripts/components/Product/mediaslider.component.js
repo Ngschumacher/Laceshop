@@ -1,8 +1,10 @@
 var App;
 (function (App) {
     var MediasliderComponentController = (function () {
-        function MediasliderComponentController($timeout) {
+        function MediasliderComponentController($timeout, $scope) {
+            var _this = this;
             this.$timeout = $timeout;
+            this.$scope = $scope;
             this.options = {
                 debug: false,
                 loop: true,
@@ -38,7 +40,10 @@ var App;
                 lastTouchClientX: null
             };
             this.thumbCss = {};
-            console.log(this.slides);
+            this.$scope.$on('MediasliderCtrl:reset', function () {
+                console.log('MediasliderCtrl:reset');
+                _this.switchItem(0, true);
+            });
         }
         MediasliderComponentController.prototype.setAutoPlay = function (direction) {
             direction = (direction === undefined) ? this.lastJumpDirection : direction;
@@ -52,6 +57,8 @@ var App;
             }
         };
         MediasliderComponentController.prototype.switchItem = function (direction, jump) {
+            console.log("switchItem");
+            console.log("switchITemsdf");
             if (Date.now() - this.lastSwitchTime > 100) {
                 direction = (direction === undefined) ? 1 : direction;
                 jump = (jump === undefined) ? false : jump;
@@ -130,7 +137,7 @@ var App;
             };
             this.thumbCss = css;
         };
-        MediasliderComponentController.$inject = ['$timeout'];
+        MediasliderComponentController.$inject = ['$timeout', '$scope'];
         return MediasliderComponentController;
     }());
     var MediasliderComponent = (function () {

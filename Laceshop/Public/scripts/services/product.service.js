@@ -18,11 +18,6 @@ var App;
                 return deferred.reject(reason);
             });
             return deferred.promise;
-            //var basket: IBasket = {
-            //    name : "hej",
-            //    totalBasketPrice : 200
-            //};
-            //return basket;
         };
         return ProductService;
     }());

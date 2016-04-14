@@ -21,19 +21,17 @@
         public slides : Array<string>;
 
 
-        static $inject = ['productService'];
-        constructor(private productService: IProductService) {
+        static $inject = ['productService', '$scope'];
+        constructor(private productService: IProductService, private $scope : ng.IScope) {
             var response = productService.getProduct(this.productKey);
             response.then(response => {
                 this.product = response;
-                console.log(this.product);
 
                 this.product.VariantOptions.forEach(variantOptions => {
                     variantOptions.model = variantOptions.Options.filter(x => x.Selected)[0].Key;
                 });
 
                 this.update();
-                console.log(this.variant);
             });
         }
 
@@ -58,6 +56,8 @@
         private setVariant(variant : IVariant) {
             this.slides = variant.ImageUrls.concat(this.product.ImageUrls);
             this.variant = variant;
+            console.log("changed");
+            this.$scope.$broadcast('MediasliderCtrl:reset');
         }
     }
 

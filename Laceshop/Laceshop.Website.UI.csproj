@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>85317c01</NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <TypeScriptExperimentalDecorators>true</TypeScriptExperimentalDecorators>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -538,6 +539,7 @@
     <Content Include="Public\style\icomoon\fonts\icomoon.svg" />
     <Content Include="Public\style\icomoon\Read Me.txt" />
     <Content Include="Public\style\icomoon\style.css" />
+    <None Include="Public\style\mediaslider.less" />
     <Content Include="Public\style\style.css" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />

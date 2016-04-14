@@ -25,11 +25,6 @@
             );
 
             return deferred.promise;
-            //var basket: IBasket = {
-            //    name : "hej",
-            //    totalBasketPrice : 200
-            //};
-            //return basket;
         }
      
     };

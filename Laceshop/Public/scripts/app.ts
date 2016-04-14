@@ -123,7 +123,6 @@ module App {
             };
             this.controller = SomeComponentController;
             this.templateUrl = '/Templates/some-component.html';
-            console.log("hej");
 
         }
 
