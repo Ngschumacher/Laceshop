@@ -22,10 +22,7 @@
 
         static $inject = ['basketService'];
         constructor(private basketService: IBasketService) {
-            var response = basketService.getBasket();
-            response.then(response => {
-                this.basket = response;
-            });
+            this.basket = basketService.basket;
         }
 
         

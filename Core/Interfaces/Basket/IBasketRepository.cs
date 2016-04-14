@@ -24,5 +24,6 @@ namespace Core.Interfaces.Basket
         void SaveShipmentRateQuote(IShipmentRateQuote shipmentRateQuote);
         void SavePaymentMethod(IPaymentMethod paymentMethod);
 	    IInvoice PrepareInvoice();
+        void AddVariantItem(Guid id, int quantity);
     }
 }

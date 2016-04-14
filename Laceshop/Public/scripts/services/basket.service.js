@@ -8,15 +8,25 @@ var App;
             this.$http = $http;
             this.$q = $q;
             console.log("basket Constructor");
+            this.retriveBasket();
         }
-        BasketService.prototype.getBasket = function () {
-            var deferred = this.$q.defer();
+        Object.defineProperty(BasketService.prototype, "basket", {
+            get: function () {
+                return this._basket;
+            },
+            set: function (basket) {
+                this._basket = basket;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        BasketService.prototype.retriveBasket = function () {
+            var _this = this;
             this.$http.get("/Umbraco/api/basket/getbasket").then(function (response) {
-                deferred.resolve(response.data);
+                _this._basket = response.data;
             }).catch(function (reason) {
-                return deferred.reject(reason);
+                console.log("something went wrong", reason);
             });
-            return deferred.promise;
             //var basket: IBasket = {
             //    name : "hej",
             //    totalBasketPrice : 200
@@ -24,13 +34,15 @@ var App;
             //return basket;
         };
         BasketService.prototype.updateItem = function (id, quantity) {
-            var deferred = this.$q.defer();
-            this.$http.post("/Umbraco/api/basket/UpdateItemQuantity", { 'id': id, 'quantity': quantity }).then(function (response) {
-                deferred.resolve(response.data);
+            var _this = this;
+            this.$http.post("/Umbraco/api/basket/AddItem", { 'id': id, 'quantity': quantity }).then(function (response) {
+                //this._basket = <IBasket>response.data;
+                angular.extend(_this._basket, response.data);
+                console.log(response.data);
+                console.log(_this._basket);
             }).catch(function (reason) {
-                return deferred.reject(reason);
+                console.log("something went wrong", reason);
             });
-            return deferred.promise;
         };
         BasketService.prototype.removeItem = function (id) {
             var deferred = this.$q.defer();

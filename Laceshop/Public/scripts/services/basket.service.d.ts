@@ -1,7 +1,7 @@
 declare module App {
     interface IBasketService {
-        getBasket(): ng.IPromise<IBasket>;
-        updateItem(id: string, quantity: number): ng.IPromise<IBasket>;
+        basket: IBasket;
+        updateItem(id: string, quantity: number): any;
         removeItem(id: string): ng.IPromise<IBasket>;
     }
     class BasketService implements IBasketService {
@@ -10,8 +10,10 @@ declare module App {
         httpService: ng.IHttpService;
         handlerUrl: string;
         constructor($http: ng.IHttpService, $q: ng.IQService);
-        getBasket(): ng.IPromise<IBasket>;
-        updateItem(id: string, quantity: number): ng.IPromise<IBasket>;
+        private _basket;
+        basket: IBasket;
+        private retriveBasket();
+        updateItem(id: string, quantity: number): void;
         removeItem(id: string): ng.IPromise<IBasket>;
     }
 }

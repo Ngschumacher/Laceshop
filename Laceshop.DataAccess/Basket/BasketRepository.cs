@@ -86,6 +86,14 @@ namespace Laceshop.DataAccess.Basket
             }
             _basket.Save();
         }
+        public void AddVariantItem(Guid id, int quantity)
+        {
+            var variant = _productVariantService.GetByKey(id);
+
+            if (variant.TotalInventoryCount > 0 || variant.OutOfStockPurchase)
+                _basket.AddItem(variant, variant.Name, quantity);
+            _basket.Save();;
+        }
 
         public void RemoveItem(Guid productGuid)
         {
@@ -134,6 +142,8 @@ namespace Laceshop.DataAccess.Basket
         {
             return SalePreparation().PrepareInvoice();
         }
+
+       
 
         private ExtendedDataCollection ConvertDictionaryToExtendedDataCollection(Dictionary<string, string> dictionary)
         {

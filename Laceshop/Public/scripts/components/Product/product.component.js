@@ -1,16 +1,19 @@
 var App;
 (function (App) {
     var ProductComponentController = (function () {
-        function ProductComponentController(productService, $scope) {
+        function ProductComponentController(productService, basketService, $scope) {
             var _this = this;
             this.productService = productService;
+            this.basketService = basketService;
             this.$scope = $scope;
+            this.amount = 1;
             var response = productService.getProduct(this.productKey);
             response.then(function (response) {
                 _this.product = response;
                 _this.product.VariantOptions.forEach(function (variantOptions) {
                     variantOptions.model = variantOptions.Options.filter(function (x) { return x.Selected; })[0].Key;
                 });
+                _this.basket = basketService.basket;
                 _this.update();
             });
         }
@@ -37,7 +40,12 @@ var App;
             console.log("changed");
             this.$scope.$broadcast('MediasliderCtrl:reset');
         };
-        ProductComponentController.$inject = ['productService', '$scope'];
+        ProductComponentController.prototype.addToBasket = function () {
+            var amount = this.amount;
+            this.basketService.updateItem(this.variant.Key, amount);
+            this.amount = 1;
+        };
+        ProductComponentController.$inject = ['productService', 'basketService', '$scope'];
         return ProductComponentController;
     }());
     var ProductComponent = (function () {

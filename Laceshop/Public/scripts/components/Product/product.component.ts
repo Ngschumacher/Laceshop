@@ -16,13 +16,16 @@
         public dataBinding: number;
         public functionBinding: () => any;
 
+        public amount : number = 1;
         public product : IProduct;
         public variant: IVariant;
         public slides : Array<string>;
+        public basket : IBasket;
 
 
-        static $inject = ['productService', '$scope'];
-        constructor(private productService: IProductService, private $scope : ng.IScope) {
+
+        static $inject = ['productService', 'basketService', '$scope'];
+        constructor(private productService: IProductService, public basketService: IBasketService, private $scope : ng.IScope) {
             var response = productService.getProduct(this.productKey);
             response.then(response => {
                 this.product = response;
@@ -30,6 +33,7 @@
                 this.product.VariantOptions.forEach(variantOptions => {
                     variantOptions.model = variantOptions.Options.filter(x => x.Selected)[0].Key;
                 });
+                this.basket = basketService.basket;
 
                 this.update();
             });
@@ -50,14 +54,20 @@
                 if (matches === variantsCount) {
                     this.setVariant(variant);
                 }
-            });
-            
+            });   
         }
+
         private setVariant(variant : IVariant) {
             this.slides = variant.ImageUrls.concat(this.product.ImageUrls);
             this.variant = variant;
             console.log("changed");
             this.$scope.$broadcast('MediasliderCtrl:reset');
+        }
+
+        public addToBasket() {
+            var amount = this.amount;
+            this.basketService.updateItem(this.variant.Key, amount);
+            this.amount = 1;
         }
     }
 

@@ -7,7 +7,6 @@ var App;
         function ProductService($http, $q) {
             this.$http = $http;
             this.$q = $q;
-            console.log("product Constructor");
         }
         ProductService.prototype.getProduct = function (productKey) {
             console.log(productKey);

@@ -12,7 +12,6 @@
         //    this.httpService = $http;
         //}
         constructor(private $http : ng.IHttpService, private $q : ng.IQService) {
-            console.log("product Constructor");
         }
 
         getProduct(productKey : string ): ng.IPromise<IProduct> {

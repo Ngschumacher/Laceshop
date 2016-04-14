@@ -1,4 +1,5 @@
 ﻿<div class="col-sm-8 ">
+    {{$ctrl.basket}}
     <mediaslider slides="$ctrl.slides">
 
     </mediaslider>
@@ -26,7 +27,8 @@
         {{variantOption.model}}
     </div>
     <div class="product-btn">
-        <input type="submit" class="btn" value="Add To Cart" />
+        <input type="text" ng-model="$ctrl.amount"/>
+        <input type="button" class="btn" ng-click="$ctrl.addToBasket()" value="Add To Cart" />
         <!--@Html.Hidden("ProductKey", Model.Product.Key)
         @Html.Hidden("ContentId", Model.Id)-->
     </div>

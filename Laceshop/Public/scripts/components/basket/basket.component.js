@@ -2,12 +2,8 @@ var App;
 (function (App) {
     var BasketComponentController = (function () {
         function BasketComponentController(basketService) {
-            var _this = this;
             this.basketService = basketService;
-            var response = basketService.getBasket();
-            response.then(function (response) {
-                _this.basket = response;
-            });
+            this.basket = basketService.basket;
         }
         BasketComponentController.$inject = ['basketService'];
         return BasketComponentController;

@@ -1,7 +1,7 @@
 ﻿module App {
     export interface IBasketService {
-        getBasket(): ng.IPromise<IBasket>;
-        updateItem(id: string, quantity: number) : ng.IPromise<IBasket>;
+        basket : IBasket;
+        updateItem(id: string, quantity: number);
         removeItem(id: string) : ng.IPromise<IBasket>;
     }
 
@@ -10,39 +10,51 @@
         httpService: ng.IHttpService;
         handlerUrl: string;
 
+        
+
         //constructor($http: ng.IHttpService) {
         //    this.httpService = $http;
         //}
         constructor(private $http : ng.IHttpService, private $q : ng.IQService) {
             console.log("basket Constructor");
+
+            this.retriveBasket();
+        }
+        private _basket: IBasket;
+
+        get basket(): IBasket {
+            return this._basket;
+        }
+        set basket(basket: IBasket) {
+            this._basket = basket;
         }
 
-        getBasket(): ng.IPromise<IBasket> {
+        private retriveBasket() {
 
-            var deferred = this.$q.defer();
             this.$http.get("/Umbraco/api/basket/getbasket").then(response => {
-                deferred.resolve(response.data);
-            }).catch(reason =>
-                    deferred.reject(reason)
+                this._basket = <IBasket>response.data;
+            }).catch(reason => {
+                    console.log("something went wrong", reason);
+                }
+                    
             );
 
-            return deferred.promise;
             //var basket: IBasket = {
             //    name : "hej",
             //    totalBasketPrice : 200
             //};
             //return basket;
         }
-        updateItem(id: string, quantity: number) : ng.IPromise<IBasket> {
+        updateItem(id: string, quantity: number)  {
 
-            var deferred = this.$q.defer();
-            this.$http.post("/Umbraco/api/basket/UpdateItemQuantity", {'id' : id, 'quantity' : quantity }).then(response => {
-                deferred.resolve(response.data);
-            }).catch(reason =>
-                deferred.reject(reason)
-                );
-
-            return deferred.promise;
+            this.$http.post("/Umbraco/api/basket/AddItem", { 'id': id, 'quantity': quantity }).then(response => {
+                //this._basket = <IBasket>response.data;
+                angular.extend(this._basket, response.data);
+                console.log(response.data);
+                console.log(this._basket);
+            }).catch(reason => {
+                    console.log("something went wrong", reason);
+                });
         }
 
         removeItem(id: string): ng.IPromise<IBasket> {
