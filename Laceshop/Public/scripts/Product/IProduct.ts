@@ -6,10 +6,11 @@
     }
     export interface IVariant {
         Attributes: Array<IVariantAttribute>;
-        ImageUrls : Array<string>;
+        ImageUrls: Array<string>;
+		InventoryCount : number;
         Key: string;
         Name: string;
-
+	    SkuId: boolean;
     }
     export interface IVariantAttribute {
         Key: string;

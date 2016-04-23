@@ -1,20 +1,33 @@
 var App;
 (function (App) {
     var ProductComponentController = (function () {
-        function ProductComponentController(productService, basketService, $scope) {
+        function ProductComponentController(productService, basketService, $scope, $location) {
             var _this = this;
             this.productService = productService;
             this.basketService = basketService;
             this.$scope = $scope;
+            this.$location = $location;
             this.amount = 1;
-            var response = productService.getProduct(this.productKey);
+            this.basket = basketService.basket;
+            var skuId = $location.search()["id"];
+            var response = productService.getProduct(this.productKey, skuId);
             response.then(function (response) {
                 _this.product = response;
                 _this.product.VariantOptions.forEach(function (variantOptions) {
                     variantOptions.model = variantOptions.Options.filter(function (x) { return x.Selected; })[0].Key;
                 });
-                _this.basket = basketService.basket;
-                _this.update();
+                if (skuId !== "") {
+                    var variantByUrl = _this.product.Variants.filter(function (x) { return x.SkuId === skuId; })[0];
+                    if (variantByUrl !== undefined) {
+                        _this.setVariant(variantByUrl);
+                    }
+                    else {
+                        _this.update();
+                    }
+                }
+                else {
+                    _this.update();
+                }
             });
         }
         ProductComponentController.prototype.update = function () {
@@ -35,17 +48,22 @@ var App;
             });
         };
         ProductComponentController.prototype.setVariant = function (variant) {
-            this.slides = variant.ImageUrls.concat(this.product.ImageUrls);
+            this.imageUrls(variant.ImageUrls);
             this.variant = variant;
-            console.log("changed");
+            this.$location.search("id", this.variant.SkuId);
             this.$scope.$broadcast('MediasliderCtrl:reset');
+            this.amount = 1;
+            this.amountMax = this.variant.InventoryCount;
+        };
+        ProductComponentController.prototype.imageUrls = function (imageUrls) {
+            this.slides = imageUrls.concat(this.product.ImageUrls);
         };
         ProductComponentController.prototype.addToBasket = function () {
             var amount = this.amount;
             this.basketService.updateItem(this.variant.Key, amount);
             this.amount = 1;
         };
-        ProductComponentController.$inject = ['productService', 'basketService', '$scope'];
+        ProductComponentController.$inject = ['productService', 'basketService', '$scope', '$location'];
         return ProductComponentController;
     }());
     var ProductComponent = (function () {

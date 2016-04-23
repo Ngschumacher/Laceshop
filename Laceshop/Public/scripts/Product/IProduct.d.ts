@@ -7,8 +7,10 @@ declare module App {
     interface IVariant {
         Attributes: Array<IVariantAttribute>;
         ImageUrls: Array<string>;
+        InventoryCount: number;
         Key: string;
         Name: string;
+        SkuId: boolean;
     }
     interface IVariantAttribute {
         Key: string;

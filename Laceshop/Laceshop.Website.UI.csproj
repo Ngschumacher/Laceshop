@@ -1375,6 +1375,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Templates\miniBasket.html" />
     <Content Include="Templates\basket.html" />
     <Content Include="Templates\basketLines.html" />
     <Content Include="Templates\mediaslider.html" />
@@ -1382,7 +1383,6 @@
     <Content Include="Templates\some-component.html" />
     <Content Include="typings.json" />
     <Content Include="Scripts\version.json" />
-    <None Include="tsconfig.json" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1426,7 +1426,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Css\" />
-    <Folder Include="Templates\NewFolder1\" />
     <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
@@ -1489,6 +1488,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Public\scripts\app.ts" />
     <TypeScriptCompile Include="Public\scripts\Basket\IBasket.ts" />
+    <TypeScriptCompile Include="Public\scripts\components\basket\miniBasket.component.ts" />
     <TypeScriptCompile Include="Public\scripts\components\basket\basketLines.component.ts" />
     <TypeScriptCompile Include="Public\scripts\components\basket\basket.component.ts" />
     <TypeScriptCompile Include="Public\scripts\components\Product\mediaslider.component.ts" />
@@ -1517,6 +1517,17 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptModuleKind>system</TypeScriptModuleKind>
     <TypeScriptGeneratesDeclarations>True</TypeScriptGeneratesDeclarations>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

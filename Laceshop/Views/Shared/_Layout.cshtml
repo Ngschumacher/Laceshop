@@ -6,43 +6,45 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="storeApp">
 <head>
-    <title>STELLA SHOP</title>
+	<title>STELLA SHOP</title>
+	<base href="/">
     <meta charset="utf-8">
     <meta name="description" content="Laceshop - Elegant shopping for shoelaces">
     <meta name="author" content="Niclas Schumacher">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
         @{
-        // Theme Assets references
-        //// TODO make bundles
-        Html.RequiresJs("/Public/scripts/jquery-2.2.1.min.js")
-            .RequiresJs("/Scripts/bootstrap.js")
-            .RequiresJs("/Scripts/angular.js")
+			// Theme Assets references
+			//// TODO make bundles
+			Html.RequiresJs("/Public/scripts/jquery-2.2.1.min.js")
+				.RequiresJs("/Scripts/bootstrap.js")
+				.RequiresJs("/Scripts/angular.js")
 
-            .RequiresJs("/Public/scripts/placeholders.min.js")
-            .RequiresJs("/Public/scripts/custom.js")
+				.RequiresJs("/Public/scripts/placeholders.min.js")
+				.RequiresJs("/Public/scripts/custom.js")
 
-            .RequiresJs("/Public/scripts/app.js")
-            
-            .RequiresJs("/Public/scripts/services/basket.service.js")
-             .RequiresJs("/Public/scripts/services/product.service.js")
-            
-            .RequiresJs("/Public/scripts/components/basket/basket.component.js")
-            .RequiresJs("/Public/scripts/components/basket/basketLines.component.js")
+				.RequiresJs("/Public/scripts/app.js")
 
-            .RequiresJs("/Public/scripts/components/product/product.component.js")
-            .RequiresJs("/Public/scripts/components/product/mediaslider.component.js")
-            
-            .RequiresJs("/Public/scripts/ga.js")
+				.RequiresJs("/Public/scripts/services/basket.service.js")
+				.RequiresJs("/Public/scripts/services/product.service.js")
 
-            .RequiresCss("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
-            .RequiresCss("http://fonts.googleapis.com/css?family=Roboto:400,300,100,500")
-            .RequiresCss("/Public/style/bootstrap/bootstrap.css")
-            .RequiresCss("/Public/style/bootstrap/bootstrap-theme.css")
-            .RequiresCss("/Public/style/style.css")
-            .RequiresCss("/Public/style/icomoon/style.css")
-			.RequiresCss("/Public/style/mediaslider.less")
-            .RequiresCss("/Public/style/layout.less");
+				.RequiresJs("/Public/scripts/components/basket/miniBasket.component.js")
+				.RequiresJs("/Public/scripts/components/basket/basket.component.js")
+				.RequiresJs("/Public/scripts/components/basket/basketLines.component.js")
+
+				.RequiresJs("/Public/scripts/components/product/product.component.js")
+				.RequiresJs("/Public/scripts/components/product/mediaslider.component.js")
+
+				.RequiresJs("/Public/scripts/ga.js")
+
+				.RequiresCss("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+				.RequiresCss("http://fonts.googleapis.com/css?family=Roboto:400,300,100,500")
+				.RequiresCss("/Public/style/bootstrap/bootstrap.css")
+				.RequiresCss("/Public/style/bootstrap/bootstrap-theme.css")
+				.RequiresCss("/Public/style/style.css")
+				.RequiresCss("/Public/style/icomoon/style.css")
+				.RequiresCss("/Public/style/mediaslider.less")
+				.RequiresCss("/Public/style/layout.less");
         }
     @Html.RenderCssHere()
 
@@ -61,7 +63,9 @@
                 <div class="nav-header">
                     <a href="/" class="nav-brand">Lace <span>Shop</span></a>
                     <a class="nav-icon pull-right visible-xs menu-link" href="#"><i class="icon-menu2"></i></a>
-                    <a class="nav-icon-outline cart pull-right" href="cart.html"><i class="icon-cart"></i><span class="badge">3</span></a>
+	                <mini-basket>
+		                
+	                </mini-basket>
                 </div>
             </div>
         </div>

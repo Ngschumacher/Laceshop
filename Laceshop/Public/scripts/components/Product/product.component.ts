@@ -16,7 +16,8 @@
         public dataBinding: number;
         public functionBinding: () => any;
 
-        public amount : number = 1;
+        public amount: number = 1;
+		public amountMax : number;
         public product : IProduct;
         public variant: IVariant;
         public slides : Array<string>;
@@ -24,18 +25,28 @@
 
 
 
-        static $inject = ['productService', 'basketService', '$scope'];
-        constructor(private productService: IProductService, public basketService: IBasketService, private $scope : ng.IScope) {
-            var response = productService.getProduct(this.productKey);
-            response.then(response => {
+        static $inject = ['productService', 'basketService', '$scope','$location'];
+        constructor(private productService: IProductService, public basketService: IBasketService, private $scope: ng.IScope, private $location: ng.ILocationService) {
+			this.basket = basketService.basket;
+			var skuId = $location.search()["id"];
+			var response = productService.getProduct(this.productKey, skuId);
+			response.then(response => {
                 this.product = response;
 
                 this.product.VariantOptions.forEach(variantOptions => {
                     variantOptions.model = variantOptions.Options.filter(x => x.Selected)[0].Key;
                 });
-                this.basket = basketService.basket;
 
-                this.update();
+				if (skuId !== "") {
+					var variantByUrl = this.product.Variants.filter(x => x.SkuId === skuId)[0];
+					if (variantByUrl !== undefined) {
+						this.setVariant(variantByUrl);
+					} else {
+						this.update();
+					}
+				} else {
+					this.update();
+				} 
             });
         }
 
@@ -57,12 +68,18 @@
             });   
         }
 
-        private setVariant(variant : IVariant) {
-            this.slides = variant.ImageUrls.concat(this.product.ImageUrls);
+        private setVariant(variant: IVariant) {
+			this.imageUrls(variant.ImageUrls);
             this.variant = variant;
-            console.log("changed");
+	        this.$location.search("id", this.variant.SkuId);
             this.$scope.$broadcast('MediasliderCtrl:reset');
+	        this.amount = 1;
+	        this.amountMax = this.variant.InventoryCount;
         }
+		private imageUrls(imageUrls: Array<string>) {
+            this.slides = imageUrls.concat(this.product.ImageUrls);
+
+		}
 
         public addToBasket() {
             var amount = this.amount;

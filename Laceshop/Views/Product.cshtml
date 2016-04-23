@@ -27,15 +27,3 @@
         </div>
     </div>
 </div>
-    @*@using (Html.BeginUmbracoForm<BasketPageController>("AddItem", "BasketPage", new { id = "add-to-basket-form" }, FormMethod.Post)){
-foreach (var option in Model.Product.Options)
-{
-    <div>
-        @Html.Label(option.Name)
-        @Html.DropDownList("OptionKeys", option.Choices)
-    </div>
-}
-<input type="submit" value="Add To Cart" />
-@Html.Hidden("ProductKey", Model.Product.Key)
-@Html.Hidden("ContentId", Model.Id)
-}*@

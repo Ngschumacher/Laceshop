@@ -33,6 +33,9 @@ namespace Laceshop.Website.Code.Models.Products
         public string Name { get; set; }
         public string Url { get; set; }
         public List<string> ImageUrls { get; set; }
+	    public int InventoryCount { get; set; }
+	    public bool OutOfStockPurchase { get; set; }
+	    public string SkuId { get; set; }
     }
 
     public class VariantAttributeViewModel

@@ -7,6 +7,7 @@ var App;
         function BasketService($http, $q) {
             this.$http = $http;
             this.$q = $q;
+            this._basket = {};
             console.log("basket Constructor");
             this.retriveBasket();
         }
@@ -23,7 +24,8 @@ var App;
         BasketService.prototype.retriveBasket = function () {
             var _this = this;
             this.$http.get("/Umbraco/api/basket/getbasket").then(function (response) {
-                _this._basket = response.data;
+                _this._basket = angular.extend(_this._basket, response.data);
+                ;
             }).catch(function (reason) {
                 console.log("something went wrong", reason);
             });

@@ -1,6 +1,6 @@
 ﻿module App {
     export interface IProductService {
-        getProduct(productKey : string): ng.IPromise<IProduct>;
+        getProduct(productKey : string, skuId : string): ng.IPromise<IProduct>;
     }
 
     export class ProductService implements IProductService {
@@ -14,14 +14,13 @@
         constructor(private $http : ng.IHttpService, private $q : ng.IQService) {
         }
 
-        getProduct(productKey : string ): ng.IPromise<IProduct> {
-            console.log(productKey);
+        getProduct(productKey: string, skuId: string): ng.IPromise<IProduct> {
             var deferred = this.$q.defer();
-            this.$http.get("/Umbraco/api/product/getProduct?key=" + productKey ).then(response => {
+            this.$http.get("/Umbraco/api/product/getProduct?key=" + productKey +"&skuId=" + skuId ).then(response => {
                 deferred.resolve(response.data);
             }).catch(reason =>
                     deferred.reject(reason)
-            );
+            );	
 
             return deferred.promise;
         }

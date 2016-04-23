@@ -8,10 +8,9 @@ var App;
             this.$http = $http;
             this.$q = $q;
         }
-        ProductService.prototype.getProduct = function (productKey) {
-            console.log(productKey);
+        ProductService.prototype.getProduct = function (productKey, skuId) {
             var deferred = this.$q.defer();
-            this.$http.get("/Umbraco/api/product/getProduct?key=" + productKey).then(function (response) {
+            this.$http.get("/Umbraco/api/product/getProduct?key=" + productKey + "&skuId=" + skuId).then(function (response) {
                 deferred.resolve(response.data);
             }).catch(function (reason) {
                 return deferred.reject(reason);

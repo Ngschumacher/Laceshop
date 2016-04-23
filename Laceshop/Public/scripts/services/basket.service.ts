@@ -20,7 +20,7 @@
 
             this.retriveBasket();
         }
-        private _basket: IBasket;
+        private _basket: IBasket = <IBasket>{};
 
         get basket(): IBasket {
             return this._basket;
@@ -32,7 +32,8 @@
         private retriveBasket() {
 
             this.$http.get("/Umbraco/api/basket/getbasket").then(response => {
-                this._basket = <IBasket>response.data;
+				
+                this._basket = angular.extend(this._basket, response.data);;
             }).catch(reason => {
                     console.log("something went wrong", reason);
                 }

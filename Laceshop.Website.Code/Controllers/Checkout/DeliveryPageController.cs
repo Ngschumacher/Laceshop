@@ -29,30 +29,32 @@ namespace Laceshop.Website.Code.Controllers.Checkout
 	    }
 
 	    public ActionResult DeliveryPage()
-        {
+	    {
+		    var ship = _customerManager.GetShipToAddress();
+		    var bill = _customerManager.GetBillToAddress();
             var address = _customerManager.GetShipToAddress();
 
-            if (Basket.IsEmpty || address == null )
+            if (Basket.IsEmpty)
             {
                 return RedirectToBasketPage();
             }
              //_basketRepository.GetPackageBasket().First();
             // Package into shipments (we'll only have one)
-            var shipment = Basket.PackageBasket(address).FirstOrDefault();
+            //var shipment = Basket.PackageBasket(address).FirstOrDefault();
             var vm = GetPageModel<DeliveryPageViewModel>();
             vm.AllowBasketEdit = false;
             vm.ShowOrderTotal = true;
 
             vm.Basket = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
             vm.Basket.ShowOrderTotal = true;
-            var deliveryOptions = shipment.ShipmentRateQuotes()
-                .OrderBy(x => x.Rate)
-                .Select(x => new SelectListItem()
-                {
-                    Value = x.ShipMethod.Key.ToString(),
-					Text = string.Format("{0} ({1})", x.ShipMethod.Name, _shopHelper.FormatPrice(x.Rate))
-                });
-            vm.DeliveryOptions = new SelectList(deliveryOptions, "Value", "Text");
+     //       var deliveryOptions = shipment.ShipmentRateQuotes()
+     //           .OrderBy(x => x.Rate)
+     //           .Select(x => new SelectListItem()
+     //           {
+     //               Value = x.ShipMethod.Key.ToString(),
+					//Text = string.Format("{0} ({1})", x.ShipMethod.Name, _shopHelper.FormatPrice(x.Rate))
+     //           });
+     //       vm.DeliveryOptions = new SelectList(deliveryOptions, "Value", "Text");
              
             return CurrentTemplate(vm);
         }

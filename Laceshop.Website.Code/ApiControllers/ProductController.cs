@@ -29,7 +29,7 @@ namespace Laceshop.Website.Code.ApiControllers
         }
 
         [HttpGet]
-        public ProductViewModel GetProduct(string key, Guid[] options)
+        public ProductViewModel GetProduct(string key, string skuId)
         {
             var productService = Services.ProductService();
             var productvariantService = Services.ProductVariantService();
@@ -37,14 +37,10 @@ namespace Laceshop.Website.Code.ApiControllers
             var merchelloHelper = new MerchelloHelper();
             var productContent = merchelloHelper.TypedProductContent(key);
             var product = productService.GetByKey(new Guid(key));
-            
-            if (options == null)
-            {
-                options = new List<Guid>().ToArray();
 
-            }
-            
-            var variantByOptions = productvariantService.GetProductVariantWithAttributes(product, options);
+
+
+	        var variantByOptions = productvariantService.GetBySku(skuId);
 
             var variantKey = variantByOptions != null ? variantByOptions.Key : product.ProductVariants.FirstOrDefault().Key;
 
@@ -110,13 +106,17 @@ namespace Laceshop.Website.Code.ApiControllers
                     var imageIds = x.GetPropertyValue("Images").ToString().Split(',').ToList();
                     images = Umbraco.TypedMedia(imageIds).Select(img => img.Url).ToList();
                 }
+				
                 return new VariantViewModel()
                 {
+					SkuId = x.Sku,
                     Key = x.Key,
                     Name = x.Name,
                     Url = x.Url,
                     ImageUrls = images,
-                    Attributes = x.Attributes.Select(attr =>
+					InventoryCount = x.TotalInventoryCount,
+					OutOfStockPurchase = x.OutOfStockPurchase,
+					Attributes = x.Attributes.Select(attr =>
                     {
                         var productOptionDisplay =
                             product.ProductOptions.FirstOrDefault(option => option.Key == attr.OptionKey);

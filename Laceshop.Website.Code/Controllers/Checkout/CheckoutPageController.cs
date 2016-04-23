@@ -30,17 +30,18 @@ namespace Laceshop.Website.Code.Controllers.Checkout
 
         public ActionResult CheckoutPage()
         {
-            SetShippingInfomation();
+            //SetShippingInfomation();
             
             if (Basket.IsEmpty)
             {
                 return RedirectToBasketPage();
             }
-            var basketReadyForInvoice = _paymentManager.IsReadyToInvoice();
-            if (!basketReadyForInvoice)
-            {
-                return RedirectToUmbracoPage(GetBasketPageNode().Id);
-            }
+   //         var basketReadyForInvoice = _paymentManager.IsReadyToInvoice();
+			//_paymentManager.
+   //         if (!basketReadyForInvoice)
+   //         {
+   //             return RedirectToUmbracoPage(GetBasketPageNode().Id);
+   //         }
 
             var address = _customerManager.GetBillToAddress();
             

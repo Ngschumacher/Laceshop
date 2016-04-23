@@ -22,9 +22,9 @@ namespace Laceshop.Website.Code.Models.Basket
         {
             ShowOrderTotal = false;
             AllowBasketEdit = true;
-
         }
 
+	    public int TotalQuantityCount { get; set; }
         public bool ShowOrderTotal { get; set; }
     }
 }
