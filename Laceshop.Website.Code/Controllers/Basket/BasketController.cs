@@ -40,7 +40,6 @@ namespace Laceshop.Website.Code.Controllers.Basket
         {
             var basketVm = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
             var vm = GetPageModel<BasketPageViewModel>();
-            vm.Basket = basketVm;
             
             vm.CheckoutPageUrl = GetCheckoutPageNode().Url;
 

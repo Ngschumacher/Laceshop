@@ -35,7 +35,7 @@ namespace Laceshop.Website.Code.Models.Checkout
         [Required(ErrorMessage = "Please enter your postcode")]
         public string Postcode { get; set; }
 
-       public OrderViewModel Order { get; set; }
+	   public BasketViewModel Basket { get; set; }
     }
      
 }

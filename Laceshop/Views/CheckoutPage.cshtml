@@ -17,54 +17,57 @@
     <div class="container-fluid cart-list">
         @Html.ValidationSummary()
         <div class="row">
-            <div class="col-sm-6">
-                    <h3 class="text-center">Delivery address</h3>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.CustomerName, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.CustomerName, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.CustomerName)})
-                        @Html.ValidationMessageFor(m => m.CustomerName)
-                    </div>
+	        <div class="col-sm-4">
+		        <h3 class="text-center">Delivery address</h3>
+		        <div class="form-group">
+			        @Html.LabelFor(m => m.CustomerName, new {@class = "control-label"})
+			        @Html.TextBoxFor(m => m.CustomerName, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.CustomerName)})
+			        @Html.ValidationMessageFor(m => m.CustomerName)
+		        </div>
 
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Email)})
-                        @Html.ValidationMessageFor(m => m.Email)
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Telephone, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.Telephone, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Telephone)})
-                        @Html.ValidationMessageFor(m => m.Telephone)
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Address1, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.Address1, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Address1)})
-                        @Html.ValidationMessageFor(m => m.Address1)
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Address2, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.Address2, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Address2)})
-                        @Html.ValidationMessageFor(m => m.Address2)
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.City, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.City, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.City)})
-                        @Html.ValidationMessageFor(m => m.City)
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Postcode, new {@class = "control-label"})
-                        @Html.TextBoxFor(m => m.Postcode, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Postcode)})
-                        @Html.ValidationMessageFor(m => m.Postcode)
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            @Html.LabelFor(m => m.County)
-                            @Html.TextBoxFor(m => m.County, new {@class = "form-control", @readonly = "", @Value = "Danmark"})
-                            @Html.ValidationMessageFor(m => m.County)
-                        </div>
-                    </div>
-            </div>
-            <div class="col-sm-6 ">
+		        <div class="form-group">
+			        @Html.LabelFor(m => m.Email, new {@class = "control-label"})
+			        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Email)})
+			        @Html.ValidationMessageFor(m => m.Email)
+		        </div>
+		        <div class="form-group">
+			        @Html.LabelFor(m => m.Telephone, new {@class = "control-label"})
+			        @Html.TextBoxFor(m => m.Telephone, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Telephone)})
+			        @Html.ValidationMessageFor(m => m.Telephone)
+		        </div>
+		        <div class="form-group">
+			        @Html.LabelFor(m => m.Address1, new {@class = "control-label"})
+			        @Html.TextBoxFor(m => m.Address1, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Address1)})
+			        @Html.ValidationMessageFor(m => m.Address1)
+		        </div>
+		        <div class="form-group">
+			        @Html.LabelFor(m => m.Address2, new {@class = "control-label"})
+			        @Html.TextBoxFor(m => m.Address2, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Address2)})
+			        @Html.ValidationMessageFor(m => m.Address2)
+		        </div>
+		        <div class="form-group">
+			        @Html.LabelFor(m => m.City, new {@class = "control-label"})
+			        @Html.TextBoxFor(m => m.City, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.City)})
+			        @Html.ValidationMessageFor(m => m.City)
+		        </div>
+		        <div class="form-group">
+			        @Html.LabelFor(m => m.Postcode, new {@class = "control-label"})
+			        @Html.TextBoxFor(m => m.Postcode, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Postcode)})
+			        @Html.ValidationMessageFor(m => m.Postcode)
+		        </div>
+		        <div class="form-group">
+			        <div>
+				        @Html.LabelFor(m => m.County)
+				        @Html.TextBoxFor(m => m.County, new {@class = "form-control", @readonly = "", @Value = "Danmark"})
+				        @Html.ValidationMessageFor(m => m.County)
+			        </div>
+		        </div>
+	        </div>
+	        <div class="col-sm-4">
+		        here is the shipping gonna be showed.
+	        </div>
+            <div class="col-sm-4 ">
                 <table class="table">
                     <thead>
                     <tr>
@@ -72,7 +75,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach (var item in Model.Order.Items)
+                    @foreach (var item in Model.Basket.Items)
                     {
                         <tr>
                             <td class="vert-align">@item.Name</td>
@@ -84,22 +87,22 @@
                     <tr>
                         <td class="vert-align"><b>Cart subtotal</b></td>
                         <td class="vert-align"></td>
-                        <td class="vert-align text-right"><b>@Model.Order.TotalItemPrice.ToString("C")</b></td>
+                        <td class="vert-align text-right"><b>@Model.Basket.TotalBasketPrice.ToString("C")</b></td>
                     </tr>
                     <tr>
                         <td class="vert-align">Shipping cost:</td>
                         <td class="vert-align"></td>
-                        <td class="vert-align text-right">@Model.Order.ShippingPirce.ToString("C")</td>
+                        <td class="vert-align text-right">no shipping here</td>
                     </tr>
                     <tr>
                         <td class="vert-align">Tax:</td>
                         <td class="vert-align"></td>
-                        <td class="vert-align text-right">@Model.Order.TotalTax.ToString("C")</td>
+	                    <td class="vert-align text-right">No tax here</td>
                     </tr>
                     <tr>
                         <td class="vert-align">Total:</td>
                         <td class="vert-align"></td>
-                        <td class="vert-align text-right" id="total">@Model.Order.Total.ToString("C")</td>
+                        <td class="vert-align text-right" id="total">@Model.Basket.TotalOrderPrice.ToString("C")</td>
                     </tr>
                     </tbody>
                 </table>

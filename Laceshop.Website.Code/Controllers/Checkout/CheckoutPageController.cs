@@ -42,16 +42,16 @@ namespace Laceshop.Website.Code.Controllers.Checkout
    //         {
    //             return RedirectToUmbracoPage(GetBasketPageNode().Id);
    //         }
-
             var address = _customerManager.GetBillToAddress();
             
             
             var vm = GetPageModel<CheckoutPageViewModel>();
 			AutoMapper.Mapper.Map(address, vm);
 
-            var invoice = _paymentManager.PrepareInvoice();
+            //var invoice = _paymentManager.PrepareInvoice();
 
-            vm.Order = AutoMapper.Mapper.Map<OrderViewModel>(invoice);
+
+            vm.Basket = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
             return CurrentTemplate(vm);
         }
 

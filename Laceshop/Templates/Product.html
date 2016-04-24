@@ -33,6 +33,6 @@
 	</div>
     <div class="product-btn">{{$ctrl.amountMax}}
         <input type="number" ng-model="$ctrl.amount" max="{{$ctrl.amountMax}}" min="0"/>
-        <input type="button" class="btn" ng-click="$ctrl.addToBasket()" ng-disabled="$ctrl.variant.InventoryCount >= 0" value="Add To Cart" />
+        <input type="button" class="btn" ng-click="$ctrl.addToBasket()" ng-disabled="$ctrl.variant.InventoryCount <= 0" value="Add To Cart" />
     </div>
 </div>
