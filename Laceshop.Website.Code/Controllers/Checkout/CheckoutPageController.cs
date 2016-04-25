@@ -22,6 +22,8 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             var settings = new CheckoutContextSettings()
             {
                 ResetShippingManagerDataOnVersionChange = false
+				,
+
             };
             var checkoutManager = Basket.GetCheckoutManager(settings);
             _customerManager = checkoutManager.Customer;
@@ -49,7 +51,6 @@ namespace Laceshop.Website.Code.Controllers.Checkout
 			AutoMapper.Mapper.Map(address, vm);
 
             //var invoice = _paymentManager.PrepareInvoice();
-
 
             vm.Basket = AutoMapper.Mapper.Map<BasketViewModel>(Basket);
             return CurrentTemplate(vm);
