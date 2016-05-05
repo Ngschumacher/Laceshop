@@ -22,8 +22,6 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             var settings = new CheckoutContextSettings()
             {
                 ResetShippingManagerDataOnVersionChange = false
-				,
-
             };
             var checkoutManager = Basket.GetCheckoutManager(settings);
             _customerManager = checkoutManager.Customer;
@@ -95,7 +93,11 @@ namespace Laceshop.Website.Code.Controllers.Checkout
                 
                 _customerManager.SaveBillToAddress(address);
                 _customerManager.SaveShipToAddress(address);
-                return RedirectToUmbracoPage(GetPaymentPageNode().Id);
+
+	            SetShippingInfomation();
+
+
+				return RedirectToUmbracoPage(GetPaymentPageNode().Id);
             }
 
             return CurrentUmbracoPage();

@@ -45,13 +45,15 @@ namespace Laceshop.Website.Code.Controllers.Checkout
             }
 
             var vm = GetPageModel<PaymentPageViewModel>();
-           
+            
             var basketReadyForInvoice = _paymentManager.IsReadyToInvoice();
             if (!basketReadyForInvoice)
             {
                 return RedirectToUmbracoPage(GetBasketPageNode().Id);
             }
             var invoice = _paymentManager.PrepareInvoice();
+	        var invoicePo = invoice.PoNumber;
+	        var invoiceNumber = invoice.InvoiceNumber;
             vm.Order = AutoMapper.Mapper.Map<OrderViewModel>(invoice);
            
           
